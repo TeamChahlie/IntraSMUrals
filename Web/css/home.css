@@ -1,0 +1,103 @@
+﻿html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: #666666;
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+
+}
+
+
+.section {
+    font-size: 12px;
+    background-color: white;
+    width:70%;
+    padding:10px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 3px 3px 5px #000000;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+.sectionS {
+    background-color: #fff;
+    width:60%;
+    height:auto;
+    padding:15px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 3px 3px 5px #000000;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+#intro {
+    font-size: 36px;
+}
+
+
+#mapPic {
+    position: relative;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    resize:both;
+}
+
+table {
+    border-collapse:collapse;
+    width:100%;
+}
+
+table tr td {
+    border: solid 1px black;
+    width:50%;
+
+}
+
+.right {
+    text-align: right;
+}
+
+#orderView {
+    position:relative;
+    float:right;
+    width:35%;
+    min-height:592px;
+    margin-right:20px;
+    margin-bottom: 50px;
+}
+
+.itemList {
+    border: 0px solid #000000;
+    margin: 2%;
+}
+
+
+.burgerColumn {
+    width: 100%;
+}
+
+.priceColumn {
+    width: 100%;
+}
+
+.burgerContainer {
+    padding-bottom: 10px;
+}
+
+#total {
+    display: inline-block;
+    /*position: relative;*/
+    width: 100%;
+}
+
+#orderDetails {
+    width: 100%;
+    height: 100%;
+}

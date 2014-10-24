@@ -1,0 +1,116 @@
+#navbar {
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    background-color: rgba(33, 37, 43, 1);
+    z-index: 5;
+}
+
+#navbar a:visited, #navbar a:link{
+    text-decoration: none;
+    color:white;
+}
+#navbar ul {
+    list-style:none;
+    margin: 5px;
+}
+
+#navbar li {
+    float:left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+#navbar li a {
+    display: block;
+    background-color: transparent;
+    padding: .5em;
+}
+
+#navbar li  a:hover{
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+}
+#navbar li ul {
+    display:none;
+    position:absolute;
+    padding:0px;
+}
+
+#navbar li:hover ul{
+    display:block;
+
+}
+
+#navbar li li {
+    border-bottom: 1px solid #ccc;
+    float:none;
+}
+
+
+
+#navbar li li a{
+    border: 0px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+#accountArea {
+    display:inline;
+    float:right;
+    padding-right: 20px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.login {
+    padding: .5em;
+}
+
+.login:hover {
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    padding: .5em;
+    cursor: pointer;
+}
+
+#navLoginForm {
+    display:inline;
+    position: relative;
+    float:right;
+    margin-right: 5px;
+    color: white;
+}
+
+#navLoginButton {
+    outline: 0;
+    padding: .5em;
+    background: none;
+    border: 0;
+    font: inherit;
+    color: #ffffff;
+}
+
+#loginInformation {
+    position: relative;
+    float: right;
+    color: white;
+    padding: .5em;
+}
+
+#logout, #createAccount {
+    position: relative;
+    float: right;
+    padding: .5em;
+}
+
+#logout:hover, #createAccount:hover, #navLoginButton:hover {
+    color: #000000;
+    background-color: white;
+    cursor: pointer;
+}
+
