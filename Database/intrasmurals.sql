@@ -120,7 +120,8 @@ DROP TABLE IF EXISTS `Student`;
 
 CREATE TABLE `Student` (
   `studentID` int(11) NOT NULL DEFAULT '0',
-  `studentName` varchar(30) DEFAULT NULL,
+  `fname` varchar(30) DEFAULT NULL,
+  `lname` varchar(11) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -128,17 +129,17 @@ CREATE TABLE `Student` (
 LOCK TABLES `Student` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
 
-INSERT INTO `Student` (`studentID`, `studentName`, `email`)
+INSERT INTO `Student` (`studentID`, `fname`, `lname`, `email`)
 VALUES
-	(18273942,'Some Person','person@smu.edu'),
-	(18392039,'New Kid','kid@smu.edu'),
-	(19283910,'Jock Wannabee','wannabee@smu.edu'),
-	(29182930,'Jersey Kid','jkid@smu.edu'),
-	(30182930,'Cowboys Fan','ckid@smu.edu'),
-	(38291829,'Oddly Fit','ofit@smu.edu'),
-	(43928392,'Unathletic Dude','dude@smu.edu'),
-	(49182930,'Chahlie Albright','albright@smu.edu'),
-	(92837201,'Joe Hutchinson','jhutch@smu.edu');
+	(18273942,'Some ','Person','person@smu.edu'),
+	(18392039,'New ','Kid','kid@smu.edu'),
+	(19283910,'Jock ','Wannabee','wannabee@smu.edu'),
+	(29182930,'Jersey ','Kid','jkid@smu.edu'),
+	(30182930,'Cowboys ','Fan','ckid@smu.edu'),
+	(38291829,'Oddly ','Fit','ofit@smu.edu'),
+	(43928392,'Unathletic','Dude','dude@smu.edu'),
+	(49182930,'Chahlie','Albright','albright@smu.edu'),
+	(92837201,'Joe','Hutchinson','jhutch@smu.edu');
 
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -9,7 +9,7 @@ $app->post('/login', 'login');
 $app->post('/registration', 'register');
 //$app->post('/makingBurger', 'makeBurger');
 //$app->post('/order', 'makeOrder');
-//$app->post('/userLastOrder', 'getLastOrder');
+$app->post('/getStudentInfo', 'getStudentInformation');
 //$app->get('/customerInfo', 'populateCustomer');
 //$app->get('/lastBurger', 'getLastBurger');
 //$app->get('/lastOrder', 'getLastOrder');
@@ -126,6 +126,30 @@ function populateCustomer() {
     catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
+}
+
+function getStudentInformation() {
+
+	$sqlStudentProfile = "SELECT studentName, email, teamName FROM Student natural join involvement natural join team WHERE fname = $fname AND lname = $lname";
+	try {
+        $db       = getConnection();
+        $stmt     = $db->query($sqlStudentProfile);
+        $Student = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Student = array(
+                'FirstName' => $row['fname'],
+                'LastName' => $row['lname'],
+                'Email' => $row['email'],
+                'TeamName' => $row['teamName']
+                //If one student is on multiple teams there will be multiple rows
+            );
+            echo json_encode($Student);
+        }
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }	
 }
 
 function getConnection() {
