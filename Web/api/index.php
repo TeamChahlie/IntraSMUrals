@@ -173,7 +173,7 @@ function getStudentInformation() {
 
 //This returns ONLY THE NAME based on ID
 function adminStudentSearch() {
-	$sqlStudent = "SELECT fname, lname FROM Student WHERE studentID = $id";
+	$sqlStudent = "SELECT fname, lname FROM Student WHERE studentID = :id";
 	try {
         $db       = getConnection();
         $stmt     = $db->query($sqlStudent);
@@ -211,9 +211,34 @@ function adminSportSearch() {
     }	
 }
 
+//Returns teamNames from a specific sport based on ID (can make based on name if preferable)
+function viewTeams() {
+	$sql = "SELECT teamName from Sport WHERE sportID = :sportID";
+
+	try {
+        $db       = getConnection();
+        $stmt     = $db->prepare($sql);
+        $sportInfo = json_decode($request->getBody());
+        $stmt->bindParam('sportID', $sportInfo->sportID);
+        $stmt->execute();
+        $Teams = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Teams = array(
+                'TeamName' => $row['teamName'],
+            );
+            echo json_encode($Teams);
+        }
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }	
+
+}
+
+
 //Should insert sport and ID (if there's a convention besides just incrementing) 
 function insertSport() {
-	$sqlSport = "INSERT INTO SPORT Values (:sportID, :sportName);";
+	$sqlSport = "INSERT INTO SPORT Values (:sportID, :sportName)";
 	$app          = \Slim\Slim::getInstance();
     $request      = $app->request();
     $sportInfo = json_decode($request->getBody());
@@ -229,6 +254,7 @@ function insertSport() {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }	
 }
+
 
 function getConnection() {
     $dbhost = "127.0.0.1";
