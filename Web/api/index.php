@@ -8,11 +8,13 @@ $app = new \Slim\Slim();
 $app->post('/login', 'login');
 $app->post('/registration', 'register');
 $app->post('/insertSport', 'insertSport');
+$app->post('/insertTeam', 'insertTeam');
 $app->post('/insertStudent', 'insertStudent');
 //$app->post('/makingBurger', 'makeBurger');
 //$app->post('/order', 'makeOrder');
 $app->get('/getStudentInfo', 'getStudentInformation');
 $app->get('/adminStudentSearch', 'adminStudentSearch');
+$app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
 //$app->get('/lastBurger', 'getLastBurger');
 //$app->get('/lastOrder', 'getLastOrder');
@@ -277,6 +279,21 @@ function insertSport() {
     }	
 }
 
+//Should insert team info
+function insertTeam() {
+	$sqlTeam = "INSERT INTO Team Values (:sportID, :teamID, :teamName, :captainID);";
+	$app          = \Slim\Slim::getInstance();
+    $request      = $app->request();
+    $teamInfo = json_decode($request->getBody());
+    
+	try {
+        	$db   = getConnection();
+            $stmt = $db->prepare($sqlTeam);
+            $stmt->bindParam("sportID", $teamInfo->sportId);
+            $stmt->bindParam("teamID", $teamInfo->teamID);
+            $stmt->bindParam("teamName", $teamInfo->teamName);
+            $stmt->bindParam("captainName", $teamInfo->captainID);
+
 //Inserting a student into the database (no involvement added at this time)
 function insertStudent() {
 	$sqlStudent = "INSERT INTO Student Values (:studentID, :fname, :lname, :email)";
@@ -308,7 +325,6 @@ function insertStudent() {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }	
 }
-
 
 function getConnection() {
     $dbhost = "127.0.0.1";
