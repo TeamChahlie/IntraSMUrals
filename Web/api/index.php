@@ -7,6 +7,7 @@ $app = new \Slim\Slim();
 # Define GET and POST requests here
 $app->post('/login', 'login');
 $app->post('/registration', 'register');
+$app->post('/insertSport', 'insertSport');
 //$app->post('/makingBurger', 'makeBurger');
 //$app->post('/order', 'makeOrder');
 $app->get('/getStudentInfo', 'getStudentInformation');
@@ -196,14 +197,33 @@ function adminSportSearch() {
 	try {
         $db       = getConnection();
         $stmt     = $db->query($sqlSport);
-        $Student = array();
+        $Sport = array();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Student = array(
+            $Sport = array(
                 'Sport' => $row['sportName'],
             );
-            echo json_encode($Student);
+            echo json_encode($Sport);
         }
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }	
+}
+
+//Should insert sport and ID (if there's a convention besides just incrementing) 
+function insertSport() {
+	$sqlSport = "INSERT INTO SPORT Values (:sportID, :sportName);";
+	$app          = \Slim\Slim::getInstance();
+    $request      = $app->request();
+    $sportInfo = json_decode($request->getBody());
+    
+	try {
+        	$db   = getConnection();
+            $stmt = $db->prepare($sqlSport);
+            $stmt->bindParam("sportID", $sportInfo->id);
+            $stmt->bindParam("sportName", $sportInfo->sportName);
+            $stmt->execute();
     }
     catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
