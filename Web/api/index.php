@@ -192,6 +192,27 @@ function adminStudentSearch() {
     }	
 }
 
+function adminStudentEmailList() {
+	$sqlStudent = "SELECT fname, lname, email FROM Student NATURAL JOIN User";
+	try {
+        $db       = getConnection();
+        $stmt     = $db->query($sqlStudent);
+        $Student = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Student = array(
+                'FirstName' => $row['fname'],
+                'LastName' => $row['lname'],
+                'Email' => $row['email'],
+            );
+            echo json_encode($Student);
+        }
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }	
+}
+
 function adminSportSearch() {
 	$sqlSport = "SELECT sportName FROM sport";
 	try {
