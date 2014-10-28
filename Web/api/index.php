@@ -9,8 +9,9 @@ $app->post('/login', 'login');
 $app->post('/registration', 'register');
 //$app->post('/makingBurger', 'makeBurger');
 //$app->post('/order', 'makeOrder');
-$app->post('/getStudentInfo', 'getStudentInformation');
-//$app->get('/customerInfo', 'populateCustomer');
+$app->get('/getStudentInfo', 'getStudentInformation');
+$app->get('/adminStudentSearch', 'adminStudentSearch');
+$app->get('/adminSportSearch', 'adminSportSearch');
 //$app->get('/lastBurger', 'getLastBurger');
 //$app->get('/lastOrder', 'getLastOrder');
 //$app->get('/menu', 'getMenu');
@@ -129,7 +130,6 @@ function populateCustomer() {
 }
 
 function getStudentInformation() {
-
 	$sqlStudentProfile = "SELECT studentName, email, teamName FROM Student natural join involvement natural join team WHERE fname = $fname AND lname = $lname";
 	try {
         $db       = getConnection();
@@ -143,6 +143,46 @@ function getStudentInformation() {
                 'Email' => $row['email'],
                 'TeamName' => $row['teamName']
                 //If one student is on multiple teams there will be multiple rows
+            );
+            echo json_encode($Student);
+        }
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }	
+}
+
+//This returns ONLY THE NAME based on ID
+function adminStudentSearch() {
+	$sqlStudent = "SELECT fname, lname FROM Student WHERE studentID = $id";
+	try {
+        $db       = getConnection();
+        $stmt     = $db->query($sqlStudent);
+        $Student = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Student = array(
+                'FirstName' => $row['fname'],
+                'LastName' => $row['lname'],
+            );
+            echo json_encode($Student);
+        }
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }	
+}
+
+function adminSportSearch() {
+	$sqlSport = "SELECT sportName FROM sport";
+	try {
+        $db       = getConnection();
+        $stmt     = $db->query($sqlSport);
+        $Student = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Student = array(
+                'Sport' => $row['sportName'],
             );
             echo json_encode($Student);
         }
