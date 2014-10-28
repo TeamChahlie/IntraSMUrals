@@ -45,15 +45,15 @@ function login() {
 function register() {
     $app          = \Slim\Slim::getInstance();
     $request      = $app->request();
-    $customerInfo = json_decode($request->getBody());
+    $userInfo = json_decode($request->getBody());
     $userExists = FALSE;
 
-    $userTest = "SELECT CustomerID FROM Customer WHERE Email = :email";
+    $userTest = "SELECT StudentID FROM Student NATURAL JOIN User WHERE Student.Email = :email";
 
     try {
         $db = getConnection();
         $stmt = $db->prepare($userTest);
-        $stmt->bindParam('email', $customerInfo->Email);
+        $stmt->bindParam('email', $userInfo->Email);
         $stmt->execute();
         $accountCheck = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -69,18 +69,36 @@ function register() {
 
     if($userExists == FALSE) {
 
-        $customerSQL  = "INSERT INTO Customer (`FirstName`, `LastName`, `Email`, `Password`, `CreditCardProvider`, `CreditCardNumber`) VALUES (:firstName, :lastName, :email, :password, :CCProvider, :CCNumber)";
+        $studentSQL  = "INSERT INTO Student (`StudentID`, `FirstName`, `LastName`, `Email`) VALUES (:firstName, :lastName, :email)";
+        $userSQL = "INSERT INTO User (`StudentID`, `Password`, `isAdmin`) VALUES (:studentID, :password, :isAdmin)";
 
         try {
-            if (isset($customerInfo)) {
+            if (isset($userInfo)) {
                 $db   = getConnection();
-                $stmt = $db->prepare($customerSQL);
-                $stmt->bindParam("firstName", $customerInfo->FirstName);
-                $stmt->bindParam("lastName", $customerInfo->LastName);
-                $stmt->bindParam("email", $customerInfo->Email);
-                $stmt->bindParam("password", $customerInfo->Password);
-                $stmt->bindParam("CCProvider", $customerInfo->CreditCardProvider);
-                $stmt->bindParam("CCNumber", $customerInfo->CreditCardNumber);
+                $stmt = $db->prepare($studentSQL);
+                $stmt->bindParam("studentID", $userInfo->StudentID);
+                $stmt->bindParam("firstName", $userInfo->FirstName);
+                $stmt->bindParam("lastName", $userInfo->LastName);
+                $stmt->bindParam("email", $userInfo->Email);
+                $success = $stmt->execute();
+                $newUserID = $db->lastInsertId();
+                if ($success) {
+                    $newUserID = $db->lastInsertId();
+                    echo '{"info": true, "userID": ' . $newUserID . '}';
+                } else {
+                    echo '{"info": false}';
+                }
+                $db = null;
+            } else {
+                echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
+            }
+            
+            if (isset($userInfo)) {
+                $db   = getConnection();
+                $stmt = $db->prepare($userSQL);
+                $stmt->bindParam("studentID", $userInfo->StudentID);
+                $stmt->bindParam("password", $userInfo->Password);
+                $stmt->bindParam("isAdmin", $userInfo->isAdmin);
                 $success = $stmt->execute();
                 $newUserID = $db->lastInsertId();
                 if ($success) {
