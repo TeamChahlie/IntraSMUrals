@@ -280,18 +280,29 @@ function insertSport() {
 //Inserting a student into the database (no involvement added at this time)
 function insertStudent() {
 	$sqlStudent = "INSERT INTO Student Values (:studentID, :fname, :lname, :email)";
+	$sqlUser = "INSERT INTO User Values(:studentID, :password, :isAdmin)";
+	
 	$app          = \Slim\Slim::getInstance();
     $request      = $app->request();
     $studentInfo = json_decode($request->getBody());
     
 	try {
         	$db   = getConnection();
-            $stmt = $db->prepare($sqltudent);
+        	//Adds to student table
+            $stmt = $db->prepare($sqlStudent);
             $stmt->bindParam("studentID", $studentInfo->studentid);
             $stmt->bindParam("fname", $studentInfo->fname);
             $stmt->bindParam("lname", $studentInfo->lname);
             $stmt->bindParam("email", $studentInfo->email);
             $stmt->execute();
+            
+            //Adds to user table
+            $stmt = $db->prepare($sqlUser);
+            $stmt->bindParam("studentID", $studentInfo->studentid);
+            $stmt->bindParam("password", $studentInfo->assignedPassword);
+            $stmt->bindParam("isAdmin", $studentInfo->isAdmin);
+            $stmt->execute();
+           
     }
     catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
