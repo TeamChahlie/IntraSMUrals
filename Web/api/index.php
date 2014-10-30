@@ -15,6 +15,8 @@ $app->get('/getStudentInfo', 'getStudentInformation');
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
+$app->get('/addScores', 'addScores');
+$app->get('/insertMatch', 'insertMatch');
 $app->run();
 
 function login() {
@@ -115,31 +117,6 @@ function register() {
         }
     } else {
         echo '{"error":{"text": "An account with that email address already exists!"}}';
-    }
-}
-
-function populateCustomer() {
-    $userID = "?????? Please Help";
-    $sqlCustomer = "SELECT * From Customer WHERE CustomerID = $userID";
-    try {
-        $db = getConnection();
-        $stmt = $db->query($sqlCustomer);
-        $Customer = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Customer = array(
-                'CustomerID' => $row['CustomerID'],
-                'FirstName' => $row['FirstName'],
-                'LastName' => $row['LastName'],
-                'Email' => $row['Email'],
-                'Password' => $row['Password'],
-                'CreditCardProvider' => $row['CreditCardProvider'],
-                'CreditCardNumber' => $row['CreditCardNumber']
-            );
-            echo json_encode($Customer);
-        }
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
 
@@ -315,17 +292,26 @@ function insertStudent() {
 //Should insert team info
 function insertMatch() {
     $sqlMatch = "INSERT INTO TeamMatch VALUES (ATeamID, BTeamID, dateOf, timeOf) (:aTeamID, :bTeamID, :timeof,  :dateof);";
+    $sqlSchedule = "INSERT INTO Schedule VALUES (SportID, MatchID) (:sportID, :matchID)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $matchInfo = json_decode($request->getBody());
+    $scheduleInfo = json_decode($request->getBody());
 
     try {
-        $db = getConnection();
-        $stmt = $db->prepare($sqlMatch);
-        $stmt->bindParam("ATeamID", $matchInfo->aTeamID);
-        $stmt->bindParam("BTeamID", $matchInfo->bTeamID);
-        $stmt->bindParam(":dateOf", $matchInfo->dateOf);
-        $stmt->bindParam(":timeOf", $matchInfo->timeOf);
+        if( isset($sqlMatch)) {
+            $db = getConnection();
+            $stmt = $db->prepare($sqlMatch);
+            $stmt->bindParam("ATeamID", $matchInfo->aTeamID);
+            $stmt->bindParam("BTeamID", $matchInfo->bTeamID);
+            $stmt->bindParam(":dateOf", $matchInfo->dateOf);
+            $stmt->bindParam(":timeOf", $matchInfo->timeOf);
+        }
+        if(isset($sqlSchedule)) {
+            $stmt = $db->prepare($sqlSchedule);
+            $stmt->bindParam("SportID", $scheduleInfo->sportID);
+            $stmt->bindParam("MatchID", $scheduleInfo->matchID);
+        }
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
