@@ -7,7 +7,7 @@
     <title>IntraSMUrals</title>
 
     <!-- JavaScript Files -->
-   <script src="js/scroll.js"></script>
+    <script src="js/scroll.js"></script>
 
     <!-- CSS Files -->
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
@@ -19,9 +19,7 @@
     <?php include "components/navbar.html" ?>
 
     <div class="section">
-        <h2 class="pageHeader">Welcome to IntraSMUrals!</h2>
-        <p class="noContent">Our dev team is working hard to bring you the best user experience possible. Check back often to see our progress!</p>
+        <h2 id="intro"> IntraSMUrals!!</h2>
     </div>
-    <link href="css/main.css" rel="stylesheet" type="text/css">
 </body>
 </html>
