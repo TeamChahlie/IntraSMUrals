@@ -10,6 +10,7 @@ $app->post('/registration', 'register');
 $app->post('/insertSport', 'insertSport');
 $app->post('/insertTeam', 'insertTeam');
 $app->post('/insertStudent', 'insertStudent');
+$app->post('/addScores', 'addScores');
 //$app->post('/makingBurger', 'makeBurger');
 //$app->post('/order', 'makeOrder');
 $app->get('/getStudentInfo', 'getStudentInformation');
@@ -318,6 +319,29 @@ function insertStudent() {
             $stmt->bindParam("studentID", $studentInfo->studentid);
             $stmt->bindParam("password", $studentInfo->assignedPassword);
             $stmt->bindParam("isAdmin", $studentInfo->isAdmin);
+            $stmt->execute();
+           
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }	
+}
+
+
+function addScores() {
+	$sqlScores = "UPDATE TeamMatch SET ATeamScore = :AScore, BTeamScore = :BScore WHERE matchID = :matchNumber";
+	
+	$app          = \Slim\Slim::getInstance();
+    $request      = $app->request();
+    $scoreInfo = json_decode($request->getBody());
+    
+	try {
+        	$db   = getConnection();
+        	//Adds to student table
+            $stmt = $db->prepare($sqlScores);
+            $stmt->bindParam("AScore", $scoreInfo ->aScore);
+            $stmt->bindParam("BScore", $scoreInfo ->bScore);
+            $stmt->bindParam("matchNumber", $scoreInfo ->matchID);
             $stmt->execute();
            
     }
