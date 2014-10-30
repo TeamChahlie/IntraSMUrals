@@ -37,6 +37,7 @@
     text-decoration: none;
     color: #FFFFFF;
     background-color: #0000FF;
+    cursor: url("../img/PerunaSmall.png"), auto;
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 #navbar li ul {
@@ -80,7 +81,7 @@
     color: #FFFFFF;
     background-color: #0000FF;
     padding: .5em;
-    cursor: pointer;
+    cursor: url("../img/PerunaSmall.png"), auto;
 }
 
 #navLoginForm {
@@ -121,7 +122,7 @@
     color: #FFFFFF;
     background-color: blue;
     transition: background-color 0.4s ease, color 0.4s ease;
-    cursor: pointer;
+    cursor: url("../img/PerunaSmall.png"), auto;
 }
 
 #navEmail, #navPassword {

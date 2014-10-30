@@ -7,7 +7,7 @@ $app = new \Slim\Slim();
 
 # Define GET and POST requests here
 $app->post('/login', 'login');
-$app->post('/registration', 'register');
+$app->post('/register', 'register');
 $app->post('/insertSport', 'insertSport');
 $app->post('/insertTeam', 'insertTeam');
 $app->post('/insertStudent', 'insertStudent');
@@ -49,12 +49,13 @@ function register() {
     $userInfo = json_decode($request->getBody());
     $userExists = FALSE;
 
-    $userTest = "SELECT StudentID FROM Student NATURAL JOIN User WHERE Student.Email = :email";
+    $userTest = "SELECT * FROM Student WHERE email = :email OR studentID = :studentID";
 
     try {
         $db = getConnection();
         $stmt = $db->prepare($userTest);
         $stmt->bindParam('email', $userInfo->Email);
+        $stmt->bindParam('studentID', $userInfo->StudentID);
         $stmt->execute();
         $accountCheck = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -70,8 +71,8 @@ function register() {
 
     if ($userExists == FALSE) {
 
-        $studentSQL = "INSERT INTO Student (`StudentID`, `FirstName`, `LastName`, `Email`) VALUES (:firstName, :lastName, :email)";
-        $userSQL = "INSERT INTO User (`StudentID`, `Password`, `isAdmin`) VALUES (:studentID, :password, :isAdmin)";
+        $studentSQL = "INSERT INTO Student (`studentID`, `fname`, `lname`, `email`) VALUES (:studentID, :firstName, :lastName, :email)";
+        $userSQL = "INSERT INTO User (`studentID`, `password`, `isAdmin`) VALUES (:studentID, :password, 0)";
 
         try {
             if (isset($userInfo)) {
@@ -81,30 +82,15 @@ function register() {
                 $stmt->bindParam("firstName", $userInfo->FirstName);
                 $stmt->bindParam("lastName", $userInfo->LastName);
                 $stmt->bindParam("email", $userInfo->Email);
-                $success = $stmt->execute();
-                $newUserID = $db->lastInsertId();
-                if ($success) {
-                    $newUserID = $db->lastInsertId();
-                    echo '{"info": true, "userID": ' . $newUserID . '}';
-                } else {
-                    echo '{"info": false}';
-                }
-                $db = null;
-            } else {
-                echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
-            }
+                $success1 = $stmt->execute();
 
-            if (isset($userInfo)) {
                 $db = getConnection();
                 $stmt = $db->prepare($userSQL);
                 $stmt->bindParam("studentID", $userInfo->StudentID);
                 $stmt->bindParam("password", $userInfo->Password);
-                $stmt->bindParam("isAdmin", $userInfo->isAdmin);
-                $success = $stmt->execute();
-                $newUserID = $db->lastInsertId();
-                if ($success) {
-                    $newUserID = $db->lastInsertId();
-                    echo '{"info": true, "userID": ' . $newUserID . '}';
+                $success2 = $stmt->execute();
+                if ($success1 && $success2) {
+                    echo '{"info": true}';
                 } else {
                     echo '{"info": false}';
                 }
