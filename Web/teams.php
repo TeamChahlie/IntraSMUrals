@@ -7,6 +7,7 @@
     <title>IntraSMUrals</title>
 
     <!-- JavaScript Files -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/scroll.js"></script>
 
     <!-- CSS Files -->
