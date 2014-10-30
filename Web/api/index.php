@@ -312,6 +312,25 @@ function insertStudent() {
     }
 }
 
+//Should insert team info
+function insertMatch() {
+    $sqlMatch = "INSERT INTO TeamMatch VALUES (ATeamID, BTeamID, dateOf, timeOf) (:aTeamID, :bTeamID, :timeof,  :dateof);";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $matchInfo = json_decode($request->getBody());
+
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sqlMatch);
+        $stmt->bindParam("ATeamID", $matchInfo->aTeamID);
+        $stmt->bindParam("BTeamID", $matchInfo->bTeamID);
+        $stmt->bindParam(":dateOf", $matchInfo->dateOf);
+        $stmt->bindParam(":timeOf", $matchInfo->timeOf);
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
 function addScores() {
     $sqlScores = "UPDATE TeamMatch SET ATeamScore = :AScore, BTeamScore = :BScore WHERE matchID = :matchNumber";
 
