@@ -34,3 +34,7 @@ body {
     text-align: center;
     font-size: 1.5em;
 }
+
+::-webkit-input-placeholder {
+    color: #999999;
+}

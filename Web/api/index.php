@@ -23,7 +23,7 @@ function login() {
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $loginInfo = json_decode($request->getBody());
-    $sql = "SELECT CustomerID, FirstName, LastName, CreditCardProvider, CreditCardNumber, LastOrder FROM Customer WHERE Email = :email AND Password = :password";
+    $sql = "SELECT u.*, s.fname, s.lname, s.email FROM User u NATURAL JOIN Student s WHERE email = :email AND password = :password";
     try {
         if (isset($loginInfo)) {
             $db = getConnection();

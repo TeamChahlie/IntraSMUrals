@@ -10,6 +10,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/scroll.js"></script>
+    <script src="js/nav.js"></script>
 
     <!-- CSS Files -->
     <link href="css/navbar.css" rel="stylesheet" type="text/css">

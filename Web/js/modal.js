@@ -70,10 +70,21 @@ function createAccount() {
                 } else if (obj.error != undefined) {
                     alert(obj.error.text);
                 } else {
-                    alert("SUCCESS!");
-
                     hideModals();
-                }
+
+                    sessionStorage.setItem('userID', user.StudentID);
+                    sessionStorage.setItem('firstName', user.FirstName);
+                    sessionStorage.setItem('lastName', user.LastName);
+                    sessionStorage.setItem('email', user.Email);
+                    sessionStorage.setItem('password', user.Password);
+                    sessionStorage.setItem('isAdmin', 0);
+                    console.log(sessionStorage);
+
+                    $('#navLoginForm').hide();
+                    $('#createAccount').hide();
+                    $('#loginInformation').show();
+                    $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!");
+                    $('#logout').text("Logout").show();                }
             },
             error: function() {
                 alert("U DUN GOOFED.");

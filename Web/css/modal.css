@@ -3,14 +3,20 @@
     display:none;
 }
 
-.accountForm {
-    padding-top: 30px;
+.modalTitle {
+    margin: 0;
+    padding: 0.3em;
+    text-align: center;
 }
 
 .formElement {
     width: 70%;
     margin: 2% 15%;
     font-size: 16px;
+    padding-left: .5em;
+    border: 1px solid red;
+    border-radius: 5px;
+    background: 0;
 }
 
 .overlay{

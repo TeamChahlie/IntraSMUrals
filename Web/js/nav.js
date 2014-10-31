@@ -40,19 +40,12 @@ function addLoginClickListener() {
                     alert("Username/Password are incorrect!");
                 } else {
                     sessionStorage.setItem('userID', obj.info.studentID);
-                    sessionStorage.setItem('firstName', obj.info.FirstName);
-                    sessionStorage.setItem('lastName', obj.info.LastName);
+                    sessionStorage.setItem('firstName', obj.info.fname);
+                    sessionStorage.setItem('lastName', obj.info.lname);
                     sessionStorage.setItem('email', user.email);
                     sessionStorage.setItem('password', user.password);
-                    sessionStorage.setItem('ccProvider', obj.info.CreditCardProvider);
-                    sessionStorage.setItem('ccNumber', obj.info.CreditCardNumber);
-                    sessionStorage.setItem('lastOrder', obj.info.LastOrder);
+                    sessionStorage.setItem('isAdmin', parseInt(obj.info.isAdmin));
                     console.log(sessionStorage);
-
-                    $('#signIn').hide();
-                    $('#checkoutAsGuest').hide();
-                    $('#checkout').show();
-                    $('#reorder').show();
 
                     $('#navLoginForm').hide();
                     $('#createAccount').hide();
@@ -76,9 +69,7 @@ function addLogoutClickListener() {
         sessionStorage.removeItem('lastName');
         sessionStorage.removeItem('email');
         sessionStorage.removeItem('password');
-        sessionStorage.removeItem('ccProvider');
-        sessionStorage.removeItem('ccNumber');
-        sessionStorage.removeItem('lastOrder');
+        sessionStorage.removeItem('isAdmin');
         console.log(sessionStorage);
 
         $('#signIn').show();
