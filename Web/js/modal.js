@@ -84,7 +84,9 @@ function createAccount() {
                     $('#createAccount').hide();
                     $('#loginInformation').show();
                     $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!");
-                    $('#logout').text("Logout").show();                }
+                    $('#logout').text("Logout").show();
+                    $('#mySports').show();
+                }
             },
             error: function() {
                 alert("U DUN GOOFED.");

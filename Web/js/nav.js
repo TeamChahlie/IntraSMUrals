@@ -12,6 +12,7 @@ $(document).ready(function() {
         $('#loginInformation').show();
         $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!");
         $('#logout').text("Logout").show();
+        $('#mySports').show();
 
     }
 
@@ -52,6 +53,7 @@ function addLoginClickListener() {
                     $('#loginInformation').show();
                     $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!");
                     $('#logout').text("Logout").show();
+                    $('#mySports').show();
                 }
             },
             error: function() {
@@ -84,6 +86,8 @@ function addLogoutClickListener() {
 
         $('#loginInformation').text('').hide();
         $('#logout').text('').hide();
+        $('#mySports').hide();
+
 
     });
 }

@@ -21,7 +21,7 @@ body {
     margin-right: auto;
     box-shadow: 3px 3px 5px #000000;
     border-radius: 5px;
-    margin-top: 4%;
+    margin-top: 5%;
     margin-bottom: 4%;
 }
 
@@ -30,9 +30,40 @@ body {
     font-size: 3em;
 }
 
+.sectionHeader {
+    text-align: center;
+    font-size: 2em;
+    margin: 0;
+}
+
 .noContent {
     text-align: center;
     font-size: 1.5em;
+}
+
+#studentSchedule {
+    position: relative;
+    float: left;
+    display: inline-block;
+    margin: 0% 1%;
+    width: 65%;
+    height: 500px;
+    border-radius: 10px;
+    padding: 1em;
+    background-color: #999999;
+    border: 1px solid #000000;
+}
+
+#studentTeamList {
+    display: inline-block;
+    margin: 0% 1%;
+    width: 25%;
+    height: 500px;
+    border-radius: 10px;
+    padding: 1em;
+    background-color: #999999;
+    border: 1px solid #000000;
+
 }
 
 ::-webkit-input-placeholder {
