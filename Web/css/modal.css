@@ -39,20 +39,24 @@
 }
 
 .closeButton {
-    color: #000000;
+    background-image: url("../img/close_black.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
     position: absolute;
     padding: .5em;
-    border-radius: 5px;
+    border-radius: 25px;
     right: 2%;
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: background-color 0.4s ease;
 
 }
 
 .closeButton:hover {
     cursor: url("../img/PerunaSmall.png"), auto;
-    color: #FFFFFF;
+    background-image: url("../img/close_white.png");
     background-color: #0000FF;
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: background-color 0.4s ease, background-image 0.4s ease;
 
 }
 
