@@ -17,6 +17,8 @@ $(document).ready(function() {
         createAccount();
     });
 
+    addLogoutClickListener();
+
 });
 
 function showAccountModal() {
@@ -26,7 +28,7 @@ function showAccountModal() {
 function displayModal(modalID) {
     var modal = document.getElementById(modalID)
     var background = document.getElementById('overlay');
-    background.className = 'overlay'
+    background.className = 'overlay';
     modal.className = 'displayModal';
     var width = modal.clientWidth;
     var height = modal.clientHeight;
@@ -38,6 +40,7 @@ function displayModal(modalID) {
 
 function hideModals() {
     document.getElementById('accountModal').className = 'modal';
+    document.getElementById('logoutModal').className = 'modal';
     document.getElementById('overlay').className = '';
 }
 
@@ -93,4 +96,42 @@ function createAccount() {
             }
         })
     }
+}
+
+function addLogoutClickListener() {
+    $('#logout').click(function() {
+        displayModal('logoutModal');
+
+        $('#yesLogout').click(function() {
+            sessionStorage.setItem('userID', 1);
+            sessionStorage.removeItem('firstName');
+            sessionStorage.removeItem('lastName');
+            sessionStorage.removeItem('email');
+            sessionStorage.removeItem('password');
+            sessionStorage.removeItem('isAdmin');
+            console.log(sessionStorage);
+
+            $('#signIn').show();
+            $('#checkoutAsGuest').show();
+            $('#checkout').hide();
+            $('#reorder').hide();
+
+            $('#navLoginForm').show();
+            $('#createAccount').show();
+            $('#navEmail').val('');
+            $('#navPassword').val('');
+
+            $('#loginInformation').text('').hide();
+            $('#logout').text('').hide();
+            $('#mySports').hide();
+            $('#adminPortal').hide();
+
+            window.location.replace('../index.php');
+        });
+
+        $('noLogout').click(function() {
+            hideModals();
+        });
+
+    });
 }
