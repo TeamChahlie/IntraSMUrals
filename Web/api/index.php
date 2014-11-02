@@ -19,8 +19,49 @@ $app->get('/addScores', 'addScores');
 $app->get('/insertMatch', 'insertMatch');
 $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
 $app->get('/getTeamCaptain/:teamName', 'getTeamCaptain');
+$app->get('/getTeamSchedule/:teamName', 'getTeamSchedule');
 
 $app->run();
+
+// returns a team's scheduled games with scores and opponents
+function getTeamSchedule($teamName) {
+    $sqlHomeGames = "SELECT matchID, teamName as opponent, ATeamScore as scoreFavor, BTeamScore as scoreAgainst,
+                            dateOF as date, timeOF as time
+                      FROM TeamMatch INNER JOIN Team ON TeamMatch.BteamID = Team.teamID
+                      WHERE AteamID = (SELECT teamID FROM Team WHERE teamName = :teamName)";
+    $sqlAwayGames = "SELECT matchID, teamName as opponent, BTeamScore as scoreFavor, ATeamScore as scoreAgainst,
+                            dateOF as date, timeOF as time
+                      FROM TeamMatch INNER JOIN Team ON TeamMatch.AteamID = Team.teamID
+                      WHERE BteamID = (SELECT teamID FROM Team WHERE teamName = :teamName);";
+    try {
+        $db = getConnection();
+        $response = array();
+
+        //first get home games
+        $stmt = $db->prepare($sqlHomeGames);
+        $stmt->bindParam("teamName", $teamName);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            array_push($response,$row);
+        }
+
+        //then get away games
+        $stmt = $db->prepare($sqlAwayGames);
+        $stmt->bindParam("teamName", $teamName);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            array_push($response,$row);
+        }
+
+        $db = null;
+        echo json_encode($response);
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
 
 // returns team Information as JSON
 function getTeamInfo($teamName) {
@@ -63,6 +104,7 @@ ON Team.captainID=Student.studentID WHERE teamName = :teamName";
     }
 }
 
+// checks if email and password match a user and returns his info
 function login() {
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
