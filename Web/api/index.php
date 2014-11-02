@@ -41,8 +41,7 @@ function getTeamSchedule($teamName) {
         $stmt = $db->prepare($sqlHomeGames);
         $stmt->bindParam("teamName", $teamName);
         $stmt->execute();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
-        {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             array_push($response,$row);
         }
 
@@ -50,14 +49,11 @@ function getTeamSchedule($teamName) {
         $stmt = $db->prepare($sqlAwayGames);
         $stmt->bindParam("teamName", $teamName);
         $stmt->execute();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
-        {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             array_push($response,$row);
         }
-
         $db = null;
         echo json_encode($response);
-
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
@@ -77,7 +73,6 @@ function getTeamInfo($teamName) {
         $response = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($response);
-
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
@@ -121,8 +116,10 @@ function login() {
             $db = null;
             $response['info'] = $userInfo;
             echo json_encode($response);
-        } else
+        }
+        else {
             echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
+        }
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
@@ -192,6 +189,7 @@ function register() {
     }
 }
 
+//Returns all information about a particular student
 function getStudentInformation() {
     $sqlStudentProfile = "SELECT studentName, email, teamName FROM Student natural join involvement natural join team WHERE fname = $fname AND lname = $lname";
     try {
@@ -234,6 +232,7 @@ function adminStudentSearch() {
     }
 }
 
+//Returns entire list of students with first and last name, and email
 function adminStudentEmailList() {
     $sqlStudent = "SELECT fname, lname, email FROM Student NATURAL JOIN User";
     try {
@@ -254,6 +253,7 @@ function adminStudentEmailList() {
     }
 }
 
+// 
 function adminSportSearch() {
     $sqlSport = "SELECT sportName FROM sport";
     try {
@@ -341,21 +341,24 @@ function insertStudent() {
     $studentInfo = json_decode($request->getBody());
 
     try {
-        $db = getConnection();
-        //Adds to student table
-        $stmt = $db->prepare($sqlStudent);
-        $stmt->bindParam("studentID", $studentInfo->studentid);
-        $stmt->bindParam("fname", $studentInfo->fname);
-        $stmt->bindParam("lname", $studentInfo->lname);
-        $stmt->bindParam("email", $studentInfo->email);
-        $stmt->execute();
-
-        //Adds to user table
-        $stmt = $db->prepare($sqlUser);
-        $stmt->bindParam("studentID", $studentInfo->studentid);
-        $stmt->bindParam("password", $studentInfo->assignedPassword);
-        $stmt->bindParam("isAdmin", $studentInfo->isAdmin);
-        $stmt->execute();
+        if (isset($sqlStudent)) {
+            $db = getConnection();
+            //Adds to student table
+            $stmt = $db->prepare($sqlStudent);
+            $stmt->bindParam("studentID", $studentInfo->studentid);
+            $stmt->bindParam("fname", $studentInfo->fname);
+            $stmt->bindParam("lname", $studentInfo->lname);
+            $stmt->bindParam("email", $studentInfo->email);
+            $stmt->execute();
+        }
+        if (isset($sqlUser)) {
+            //Adds to user table
+            $stmt = $db->prepare($sqlUser);
+            $stmt->bindParam("studentID", $studentInfo->studentid);
+            $stmt->bindParam("password", $studentInfo->assignedPassword);
+            $stmt->bindParam("isAdmin", $studentInfo->isAdmin);
+            $stmt->execute();
+        }
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
@@ -388,16 +391,15 @@ function insertMatch() {
     }
 }
 
+//Should update database with admin-inserted scores
 function addScores() {
     $sqlScores = "UPDATE TeamMatch SET ATeamScore = :AScore, BTeamScore = :BScore WHERE matchID = :matchNumber";
-
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $scoreInfo = json_decode($request->getBody());
 
     try {
         $db = getConnection();
-        //Adds to student table
         $stmt = $db->prepare($sqlScores);
         $stmt->bindParam("AScore", $scoreInfo->aScore);
         $stmt->bindParam("BScore", $scoreInfo->bScore);
@@ -409,7 +411,6 @@ function addScores() {
 }
 
 function getConnection() {
-
     // $dbhost = "127.0.0.1";
     // $dbpass = "";
 
