@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <?php include "components/navbar.html" ?>
+    <?php include "components/navbar.html"; include "components/modals.html"?>
 
     <div class="section">
         <h2 class="pageHeader">My Sports</h2>
