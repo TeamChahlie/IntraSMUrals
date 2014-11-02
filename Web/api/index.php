@@ -17,7 +17,27 @@ $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
 $app->get('/addScores', 'addScores');
 $app->get('/insertMatch', 'insertMatch');
+$app->get('/getTeamInfo/:teamName', 'getTeamInfo');
 $app->run();
+
+function getTeamInfo($teamName) {
+    $sql = "SELECT * FROM Team WHERE teamName = :teamName";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+
+        // bind Parameters to query
+        $stmt->bindParam("teamName", $teamName);
+
+        $stmt->execute();
+        $response = $stmt->fetch(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($response);
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
 
 function login() {
     $app = \Slim\Slim::getInstance();
@@ -327,7 +347,7 @@ function getConnection() {
 
     // $dbhost = "127.0.0.1";
     // $dbpass = "";
-    
+
     $dbhost = "localhost";
     $dbpass = "root";
 
