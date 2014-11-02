@@ -18,10 +18,34 @@ $app->get('/adminSportSearch', 'adminSportSearch');
 $app->get('/addScores', 'addScores');
 $app->get('/insertMatch', 'insertMatch');
 $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
+$app->get('/getTeamCaptain/:teamName', 'getTeamCaptain');
+
 $app->run();
 
+// returns team Information as JSON
 function getTeamInfo($teamName) {
     $sql = "SELECT * FROM Team WHERE teamName = :teamName";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+
+        // bind Parameters to query
+        $stmt->bindParam("teamName", $teamName);
+
+        $stmt->execute();
+        $response = $stmt->fetch(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($response);
+
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// returns a team captain's firstname, lastname, and email as JSON
+function getTeamCaptain($teamName) {
+    $sql = "SELECT fname, lname, email FROM Team INNER JOIN Student
+ON Team.captainID=Student.studentID WHERE teamName = :teamName";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
