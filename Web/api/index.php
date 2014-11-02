@@ -125,6 +125,34 @@ function login() {
     }
 }
 
+//returns the match information based on the SportName should be checked
+function getUniversalSportSchedule() {
+    $sqlSportProfile = "SELECT firstTeam.teamName, secondTeam.teamName, dateOf, timeOf FROM sport NATURAL JOIN Schedule NATURAL JOIN TeamMatch NATURAL JOIN Team INNER JOIN Team WHERE sportName = :sportName AND ATeamID = firstTeam.teamID AND BTeamID = secondTeam.teamID";
+
+    try {
+        $db       = getConnection();
+        $stmt     = $db->prepare($sql);
+        $sportInfo = json_decode($request->getBody());
+        $stmt->bindParam('sportName', $sportInfo->sportName);
+        $stmt->execute();
+        $Sports = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Sports = array(
+                'MatchID' => $row['matchID'],
+                'ATeamID' => $row['AteamID'],
+                'BTeamID' => $row['BteamID'],
+                'MatchDate' => $row['dateOf'],
+                'MatchTime' => $row['timeOf'],
+            );
+            echo json_encode($Sports);
+        }
+    }
+    catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }   
+
+}
+
 //Registration for new user
 function register() {
     $app = \Slim\Slim::getInstance();
