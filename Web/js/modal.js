@@ -129,7 +129,7 @@ function addLogoutClickListener() {
             window.location.replace('../index.php');
         });
 
-        $('noLogout').click(function() {
+        $('#noLogout').click(function() {
             hideModals();
         });
 
