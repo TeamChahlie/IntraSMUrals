@@ -361,10 +361,10 @@ function insertStudent() {
     }
 }
 
-//Should insert team info
+//Should insert team info (both match ids are autoincremented)
 function insertMatch() {
     $sqlMatch = "INSERT INTO TeamMatch VALUES (ATeamID, BTeamID, dateOf, timeOf) (:aTeamID, :bTeamID, :timeof,  :dateof);";
-    $sqlSchedule = "INSERT INTO Schedule VALUES (SportID, MatchID) (:sportID, :matchID)";
+    $sqlSchedule = "INSERT INTO Schedule VALUES (SportID) (:sportID)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $matchInfo = json_decode($request->getBody());
@@ -382,7 +382,6 @@ function insertMatch() {
         if(isset($sqlSchedule)) {
             $stmt = $db->prepare($sqlSchedule);
             $stmt->bindParam("SportID", $scheduleInfo->sportID);
-            $stmt->bindParam("MatchID", $scheduleInfo->matchID);
         }
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
