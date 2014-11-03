@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 127.0.0.1 (MySQL 5.5.39)
-# Database: intramurals
-# Generation Time: 2014-10-23 15:11:18 +0000
+# Host: localhost (MySQL 5.5.38)
+# Database: IntraSMUrals
+# Generation Time: 2014-11-03 00:40:58 +0000
 # ************************************************************
 
 
@@ -30,8 +30,8 @@ DROP TABLE IF EXISTS `Involvement`;
 
 CREATE TABLE `Involvement` (
   `teamID` int(11) NOT NULL,
-  `studentID` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`studentID`)
+  `studentID` int(11) NOT NULL,
+  PRIMARY KEY (`teamID`,`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `Involvement` WRITE;
@@ -39,11 +39,12 @@ LOCK TABLES `Involvement` WRITE;
 
 INSERT INTO `Involvement` (`teamID`, `studentID`)
 VALUES
-	(9,18273942),
+	(2,18273942),
 	(2,18392039),
-	(9,19283910),
-	(4,29182930),
 	(2,83928192),
+	(4,29182930),
+	(9,18273942),
+	(9,19283910),
 	(9,92837201);
 
 /*!40000 ALTER TABLE `Involvement` ENABLE KEYS */;
@@ -131,6 +132,7 @@ LOCK TABLES `Student` WRITE;
 
 INSERT INTO `Student` (`studentID`, `fname`, `lname`, `email`)
 VALUES
+	(12341234,'John','Smith','jsmith@smu.edu'),
 	(18273942,'Some ','Person','person@smu.edu'),
 	(18392039,'New ','Kid','kid@smu.edu'),
 	(19283910,'Jock ','Wannabee','wannabee@smu.edu'),
@@ -200,6 +202,7 @@ INSERT INTO `TeamMatch` (`matchID`, `AteamID`, `BteamID`, `ATeamScore`, `BTeamSc
 VALUES
 	(1,41,42,91,81,'1600-03-12','04:02:10'),
 	(2,41,43,12,106,'2013-06-02','06:07:00'),
+	(12,1,41,3,1,'2014-12-13','15:30:00'),
 	(100,1,4,5,7,'2014-11-23','18:30:00'),
 	(123,9,8,0,0,'2014-10-04','18:30:00'),
 	(234,9,6,0,0,'2014-10-05','18:30:00'),
@@ -227,6 +230,7 @@ LOCK TABLES `User` WRITE;
 
 INSERT INTO `User` (`studentID`, `Password`, `isAdmin`)
 VALUES
+	(12341234,'12341234',0),
 	(18273942,'creative',0),
 	(18392039,'xxxxxxxx',0),
 	(19283910,'123456789',0),
