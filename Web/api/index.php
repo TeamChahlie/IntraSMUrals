@@ -438,6 +438,7 @@ function addScores() {
     }
 }
 
+
 function getConnection() {
     // $dbhost = "127.0.0.1";
     // $dbpass = "";
