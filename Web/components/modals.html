@@ -1,38 +1,26 @@
-<div id="overlay">
+<div id="overlay" class="">
 </div>
 
 <div class="modal" id="accountModal">
+    <div class="closeButton"></div>
+    <h2 class="modalTitle">Create Account</h2>
     <form class="accountForm">
-        <div class="closeButton">X</div>
-        <input class="formElement" id="accountFirstName" type="text" name="fname" placeholder="FIRST NAME" required>
-        <input class="formElement" id="accountLastName" type="text" name="lname" placeholder="LAST NAME" required>
-        <input class="formElement" id="accountEmail" type="email" name="email" placeholder="EMAIL" required pattern="\w+@\w+.\w+" title="not a valid email address">
-        <input class="formElement" id="accountPassword" type="password" name="password" placeholder="PASSWORD" required pattern=".{8,}" title="password must be greater than or equal to 8 characters">
-        <select class="formElement" id="accountCreditCard" name="card">
-            <option value="mastercard" >MasterCard</option> <!--^5[1-5][0-9]{14}$-->
-            <option value="Visa" >Visa</option> <!--^4[0-9]{12}(?:[0-9]{3})?$-->
-            <option value="AmericanExpress" >American Express</option> <!-- ^3[47][0-9]{13}$-->
-        </select>
-         <input class="formElement" id="accountCreditCardNumber" type="text" name="creditNumber" placeholder="CREDIT CARD NUMBER" required="number"
-        						required pattern= "^4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}" requiredLength="16" title="not a valid credit card number">
-        <input id="accountSubmit" type="submit" value="create account">
+        <input class="formElement" id="accountFirstName" type="text" name="fname" placeholder="First Name" required>
+        <input class="formElement" id="accountLastName" type="text" name="lname" placeholder="Last Name" required>
+        <input class="formElement" id="accountID" type="text" name="smuid" placeholder="SMU ID" required pattern="[0-9]{8}" title="SMU ID not valid">
+        <input class="formElement" id="accountEmail" type="email" name="email" placeholder="SMU Email" required pattern="\w+@\w+.\w+" title="not a valid email address">
+        <input class="formElement" id="accountPassword" type="password" name="password" placeholder="Password" required pattern=".{8,}" title="password must be greater than or equal to 8 characters">
+        <input class="formElement" id="accountPassword2" type="password" name="password2" placeholder="Re-Enter Password" required="passwords must match">
+        <input id="accountSubmit" type="submit" value="Submit">
     </form>
 </div>
 
-<div class="modal" id="paymentModal">
-    <form class="paymentForm">
-        <div class="closeButton">X</div>
-        <input class="formElement" id="paymentFirstName" type="text" name="fname" placeholder="FIRST NAME" required>
-        <input class="formElement" id="paymentLastName" type="text" name="lname" placeholder="LAST NAME" required>
-        <select class="formElement" id="paymentCreditCard" name="card">
-            <option value="mastercard">MasterCard</option>
-            <option value="Visa">Visa</option>
-            <option value="AmericanExpress">American Express</option>
-        </select>
-        
-         <input class="formElement" id="paymentCreditCardNumber" type="text" name="creditNumber" placeholder="CREDIT CARD NUMBER" required="number"
-        						required pattern= "^4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}" requiredLength="16" title="not a valid credit card number">
-        <input id="paymentSubmit" type="submit" value="Place your Order">
-    </form>
+<div class="modal" id="logoutModal">
+    <div class="closeButton"></div>
+    <h2 class="modalTitle">Logout?</h2>
+    <div class="buttonContainer">
+        <div id="yesLogout">Yes</div>
+        <div id="noLogout">No</div>
+    </div>
 </div>
 

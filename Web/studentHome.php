@@ -8,8 +8,9 @@
 
     <!-- JavaScript Files -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/modal.js"></script>
+    <script src="js/userCheck.js"></script>
     <script src="js/scroll.js"></script>
+    <script src="js/modal.js"></script>
     <script src="js/nav.js"></script>
 
     <!-- CSS Files -->
@@ -23,9 +24,13 @@
     <?php include "components/navbar.html"; include "components/modals.html"?>
 
     <div class="section">
-        <h2 class="pageHeader">Welcome to IntraSMUrals!</h2>
-        <p class="noContent">Our dev team is working hard to bring you the best user experience possible. Check back often to see our progress!</p>
+        <h2 class="pageHeader">My Sports</h2>
+        <div id="studentSchedule">
+            <h2 class="sectionHeader">Upcoming Games</h2>
+        </div>
+        <div id="studentTeamList">
+            <h2 class="sectionHeader">Teams</h2>
+        </div>
     </div>
-    <link href="css/main.css" rel="stylesheet" type="text/css">
 </body>
 </html>

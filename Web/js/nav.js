@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
     addLoginClickListener();
-    addLogoutClickListener();
+
 
     if (parseInt(sessionStorage.getItem('userID')) != 1 && sessionStorage.getItem('userID') != null) {
         $('#navLoginForm').hide();
@@ -12,7 +12,13 @@ $(document).ready(function() {
         $('#loginInformation').show();
         $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!");
         $('#logout').text("Logout").show();
+        $('#mySports').show();
+        if(parseInt(sessionStorage.getItem('isAdmin')) == 1) {
+            $('#adminPortal').show();
+        }
 
+    } else {
+        $('#adminPortal').hide();
     }
 
 });
@@ -40,25 +46,23 @@ function addLoginClickListener() {
                     alert("Username/Password are incorrect!");
                 } else {
                     sessionStorage.setItem('userID', obj.info.studentID);
-                    sessionStorage.setItem('firstName', obj.info.FirstName);
-                    sessionStorage.setItem('lastName', obj.info.LastName);
+                    sessionStorage.setItem('firstName', obj.info.fname);
+                    sessionStorage.setItem('lastName', obj.info.lname);
                     sessionStorage.setItem('email', user.email);
                     sessionStorage.setItem('password', user.password);
-                    sessionStorage.setItem('ccProvider', obj.info.CreditCardProvider);
-                    sessionStorage.setItem('ccNumber', obj.info.CreditCardNumber);
-                    sessionStorage.setItem('lastOrder', obj.info.LastOrder);
+                    sessionStorage.setItem('isAdmin', parseInt(obj.info.isAdmin));
                     console.log(sessionStorage);
-
-                    $('#signIn').hide();
-                    $('#checkoutAsGuest').hide();
-                    $('#checkout').show();
-                    $('#reorder').show();
 
                     $('#navLoginForm').hide();
                     $('#createAccount').hide();
                     $('#loginInformation').show();
                     $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!");
                     $('#logout').text("Logout").show();
+                    $('#mySports').show();
+
+                    if(parseInt(obj.info.isAdmin) == 1) {
+                        $('#adminPortal').show();
+                    }
                 }
             },
             error: function() {
@@ -69,30 +73,3 @@ function addLoginClickListener() {
     });
 }
 
-function addLogoutClickListener() {
-    $('#logout').click(function() {
-        sessionStorage.setItem('userID', 1);
-        sessionStorage.removeItem('firstName');
-        sessionStorage.removeItem('lastName');
-        sessionStorage.removeItem('email');
-        sessionStorage.removeItem('password');
-        sessionStorage.removeItem('ccProvider');
-        sessionStorage.removeItem('ccNumber');
-        sessionStorage.removeItem('lastOrder');
-        console.log(sessionStorage);
-
-        $('#signIn').show();
-        $('#checkoutAsGuest').show();
-        $('#checkout').hide();
-        $('#reorder').hide();
-
-        $('#navLoginForm').show();
-        $('#createAccount').show();
-        $('#navEmail').val('');
-        $('#navPassword').val('');
-
-        $('#loginInformation').text('').hide();
-        $('#logout').text('').hide();
-
-    });
-}

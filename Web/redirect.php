@@ -13,19 +13,15 @@
     <script src="js/nav.js"></script>
 
     <!-- CSS Files -->
-    <link href="css/navbar.css" rel="stylesheet" type="text/css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
-    <link href="css/modal.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-    <?php include "components/navbar.html"; include "components/modals.html"?>
 
-    <div class="section">
-        <h2 class="pageHeader">Welcome to IntraSMUrals!</h2>
-        <p class="noContent">Our dev team is working hard to bring you the best user experience possible. Check back often to see our progress!</p>
-    </div>
-    <link href="css/main.css" rel="stylesheet" type="text/css">
+<div class="section">
+    <h2 class="pageHeader">You Sneaky Bastard!</h2>
+    <p class="noContent">You do not have access to this page. Click <a href="index.php">HERE</a> to go to the homepage. </p>
+</div>
 </body>
 </html>

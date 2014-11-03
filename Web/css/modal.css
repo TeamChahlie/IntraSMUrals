@@ -1,0 +1,111 @@
+
+.modal {
+    display:none;
+}
+
+.modalTitle {
+    margin: 0;
+    padding: 0.3em;
+    text-align: center;
+}
+
+.formElement {
+    width: 73%;
+    margin: 2% 12%;
+    font-size: 16px;
+    padding-left: .5em;
+    border: 1px solid red;
+    border-radius: 5px;
+    background: 0;
+}
+
+.overlay{
+    background-image:url(../img/semi_transparent.png);
+    width: 100%;
+    height: 100%;
+    margin-top:-70px;
+    margin-left:-20px;
+    padding-right:20px;
+    padding-bottom:20px;
+    position: fixed;
+    z-index: 20;
+}
+
+.displayModal {
+    background-color: #CCCCCC;
+    position:fixed;
+    width:400px;
+    top: 50%;
+    left: 50%;
+    z-index: 21;
+    margin: 100px;
+    padding: 10px;
+    border:2px solid black;
+    border-radius: 10px;
+}
+
+.closeButton {
+    background-image: url("../img/close_black.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    padding: .5em;
+    border-radius: 25px;
+    right: 2%;
+    transition: background-color 0.4s ease;
+
+}
+
+.closeButton:hover {
+    cursor: url("../img/PerunaSmall.png"), auto;
+    background-image: url("../img/close_white.png");
+    background-color: #0000FF;
+    transition: background-color 0.4s ease, background-image 0.4s ease;
+
+}
+
+#accountSubmit {
+    width: 40%;
+    margin: 2% 30%;
+    outline: 0;
+    padding: .5em;
+    background: none;
+    border: 0;
+    border-radius: 5px;
+    font: inherit;
+    color: #000000;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#accountSubmit:hover {
+    color: #FFFFFF;
+    background-color: blue;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    cursor: url("../img/PerunaSmall.png"), auto;
+}
+
+
+.buttonContainer {
+    width: 50%;
+    margin: 0;
+    padding: 2% 25%;
+}
+
+#yesLogout, #noLogout {
+    display: inline-block;
+    text-align: center;
+    width: 40%;
+    background-color: transparent;
+    padding: 4%;
+    border-radius: 5px;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#yesLogout:hover, #noLogout:hover {
+    color: #FFFFFF;
+    background-color: #0000FF;
+    cursor: url("../img/PerunaSmall.png"), auto;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
