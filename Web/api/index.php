@@ -17,12 +17,35 @@ $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
 $app->get('/addScores', 'addScores');
 $app->get('/insertMatch', 'insertMatch');
+$app->get('/getStudentTeams/:studentName', 'getStudentTeams');
 $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
 $app->get('/getTeamCaptain/:teamName', 'getTeamCaptain');
 $app->get('/getTeamSchedule/:teamName', 'getTeamSchedule');
-$app->get('/getStudentTeams/:studentName', 'getStudentTeams');
+$app->get('/getTeamRoster/:teamName', 'getTeamRoster');
 
 $app->run();
+
+// returns a team's scheduled games with scores and opponents
+function getTeamRoster($teamName) {
+    $sql = "SELECT fname, lname FROM Team NATURAL JOIN Involvement NATURAL JOIN Student WHERE teamName = :teamName";
+    try {
+        $db = getConnection();
+        $response = array();
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("teamName", $teamName);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($response,$row);
+        }
+
+
+        $db = null;
+        echo json_encode($response);
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
 
 // returns a team's scheduled games with scores and opponents
 function getStudentTeams($studentName) {
