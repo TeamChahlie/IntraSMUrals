@@ -9,6 +9,7 @@
     <!-- JavaScript Files -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/userCheck.js"></script>
+    <script src="js/studentHome.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/nav.js"></script>
@@ -27,9 +28,20 @@
         <h2 class="pageHeader">My Sports</h2>
         <div id="studentSchedule">
             <h2 class="sectionHeader">Upcoming Games</h2>
+            <p class="noContent">Select a Team on the right to view upcoming games</p>
+
+<!--            <div class="scheduleEvent">-->
+<!--                <div class="eventDate">Wednesday, Oct. 24th</div>-->
+<!--                <div class="eventTime">8:00 pm</div>-->
+<!--                <div class="vs">vs:</div>-->
+<!--                <div class="eventOpponent">Pastafarians</div>-->
+<!--                <div class="eventLocation">Intramural Fields</div>-->
+<!--            </div>-->
+
         </div>
         <div id="studentTeamList">
             <h2 class="sectionHeader">Teams</h2>
+            <p id="noTeams" class="hidden">You are not currently signed up for a team! Go sign up for one now! (COMING SOON)</p>
         </div>
     </div>
 </body>

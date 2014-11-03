@@ -463,11 +463,11 @@ function addScores() {
 
 
 function getConnection() {
-    // $dbhost = "127.0.0.1";
-    // $dbpass = "";
+    $dbhost = "127.0.0.1";
+    $dbpass = "";
 
-    $dbhost = "localhost";
-    $dbpass = "root";
+//    $dbhost = "localhost";
+//    $dbpass = "root";
 
     $dbuser = "root";
     $dbname = "intrasmurals";
