@@ -20,8 +20,31 @@ $app->get('/insertMatch', 'insertMatch');
 $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
 $app->get('/getTeamCaptain/:teamName', 'getTeamCaptain');
 $app->get('/getTeamSchedule/:teamName', 'getTeamSchedule');
+$app->get('/getStudentTeams/:studentName', 'getStudentTeams');
 
 $app->run();
+
+// returns a team's scheduled games with scores and opponents
+function getStudentTeams($studentName) {
+    $sql = "SELECT teamID, teamName FROM Team NATURAL JOIN Involvement NATURAL JOIN Student WHERE studentID = :studentName";
+    try {
+        $db = getConnection();
+        $response = array();
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("studentName", $studentName);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($response,$row);
+        }
+
+
+        $db = null;
+        echo json_encode($response);
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
 
 // returns a team's scheduled games with scores and opponents
 function getTeamSchedule($teamName) {
