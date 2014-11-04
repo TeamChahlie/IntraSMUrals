@@ -47,10 +47,6 @@ function teamButtonListener() {
             html.textContent = "No future games scheduled.";
             scheduleDiv.appendChild(html);
         } else {
-            var container = document.createElement('div');
-            container.className = "scheduleEvent";
-
-            scheduleDiv.appendChild(container);
 
             for (var key in games) {
                 var container = document.createElement('div');
@@ -75,8 +71,14 @@ function teamButtonListener() {
 
                 var opponentDiv = document.createElement('div');
                 opponentDiv.className = "eventOpponent";
-                opponentDiv.textContent = games[key].opponent;
+//                opponentDiv.textContent = games[key].opponent;
                 container.appendChild(opponentDiv);
+
+                var teamLink = document.createElement('a');
+                teamLink.href = "/teams.php?team=" + games[key].opponent;
+                teamLink.textContent = games[key].opponent;
+                opponentDiv.appendChild(teamLink);
+
 
                 var locationDiv = document.createElement('div');
                 locationDiv.className = "eventLocation";

@@ -21,8 +21,7 @@
     <?php include "components/navbar.html" ?>
 
     <div class="section">
-        <h1 id="intro"> IntraSMUrals!!</h1>
-        <p id="teamsIntro"> Here is a list of the 2014-2015 SMU IntraSMUral teams!!</p>
+        <h1 id="intro" class="pageHeader"></h1>
         <div id="playerList"></div>
     </div>
 

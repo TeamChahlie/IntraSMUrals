@@ -26,17 +26,15 @@ $(document).ready(function() {
 
 function loadSpecificTeamInfo() {
 
-    var tm = new Object();
-
     console.log(get('team'));
-
+    document.getElementById('intro').textContent = "Team " + get('team');
         
     $.getJSON('api/getTeamRoster/' + get('team') , function(roster) {
 
         console.log(roster);
 
         if (roster.length == 0) {
-            alert("HOLY FUCK THIS TEAM EMPTY");
+            alert("DEVLOG: This team has no players");
         } else {
             var listContainer = document.getElementById('playerList');
 
@@ -51,11 +49,6 @@ function loadSpecificTeamInfo() {
                 playerList.appendChild(player);
             }
         }
-
-        // sessionStorage.setItem('firstName', fname);
-        // sessionStorage.setItem('lastName', obj.info.lname);
-        
-        // console.log(sessionStorage)
 
 
     });
