@@ -23,7 +23,7 @@ $app->get('/getTeamRoster/:teamName', 'getTeamRoster');
 $app->run();
 // returns a team's scheduled games with scores and opponents
 function getTeamRoster($teamName) {
-    $sql = "SELECT fname, lname FROM Team NATURAL JOIN Involvement NATURAL JOIN Student WHERE teamName = :teamName";
+    $sql = "SELECT fname, lname FROM Team NATURAL JOIN Involvement NATURAL JOIN Student WHERE teamName = :teamName ORDER BY lname";
     try {
         $db = getConnection();
         $response = array();
@@ -92,7 +92,7 @@ function getTeamSchedule($teamName) {
 }
 // returns team Information as JSON
 function getTeamInfo($teamName) {
-    $sql = "SELECT * FROM Team WHERE teamName = :teamName";
+    $sql = "SELECT t.teamName, s.sportName FROM Team t, Sport s WHERE t.sportID = s.sportID AND t.teamName = :teamName";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
