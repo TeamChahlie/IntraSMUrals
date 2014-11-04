@@ -1,5 +1,14 @@
 $(document).ready(function() {
-    if (parseInt(sessionStorage.getItem('isAdmin')) == 0 || sessionStorage.getItem('isAdmin') == null) {
-        window.location.replace("../redirect.php");
-    }
+    var userID = sessionStorage.getItem('userID');
+
+    $.getJSON('api/adminCheck/' + userID, function(result) {
+        if(result.isAdmin != null) {
+            if(result.isAdmin == false) {
+                window.location.replace('../redirect.php');
+            }
+        } else {
+            alert(result.error.text);
+            window.location.replace('../index.php');
+        }
+    });
 });

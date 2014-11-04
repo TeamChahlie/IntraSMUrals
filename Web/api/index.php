@@ -12,6 +12,7 @@ $app->get('/getStudentInfo', 'getStudentInformation');
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
+$app->get('/adminCheck/:userID', 'adminCheck');
 $app->get('/addScores', 'addScores');
 $app->get('/insertMatch', 'insertMatch');
 $app->get('/getStudentTeams/:studentName', 'getStudentTeams');
@@ -127,7 +128,7 @@ function login() {
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $loginInfo = json_decode($request->getBody());
-    $sql = "SELECT u.*, s.fname, s.lname, s.email FROM User u NATURAL JOIN Student s WHERE email = :email AND password = :password";
+    $sql = "SELECT u.studentID, u.isAdmin, s.fname, s.lname, s.email FROM User u NATURAL JOIN Student s WHERE email = :email AND password = :password";
     try {
         if (isset($loginInfo)) {
             $db = getConnection();
@@ -303,6 +304,26 @@ function adminSportSearch() {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
+
+function adminCheck($userID) {
+    $sql = "SELECT isAdmin FROM User WHERE studentID = :userID";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam('userID', $userID);
+        $stmt->execute();
+        $adminVal = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($adminVal['isAdmin'] == 0)
+            echo '{"isAdmin": false}';
+        else if ($adminVal['isAdmin'] == 1)
+            echo '{"isAdmin": true}';
+        else
+            echo '{"error:{"text": "Unknown error occurred."}}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
 //Returns teamNames from a specific sport based on ID (can make based on name if preferable)
 function viewTeams() {
     $sql = "SELECT teamName from Sport WHERE sportID = :sportID";

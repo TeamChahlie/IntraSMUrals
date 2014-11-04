@@ -1,22 +1,22 @@
 
-
-
 $(document).ready(function() {
 
     addLoginClickListener();
 
 
     if (parseInt(sessionStorage.getItem('userID')) != 1 && sessionStorage.getItem('userID') != null) {
+        console.log("FUCK");
+
         $('#navLoginForm').hide();
         $('#createAccount').hide();
-        $('#loginInformation').show();
-        $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!");
+        $('#loginInformation').text("Welcome, " + sessionStorage.getItem("firstName") + "!").show();
         $('#logout').text("Logout").show();
         $('#mySports').show();
-        if(parseInt(sessionStorage.getItem('isAdmin')) == 1) {
-            $('#adminPortal').show();
-        }
+    }
 
+    var isAdmin = checkAdmin();
+    if(isAdmin) {
+        $('#adminPortal').show();
     } else {
         $('#adminPortal').hide();
     }
@@ -49,8 +49,6 @@ function addLoginClickListener() {
                     sessionStorage.setItem('firstName', obj.info.fname);
                     sessionStorage.setItem('lastName', obj.info.lname);
                     sessionStorage.setItem('email', user.email);
-                    sessionStorage.setItem('password', user.password);
-                    sessionStorage.setItem('isAdmin', parseInt(obj.info.isAdmin));
                     console.log(sessionStorage);
 
                     $('#navLoginForm').hide();
@@ -73,3 +71,25 @@ function addLoginClickListener() {
     });
 }
 
+function checkAdmin() {
+    var userID = sessionStorage.getItem('userID');
+    if(userID != 1) {
+        $.getJSON('api/adminCheck/' + userID, function(result) {
+            console.log("HERE");
+            if(result.isAdmin != null) {
+                console.log(result.isAdmin);
+                if(result.isAdmin == false) {
+                    return false;
+                } else if(result.isAdmin == true) {
+                    return true;
+                }
+            } else {
+                console.log("ERROR");
+                return false;
+            }
+        });
+    } else {
+        return false;
+    }
+
+}

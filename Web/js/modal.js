@@ -79,8 +79,6 @@ function createAccount() {
                     sessionStorage.setItem('firstName', user.FirstName);
                     sessionStorage.setItem('lastName', user.LastName);
                     sessionStorage.setItem('email', user.Email);
-                    sessionStorage.setItem('password', user.Password);
-                    sessionStorage.setItem('isAdmin', 0);
                     console.log(sessionStorage);
 
                     $('#navLoginForm').hide();
@@ -107,8 +105,6 @@ function addLogoutClickListener() {
             sessionStorage.removeItem('firstName');
             sessionStorage.removeItem('lastName');
             sessionStorage.removeItem('email');
-            sessionStorage.removeItem('password');
-            sessionStorage.removeItem('isAdmin');
             console.log(sessionStorage);
 
             $('#signIn').show();
