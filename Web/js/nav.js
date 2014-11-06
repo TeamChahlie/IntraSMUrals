@@ -5,7 +5,6 @@ $(document).ready(function() {
 
 
     if (parseInt(sessionStorage.getItem('userID')) != 1 && sessionStorage.getItem('userID') != null) {
-        console.log("FUCK");
 
         $('#navLoginForm').hide();
         $('#createAccount').hide();
@@ -14,12 +13,7 @@ $(document).ready(function() {
         $('#mySports').show();
     }
 
-    var isAdmin = checkAdmin();
-    if(isAdmin) {
-        $('#adminPortal').show();
-    } else {
-        $('#adminPortal').hide();
-    }
+    checkAdmin();
 
 });
 
@@ -72,24 +66,23 @@ function addLoginClickListener() {
 }
 
 function checkAdmin() {
-    var userID = sessionStorage.getItem('userID');
+    var userID = parseInt(sessionStorage.getItem('userID'));
+    console.log(sessionStorage);
+    console.log(userID);
     if(userID != 1) {
         $.getJSON('api/adminCheck/' + userID, function(result) {
-            console.log("HERE");
             if(result.isAdmin != null) {
-                console.log(result.isAdmin);
-                if(result.isAdmin == false) {
-                    return false;
-                } else if(result.isAdmin == true) {
-                    return true;
+                if(result.isAdmin) {
+                    $('#adminPortal').show();
+                } else {
+                    $('#adminPortal').hide();
                 }
             } else {
                 console.log("ERROR");
-                return false;
+                $('#adminPortal').hide();
             }
         });
     } else {
-        return false;
+        $('#adminPortal').hide();
     }
-
 }

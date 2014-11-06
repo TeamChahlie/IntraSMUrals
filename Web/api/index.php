@@ -179,6 +179,7 @@ function register() {
     $request = $app->request();
     $userInfo = json_decode($request->getBody());
     $userExists = FALSE;
+    $isEmail = FALSE;
     $userTest = "SELECT * FROM Student WHERE email = :email OR studentID = :studentID";
     try {
         $db = getConnection();
@@ -191,6 +192,11 @@ function register() {
             $userExists = FALSE;
         } else {
             $userExists = TRUE;
+            if($accountCheck['email'] == $userInfo->Email) {
+                $isEmail = TRUE;
+            } else {
+                $isEmail = FALSE;
+            }
         }
         $db = null;
     } catch (PDOException $e) {
@@ -226,7 +232,12 @@ function register() {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
         }
     } else {
-        echo '{"error":{"text": "An account with that email address already exists!"}}';
+        if($isEmail == TRUE) {
+            echo '{"error":{"text": "An account with that email address already exists!"}}';
+        } else {
+            echo '{"error":{"text": "An account with that SMU ID already exists!"}}';
+
+        }
     }
 }
 //Returns all information about a particular student
