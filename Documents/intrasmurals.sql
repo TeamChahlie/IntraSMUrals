@@ -157,6 +157,7 @@ CREATE TABLE `Team` (
   `teamID` int(11) NOT NULL DEFAULT '0',
   `teamName` varchar(30) DEFAULT NULL,
   `captainID` int(11) DEFAULT NULL,
+  `isApproved` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`teamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -165,15 +166,15 @@ LOCK TABLES `Team` WRITE;
 
 INSERT INTO `Team` (`sportID`, `teamID`, `teamName`, `captainID`)
 VALUES
-	(56789,1,'Alpha',19283910),
-	(56789,2,'Pastafarians',19283910),
-	(56789,4,'Beta',38291829),
-	(12345,6,'Python',43928392),
-	(12345,8,'Sigma Tau',18273942),
-	(12345,9,'BAMF',92837201),
-	(43928,41,'Sandusky',43928392),
-	(43928,42,'Shawnee',19283910),
-	(43928,43,'Cherokee',18273942);
+	(56789,1,'Alpha',19283910, 1),
+	(56789,2,'Pastafarians',19283910, 1),
+	(56789,4,'Beta',38291829, 1),
+	(12345,6,'Python',43928392, 1),
+	(12345,8,'Sigma Tau',18273942, 1),
+	(12345,9,'BAMF',92837201, 1),
+	(43928,41,'Sandusky',43928392, 1),
+	(43928,42,'Shawnee',19283910, 1),
+	(43928,43,'Cherokee',18273942, 1);
 
 /*!40000 ALTER TABLE `Team` ENABLE KEYS */;
 UNLOCK TABLES;
