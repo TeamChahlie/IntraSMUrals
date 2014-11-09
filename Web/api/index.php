@@ -411,7 +411,7 @@ function insertTeam() {
 function insertCaptain() {
     $sqlStudent = "INSERT INTO Student VALUES (studentID) (:studentID)";
     $sqlUser = "INSERT INTO User VALUES (studentID) (:studentID)";
-    $sqlCaptain = "INSERT INTO Team VALUES (captainID) (:captainID)";
+    $sqlCaptain = "INSERT INTO Team VALUES (captainID, isAdmin) (:captainID, 1)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $studentInfo = json_decode($request->getBody());
