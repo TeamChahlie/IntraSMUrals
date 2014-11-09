@@ -72,15 +72,16 @@ function register() {
             $userExists = FALSE;
         } else {
             $userExists = TRUE;
-            if($accountCheck['email'] == $userInfo->Email) {
+            if ($accountCheck['email'] == $userInfo->Email) {
                 $isEmail = TRUE;
             } else {
                 $isEmail = FALSE;
             }
-            if($accountCheck['studentID'] == $userInfo->StudentID) {
-            	$isStudentID = TRUE;
-            } else{
-            	$isStudentID = FALSE;}
+            if ($accountCheck['studentID'] == $userInfo->StudentID) {
+                $isStudentID = TRUE;
+            } else {
+                $isStudentID = FALSE;
+            }
         }
         $db = null;
     } catch (PDOException $e) {
@@ -117,69 +118,67 @@ function register() {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
         }
     } else {
-    //If the user does exist in some capacity
-        if($isEmail == TRUE && $isStudentID == TRUE) {
+        //If the user does exist in some capacity
+        if ($isEmail == TRUE && $isStudentID == TRUE) {
             echo '{"error":{"text": "An account with this email and ID already exists!"}}';
-        } else if($isEmail == TRUE && $isStudentID == FALSE) {
+        } else if ($isEmail == TRUE && $isStudentID == FALSE) {
             $studentSQL = "UPDATE Student SET  studentID = :studentID, firstName = :firstName, lastName = :lastName WHERE email =$userInfo->Email]";
-       		$userSQL = "INSERT INTO User (`studentID`, `password`, `isAdmin`) VALUES (:studentID, :password, 0)";
-        	try {
-            	if (isset($userInfo)) {
-                	$db = getConnection();
-                	$stmt = $db->prepare($studentSQL);
-                	$stmt->bindParam("studentID", $userInfo->StudentID);
-                	$stmt->bindParam("firstName", $userInfo->FirstName);
-                	$stmt->bindParam("lastName", $userInfo->LastName);
-                	$stmt->bindParam("email", $userInfo->Email);
-                	$success1 = $stmt->execute();
-                	$db = getConnection();
-                	$stmt = $db->prepare($userSQL);
-                	$stmt->bindParam("studentID", $userInfo->StudentID);
-                	$stmt->bindParam("password", $userInfo->Password);
-                	$success2 = $stmt->execute();
-                	if ($success1 && $success2) {
-                  	  echo '{"info": true}';
-               	 } else {
-               	     echo '{"info": false}';
-                	}
-                	$db = null;
-            } else {
-                echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
+            $userSQL = "INSERT INTO User (`studentID`, `password`, `isAdmin`) VALUES (:studentID, :password, 0)";
+            try {
+                if (isset($userInfo)) {
+                    $db = getConnection();
+                    $stmt = $db->prepare($studentSQL);
+                    $stmt->bindParam("studentID", $userInfo->StudentID);
+                    $stmt->bindParam("firstName", $userInfo->FirstName);
+                    $stmt->bindParam("lastName", $userInfo->LastName);
+                    $stmt->bindParam("email", $userInfo->Email);
+                    $success1 = $stmt->execute();
+                    $db = getConnection();
+                    $stmt = $db->prepare($userSQL);
+                    $stmt->bindParam("studentID", $userInfo->StudentID);
+                    $stmt->bindParam("password", $userInfo->Password);
+                    $success2 = $stmt->execute();
+                    if ($success1 && $success2) {
+                        echo '{"info": true}';
+                    } else {
+                        echo '{"info": false}';
+                    }
+                    $db = null;
+                } else {
+                    echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
+                }
+            } catch (PDOException $e) {
+                echo '{"error":{"text":' . $e->getMessage() . '}}';
             }
-        } catch (PDOException $e) {
-            echo '{"error":{"text":' . $e->getMessage() . '}}';
-        }
-
         } else if ($isStudentID == TRUE && $isEmail == FALSE) {
-        	$studentSQL = "UPDATE Student SET  email =:Email, firstName = :firstName, lastNmae = :lastName WHERE studentID =".$userInfo->StudentID;
-       		$userSQL = "UPDATE User SET password=:password, isAdmin= 0 WHERE studentID=".$userInfo->StudentID;
-        	try {
-            	if (isset($userInfo)) {
-                	$db = getConnection();
-                	$stmt = $db->prepare($studentSQL);
-                	$stmt->bindParam("studentID", $userInfo->StudentID);
-                	$stmt->bindParam("firstName", $userInfo->FirstName);
-                	$stmt->bindParam("lastName", $userInfo->LastName);
-                	$stmt->bindParam("email", $userInfo->Email);
-                	$success1 = $stmt->execute();
-                	$db = getConnection();
-                	$stmt = $db->prepare($userSQL);
-                	$stmt->bindParam("studentID", $userInfo->StudentID);
-                	$stmt->bindParam("password", $userInfo->Password);
-                	$success2 = $stmt->execute();
-                	if ($success1 && $success2) {
-                  	  echo '{"info": true}';
-               	 } else {
-               	     echo '{"info": false}';
-                	}
-                	$db = null;
-            } else {
-                echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
+            $studentSQL = "UPDATE Student SET  email =:Email, firstName = :firstName, lastNmae = :lastName WHERE studentID =" . $userInfo->StudentID;
+            $userSQL = "UPDATE User SET password=:password, isAdmin= 0 WHERE studentID=" . $userInfo->StudentID;
+            try {
+                if (isset($userInfo)) {
+                    $db = getConnection();
+                    $stmt = $db->prepare($studentSQL);
+                    $stmt->bindParam("studentID", $userInfo->StudentID);
+                    $stmt->bindParam("firstName", $userInfo->FirstName);
+                    $stmt->bindParam("lastName", $userInfo->LastName);
+                    $stmt->bindParam("email", $userInfo->Email);
+                    $success1 = $stmt->execute();
+                    $db = getConnection();
+                    $stmt = $db->prepare($userSQL);
+                    $stmt->bindParam("studentID", $userInfo->StudentID);
+                    $stmt->bindParam("password", $userInfo->Password);
+                    $success2 = $stmt->execute();
+                    if ($success1 && $success2) {
+                        echo '{"info": true}';
+                    } else {
+                        echo '{"info": false}';
+                    }
+                    $db = null;
+                } else {
+                    echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
+                }
+            } catch (PDOException $e) {
+                echo '{"error":{"text":' . $e->getMessage() . '}}';
             }
-        } catch (PDOException $e) {
-            echo '{"error":{"text":' . $e->getMessage() . '}}';
-        }
-
         }
     }
 }
@@ -193,12 +192,13 @@ function adminCheck($userID) {
         $stmt->bindParam('userID', $userID);
         $stmt->execute();
         $adminVal = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($adminVal['isAdmin'] == 0)
+        if ($adminVal['isAdmin'] == 0) {
             echo '{"isAdmin": false}';
-        else if ($adminVal['isAdmin'] == 1)
+        } else if ($adminVal['isAdmin'] == 1) {
             echo '{"isAdmin": true}';
-        else
+        } else{
             echo '{"error:{"text": "Unknown error occurred."}}';
+        }
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
@@ -501,7 +501,7 @@ function getUniversalSportSchedule() {
     $sqlSportProfile = "SELECT firstTeam.teamName, secondTeam.teamName, dateOf, timeOf FROM sport NATURAL JOIN Schedule NATURAL JOIN TeamMatch NATURAL JOIN Team INNER JOIN Team WHERE sportName = :sportName AND ATeamID = firstTeam.teamID AND BTeamID = secondTeam.teamID";
     try {
         $db       = getConnection();
-        $stmt     = $db->prepare($sql);
+        $stmt     = $db->prepare($sqlSportProfile);
         $sportInfo = json_decode($request->getBody());
         $stmt->bindParam('sportName', $sportInfo->sportName);
         $stmt->execute();
