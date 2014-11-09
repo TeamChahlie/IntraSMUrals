@@ -22,6 +22,16 @@ function insertTeamButtons() {
                 div.textContent = teamName;
                 div.addEventListener('click', teamButtonListener, false);
                 teamList.appendChild(div);
+
+                //var div2 = document.createElement('div');
+                //div2.className = "teamButtonDropdown";
+                //teamList.appendChild(div2);
+                //
+                //var teamLink = document.createElement('a');
+                //teamLink.className = "teamLink";
+                //teamLink.href = "/teams.php?team=" + teamName;
+                //teamLink.textContent = "Visit Homepage";
+                //div2.appendChild(teamLink);
             }
         }
     });
@@ -54,22 +64,22 @@ function teamButtonListener() {
 
                 scheduleDiv.appendChild(container);
 
-                var dateDiv = document.createElement('div');
+                var dateDiv = document.createElement('span');
                 dateDiv.className = "eventDate";
                 dateDiv.textContent = games[key].date;
                 container.appendChild(dateDiv);
 
-                var timeDiv = document.createElement('div');
+                var timeDiv = document.createElement('span');
                 timeDiv.className = "eventTime";
                 timeDiv.textContent = games[key].time;
                 container.appendChild(timeDiv);
 
-                var vsDiv = document.createElement('div');
+                var vsDiv = document.createElement('span');
                 vsDiv.className = "vs";
                 vsDiv.textContent = "vs:";
                 container.appendChild(vsDiv);
 
-                var opponentDiv = document.createElement('div');
+                var opponentDiv = document.createElement('span');
                 opponentDiv.className = "eventOpponent";
 //                opponentDiv.textContent = games[key].opponent;
                 container.appendChild(opponentDiv);
@@ -80,7 +90,7 @@ function teamButtonListener() {
                 opponentDiv.appendChild(teamLink);
 
 
-                var locationDiv = document.createElement('div');
+                var locationDiv = document.createElement('span');
                 locationDiv.className = "eventLocation";
                 locationDiv.textContent = "Intramural Fields";
                 container.appendChild(locationDiv);

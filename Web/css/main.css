@@ -15,7 +15,7 @@ body {
 .section {
     font-size: 12px;
     background-color: #CCCCCC;
-    width:70%;
+    width: 1500px;
     padding:10px;
     margin-left: auto;
     margin-right: auto;
@@ -29,12 +29,18 @@ body {
 .pageHeader {
     text-align: center;
     font-size: 3em;
+    margin-bottom: 0;
 }
 
 .sectionHeader {
     text-align: center;
     font-size: 2em;
-    margin: 0;
+}
+
+.subHeader {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 0;
 }
 
 .noContent {
@@ -42,11 +48,11 @@ body {
     font-size: 1.5em;
 }
 
-#studentSchedule {
+#studentSchedule, #teamSchedule {
     position: relative;
     float: left;
     display: inline-block;
-    margin: 0% 1%;
+    margin: 1%;
     width: 65%;
     height: 500px;
     border-radius: 10px;
@@ -55,9 +61,9 @@ body {
     border: 1px solid #000000;
 }
 
-#studentTeamList {
+#studentTeamList, #playerList {
     display: inline-block;
-    margin: 0% 1%;
+    margin: 1%;
     width: 25%;
     height: 500px;
     border-radius: 10px;
@@ -83,78 +89,79 @@ body {
 
 .teamButton {
     display: block;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5em;
     background-color: transparent;
     padding: .5em;
     border-radius: 5px;
+    cursor: url("../img/PerunaSmall.png"), auto;
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.teamButton:hover {
-    text-decoration: none;
+.teamButton:hover, .teamButtonSelected:hover {
     color: #FFFFFF;
     background-color: #0000FF;
-    cursor: url("../img/PerunaSmall.png"), auto;
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .teamButtonSelected {
+    display: block;
+    margin: 5px;
+    text-align: center;
     text-decoration: none;
-    color: #FFFFFF;
-    background-color: darkblue;
+    font-size: 1.5em;
     padding: .5em;
     border-radius: 5px;
     cursor: url("../img/PerunaSmall.png"), auto;
+    color: #FFFFFF;
+    background-color: darkblue;
 }
 
 .scheduleEvent {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
     border: 1px solid #000000;
+    font-size: 1.4em;
+    margin-top: 5px;
+    text-align: center;
 }
 
 .eventDate {
     display: inline-block;
     margin: 0px;
-    width: 150px;
+    min-width: 20%;
     padding: 10px;
     text-align: center;
-    border: 1px solid #000000;
-
 }
 
 .eventTime {
     display: inline-block;
     margin: 0px;
-    width: 75px;
+    min-width: 10%;
     padding: 10px;
     text-align: center;
-    border: 1px solid #000000;
 }
 
 .eventOpponent {
     display: inline-block;
     margin: 0px;
-    width: 150px;
+    min-width: 25%;
     padding: 10px;
     text-align: center;
-    border: 1px solid #000000;
 }
 
 .vs {
     display: inline-block;
     margin: 0px;
-    width: 30px;
+    min-width: 5%;
     padding: 10px;
     text-align: center;
-    border: 1px solid #000000;
 }
 
 .eventLocation {
     display: inline-block;
     margin: 0px;
-    width: 125px;
+    min-width: 25%;
     padding: 10px;
     text-align: center;
-    border: 1px solid #000000;
 }

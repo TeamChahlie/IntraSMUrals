@@ -25,16 +25,26 @@ $(document).ready(function() {
 }
 
 function loadSpecificTeamInfo() {
+    document.getElementById('teamHeader').textContent = "Team " + get('team');
 
-    console.log(get('team'));
-    document.getElementById('intro').textContent = "Team " + get('team');
+    $.getJSON('api/getTeamInfo/' + get('team'), function(info) {
+        console.log(info);
+        document.getElementById('sportHeader').textContent = info.sportName;
+    });
+
+    $.getJSON('api/getTeamCaptain/' + get('team'), function(captain) {
+        console.log(captain);
+    });
         
     $.getJSON('api/getTeamRoster/' + get('team') , function(roster) {
 
         console.log(roster);
 
         if (roster.length == 0) {
-            alert("DEVLOG: This team has no players");
+            var noPlayers = document.createElement('p');
+            noPlayers.className = "noContent"
+            noPlayers.textContent = "This team has no players.";
+            document.getElementById('playerList').appendChild(noPlayers);
         } else {
             var listContainer = document.getElementById('playerList');
 
@@ -51,12 +61,55 @@ function loadSpecificTeamInfo() {
         }
     });
 
-    $.getJSON('api/getTeamCaptain/' + get('team'), function(captain) {
-        console.log(captain);
-    });
+    $.getJSON('api/getTeamSchedule/' + get('team'), function(games) {
 
-    $.getJSON('api/getTeamInfo/' + get('team'), function(info) {
-        console.log(info);
+        var scheduleDiv = document.getElementById('teamSchedule');
+
+        if(games.length == 0) {
+            var html = document.createElement('p');
+            html.className = "noContent";
+            html.textContent = "No future games scheduled.";
+            scheduleDiv.appendChild(html);
+        } else {
+
+            for (var key in games) {
+                var container = document.createElement('div');
+                container.className = "scheduleEvent";
+
+                scheduleDiv.appendChild(container);
+
+                var dateDiv = document.createElement('span');
+                dateDiv.className = "eventDate";
+                dateDiv.textContent = games[key].date;
+                container.appendChild(dateDiv);
+
+                var timeDiv = document.createElement('span');
+                timeDiv.className = "eventTime";
+                timeDiv.textContent = games[key].time;
+                container.appendChild(timeDiv);
+
+                var vsDiv = document.createElement('span');
+                vsDiv.className = "vs";
+                vsDiv.textContent = "vs:";
+                container.appendChild(vsDiv);
+
+                var opponentDiv = document.createElement('span');
+                opponentDiv.className = "eventOpponent";
+//                opponentDiv.textContent = games[key].opponent;
+                container.appendChild(opponentDiv);
+
+                var teamLink = document.createElement('a');
+                teamLink.href = "/teams.php?team=" + games[key].opponent;
+                teamLink.textContent = games[key].opponent;
+                opponentDiv.appendChild(teamLink);
+
+
+                var locationDiv = document.createElement('span');
+                locationDiv.className = "eventLocation";
+                locationDiv.textContent = "Intramural Fields";
+                container.appendChild(locationDiv);
+            }
+        }
     });
 }
 

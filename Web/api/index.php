@@ -461,12 +461,12 @@ function addScores() {
     }
 }
 function getConnection() {
-    $dbhost = "127.0.0.1";
-    $dbpass = "";
-//    $dbhost = "localhost";
-//    $dbpass = "root";
+//    $dbhost = "127.0.0.1";
+//    $dbpass = "";
+    $dbhost = "localhost";
+    $dbpass = "root";
     $dbuser = "root";
-    $dbname = "intrasmurals";
+    $dbname = "IntraSMUrals";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;

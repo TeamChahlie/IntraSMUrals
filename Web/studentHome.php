@@ -31,11 +31,11 @@
             <p class="noContent">Select a Team on the right to view upcoming games</p>
 
 <!--            <div class="scheduleEvent">-->
-<!--                <div class="eventDate">Wednesday, Oct. 24th</div>-->
-<!--                <div class="eventTime">8:00 pm</div>-->
-<!--                <div class="vs">vs:</div>-->
-<!--                <div class="eventOpponent">Pastafarians</div>-->
-<!--                <div class="eventLocation">Intramural Fields</div>-->
+<!--                <span class="eventDate">Wednesday, Oct. 24th</span>-->
+<!--                <span class="eventTime">8:00 pm</span>-->
+<!--                <span class="vs">vs:</span>-->
+<!--                <span class="eventOpponent">Pastafarians</span>-->
+<!--                <span class="eventLocation">Intramural Fields</span>-->
 <!--            </div>-->
 
         </div>
