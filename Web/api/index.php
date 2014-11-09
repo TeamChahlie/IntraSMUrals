@@ -474,16 +474,12 @@ function insertTeam() {
     }
 }
 //Inserting a student into the database (no involvement added at this time)
-<<<<<<< HEAD
-function insertStudent() {
-    $sqlStudent = "INSERT INTO Student Values (:studentID, :fname, :lname, :email)";
-    $sqlUser = "INSERT INTO User Values(:studentID, :password, :isAdmin)";
-=======
+
 function insertCaptain() {
     $sqlStudent = "INSERT INTO Student VALUES (studentID) (:studentID)";
     $sqlUser = "INSERT INTO User VALUES (studentID) (:studentID)";
     $sqlCaptain = "INSERT INTO Team VALUES (captainID, isAdmin) (:captainID, 1)";
->>>>>>> FETCH_HEAD
+
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $studentInfo = json_decode($request->getBody());
