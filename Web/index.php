@@ -26,6 +26,5 @@
         <h2 class="pageHeader">Welcome to IntraSMUrals!</h2>
         <p class="noContent">Our dev team is working hard to bring you the best user experience possible. Check back often to see our progress!</p>
     </div>
-    <link href="css/main.css" rel="stylesheet" type="text/css">
 </body>
 </html>
