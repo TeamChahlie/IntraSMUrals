@@ -7,7 +7,7 @@ $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->post('/insertSport', 'insertSport');
 $app->post('/insertTeam', 'insertTeam');
-$app->post('/insertStudent', 'insertStudent');
+$app->post('/insertCaptain', 'insertStudent');
 $app->get('/getStudentInfo', 'getStudentInformation');
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
@@ -389,27 +389,29 @@ function insertSport() {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
+
+//------------------------------ TEAM CREATION ------------------------------//
 //Should insert team info
 function insertTeam() {
-    $sqlTeam = "INSERT INTO Team Values (:sportID, :teamID, :teamName, :captainID);";
+    $sqlTeam = "UPDATE Team VALUES (sportID, teamID, teamName) (:sportID, :teamID, :teamName)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $teamInfo = json_decode($request->getBody());
     try {
         $db = getConnection();
         $stmt = $db->prepare($sqlTeam);
-        $stmt->bindParam("sportID", $teamInfo->sportId);
+        $stmt->bindParam("sportID", $teamInfo->sportID);
         $stmt->bindParam("teamID", $teamInfo->teamID);
         $stmt->bindParam("teamName", $teamInfo->teamName);
-        $stmt->bindParam("captainName", $teamInfo->captainID);
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
 //Inserting a student into the database (no involvement added at this time)
-function insertStudent() {
-    $sqlStudent = "INSERT INTO Student Values (:studentID, :fname, :lname, :email)";
-    $sqlUser = "INSERT INTO User Values(:studentID, :password, :isAdmin)";
+function insertCaptain() {
+    $sqlStudent = "INSERT INTO Student VALUES (studentID) (:studentID)";
+    $sqlUser = "INSERT INTO User VALUES (studentID) (:studentID)";
+    $sqlCaptain = "INSERT INTO Team VALUES (captainID) (:captainID)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $studentInfo = json_decode($request->getBody());
@@ -418,24 +420,28 @@ function insertStudent() {
             $db = getConnection();
             //Adds to student table
             $stmt = $db->prepare($sqlStudent);
-            $stmt->bindParam("studentID", $studentInfo->studentid);
-            $stmt->bindParam("fname", $studentInfo->fname);
-            $stmt->bindParam("lname", $studentInfo->lname);
-            $stmt->bindParam("email", $studentInfo->email);
+            $stmt->bindParam("studentID", $studentInfo->studentID);
             $stmt->execute();
         }
         if (isset($sqlUser)) {
             //Adds to user table
             $stmt = $db->prepare($sqlUser);
-            $stmt->bindParam("studentID", $studentInfo->studentid);
-            $stmt->bindParam("password", $studentInfo->assignedPassword);
-            $stmt->bindParam("isAdmin", $studentInfo->isAdmin);
+            $stmt->bindParam("studentID", $studentInfo->studentID);
+            $stmt->execute();
+        }
+        if (isset($sqlCaptain)) {
+            //Adds to user table
+            $stmt = $db->prepare($sqlUser);
+            $stmt->bindParam("captainID", $studentInfo->captainID);
             $stmt->execute();
         }
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
+
+
+//------------------------------ SCHEDULING ------------------------------//
 //Should insert team info (both match ids are autoincremented)
 function insertMatch() {
     $sqlMatch = "INSERT INTO TeamMatch VALUES (ATeamID, BTeamID, dateOf, timeOf) (:aTeamID, :bTeamID, :timeof,  :dateof);";
