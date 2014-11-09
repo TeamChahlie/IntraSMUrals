@@ -5,16 +5,16 @@ $app = new \Slim\Slim();
 # Define GET and POST requests here
 $app->post('/login', 'login');
 $app->post('/register', 'register');
+$app->get('/adminCheck/:userID', 'adminCheck');
 $app->post('/insertSport', 'insertSport');
 $app->post('/insertTeam', 'insertTeam');
-$app->post('/insertCaptain', 'insertStudent');
+$app->post('/insertCaptain', 'insertCaptain');
+$app->post('/addScores', 'addScores');
+$app->post('/insertMatch', 'insertMatch');
 $app->get('/getStudentInfo', 'getStudentInformation');
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
-$app->get('/adminCheck/:userID', 'adminCheck');
-$app->get('/addScores', 'addScores');
-$app->get('/insertMatch', 'insertMatch');
 $app->get('/getAllSports', 'getAllSports');
 $app->get('/getStudentTeams/:studentName', 'getStudentTeams');
 $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
@@ -22,6 +22,7 @@ $app->get('/getTeamCaptain/:teamName', 'getTeamCaptain');
 $app->get('/getTeamSchedule/:teamName', 'getTeamSchedule');
 $app->get('/getTeamRoster/:teamName', 'getTeamRoster');
 $app->run();
+
 // returns a team's scheduled games with scores and opponents
 function getTeamRoster($teamName) {
     $sql = "SELECT fname, lname FROM Team NATURAL JOIN Involvement NATURAL JOIN Student WHERE teamName = :teamName ORDER BY lname";
