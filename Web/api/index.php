@@ -23,6 +23,7 @@ $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
 $app->get('/getTeamCaptain/:teamName', 'getTeamCaptain');
 $app->get('/getTeamSchedule/:teamName', 'getTeamSchedule');
 $app->get('/getTeamRoster/:teamName', 'getTeamRoster');
+$app->get('/viewCaptainEmail/', 'viewCaptainEmail');
 $app->run();
 
 //============================== GENERAL FUNCTIONS ==============================//
@@ -494,6 +495,35 @@ ON Team.captainID=Student.studentID WHERE teamName = :teamName";
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
+}
+
+//View the captain emails for every team - returns team name and email. 
+function viewCaptainEmail () {
+//if you're getting it by team
+	 $sql = "SELECT teamName, email FROM Team NATURAL LEFT JOIN student WHERE studentID = :captainID";
+//If you want it by team ID
+	 //$sql = "SELECT teamName, email FROM Team NATURAL JOIN student WHERE studentID = captainID AND teamID = :teamID";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $contactInfo = json_decode($request->getBody());
+        $stmt->bindParam('captainID', $contactInfo->captainID);
+        //$stmt->bindParam('captainID', $contactInfo->teamID);
+        $stmt->execute();
+        $Teams = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Emails = array(
+                'TeamName' => $row['teamName'],
+                'emails' => $row['email'],
+            );
+            echo json_encode($Emails);
+        }
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+
+
+
 }
 
 //returns the match information based on the SportName should be checked
