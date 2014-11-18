@@ -25,6 +25,7 @@ $app->get('/getTeamSchedule/:teamName', 'getTeamSchedule');
 $app->get('/getTeamRoster/:teamName', 'getTeamRoster');
 $app->get('/getCaptainEmail/', 'viewCaptainEmail');
 $app->get('/getStudentEmails/', 'getStudentEmails');
+$app->get('/getTeamEmails/', 'getTeamEmails');
 $app->run();
 
 //============================== GENERAL FUNCTIONS ==============================//
@@ -526,7 +527,7 @@ function getCaptainEmail () {
 
 //returns ONLY student emails
 function getStudentEmails() {
-//if you're getting it by team
+//if you're getting all of them
 	 $sql = "SELECT email FROM student";
     try {
         $db = getConnection();
@@ -543,9 +544,31 @@ function getStudentEmails() {
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
-
-
 }
+
+
+function getTeamEmails() {
+//if you're getting it by team
+	 $sql = "SELECT email FROM student NATURAL JOIN Involvement WHERE teamID = :teamID";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $contactInfo = json_decode($request->getBody());
+        $stmt->bindParam('teamID', $contactInfo->teamID);
+        $stmt->execute();
+        $Teams = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Emails = array(
+                'emails' => $row['email'],
+            );
+            echo json_encode($Emails);
+        }
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+
 
 //returns the match information based on the SportName should be checked
 function getUniversalSportSchedule() {
