@@ -23,7 +23,8 @@ $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
 $app->get('/getTeamCaptain/:teamName', 'getTeamCaptain');
 $app->get('/getTeamSchedule/:teamName', 'getTeamSchedule');
 $app->get('/getTeamRoster/:teamName', 'getTeamRoster');
-$app->get('/viewCaptainEmail/', 'viewCaptainEmail');
+$app->get('/getCaptainEmail/', 'viewCaptainEmail');
+$app->get('/getStudentEmails/', 'getStudentEmails');
 $app->run();
 
 //============================== GENERAL FUNCTIONS ==============================//
@@ -498,7 +499,7 @@ ON Team.captainID=Student.studentID WHERE teamName = :teamName";
 }
 
 //View the captain emails for every team - returns team name and email. 
-function viewCaptainEmail () {
+function getCaptainEmail () {
 //if you're getting it by team
 	 $sql = "SELECT teamName, email FROM Team NATURAL LEFT JOIN student WHERE studentID = :captainID";
 //If you want it by team ID
@@ -521,7 +522,27 @@ function viewCaptainEmail () {
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
+}
 
+//returns ONLY student emails
+function getStudentEmails() {
+//if you're getting it by team
+	 $sql = "SELECT email FROM student";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $contactInfo = json_decode($request->getBody());
+        $stmt->execute();
+        $Teams = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Emails = array(
+                'emails' => $row['email'],
+            );
+            echo json_encode($Emails);
+        }
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
 
 
 }
