@@ -28,12 +28,10 @@
 
 #navbar li a {
     display: block;
-    background-color: transparent;
     padding: .5em;
     border-radius: 5px;
     cursor: url("../img/PerunaSmall.png"), auto;
     transition: background-color 0.4s ease, color 0.4s ease;
-
 }
 
 #navbar li a:hover{
@@ -113,8 +111,8 @@
 #navLoginButton {
     outline: 0;
     padding: .5em;
-    background: none;
     border: 0;
+    background: none;
     font: inherit;
     color: #000000;
     border-radius: 5px;

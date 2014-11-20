@@ -38,10 +38,13 @@ function insertTeamButtons() {
 }
 
 function teamButtonListener() {
+
     var buttons = document.getElementsByClassName('teamButtonSelected');
     for(var button in buttons) {
         buttons[button].className = "teamButton";
+
     }
+
     this.className = "teamButtonSelected";
 
     var teamName = this.textContent;

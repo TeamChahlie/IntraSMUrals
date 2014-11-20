@@ -1,6 +1,7 @@
 
 $(document).ready(function() {
 
+    populateSportMenu();
     addLoginClickListener();
 
 
@@ -16,6 +17,22 @@ $(document).ready(function() {
     checkAdmin();
 
 });
+
+function populateSportMenu() {
+    var sportDropDown = document.getElementById('sportDropdown');
+
+    $.getJSON('/api/getAllSports', function(sports) {
+        for(var i = 0; i < sports.length; i++) {
+            var li = document.createElement('li');
+            sportDropDown.appendChild(li);
+
+            var a = document.createElement('a');
+            a.textContent = sports[i];
+            a.href = "/sportHome.php?sport=" + sports[i];
+            li.appendChild(a);
+        }
+    });
+}
 
 function addLoginClickListener() {
     $('#navLoginForm').submit(function() {
