@@ -27,6 +27,7 @@ $app->get('/getCaptainEmail/', 'viewCaptainEmail');
 $app->get('/getStudentEmails/', 'getStudentEmails');
 $app->get('/getTeamEmails/', 'getTeamEmails');
 $app->get('/getMatches/', 'getMatches');
+$app->get('/getUpcomingMatches/', 'getUpcomingMatches');
 $app->run();
 
 //============================== GENERAL FUNCTIONS ==============================//
@@ -644,6 +645,27 @@ function viewTeams() {
 //should return matches grouped by sport
 function getMatches() {
     $sql = "SELECT matchID FROM Teammatch NATURAL JOIN Sport ORDER BY sportName";
+    try {
+        $db = getConnection();
+        $stmt = $db->query($sql);
+        $matches = [];
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $matches[] = $row['matchID'];
+        }
+        $db = null;
+        echo json_encode($matches);
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+//should return matches for next two weeks grouped by sport
+function getUpcomingMatches() {
+    $today = date_create();
+    $upcoming = date_add($today, new DateInterval('P14D'));
+    $today = $today->format('Y-m-d');
+    $upcoming = $upcoming->format('Y-m-d');
+    $sql = "SELECT matchID FROM Teammatch NATURAL JOIN Sport WHERE dateOf <= '$upcoming' AND dateOf > '$today' ORDER BY sportName";
     try {
         $db = getConnection();
         $stmt = $db->query($sql);
