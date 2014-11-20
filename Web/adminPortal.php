@@ -12,6 +12,7 @@
     <script src="js/modal.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/nav.js"></script>
+    <script src="js/adminPortal.js"></script>
 
     <!-- CSS Files -->
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
@@ -23,10 +24,15 @@
 <body>
 <?php include "components/navbar.html"; include "components/modals.html"?>
 
-<div class="section">
-    <h2 class="pageHeader">Admin Portal</h2>
-    <p class="noContent">This is where the magic happens. The Admin Portal lets you create new sports, add teams, schedule games, assign captains, and much, much more.</p>
-</div>
-<link href="css/main.css" rel="stylesheet" type="text/css">
+    <div class="section">
+        <h2 class="pageHeader">Admin Portal</h2>
+        <div id="adminButtons">
+            <div class="adminButton">Add A Sport</div>
+            <div class="adminButton">Add A Team</div>
+            <div class="adminButton">Add A Game</div>
+            <div class="adminButton">Add Game Results</div>
+            <div class="adminButton">Assign Team Captain</div>
+        </div>
+    </div>
 </body>
 </html>
