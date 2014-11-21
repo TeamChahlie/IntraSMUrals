@@ -18,6 +18,7 @@
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
     <link href="css/modal.css" rel="stylesheet" type="text/css">
+    <link href="css/adminForms.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 
@@ -26,12 +27,17 @@
 
     <div class="section">
         <h2 class="pageHeader">Admin Portal</h2>
+        <div id="formView">
+            <?php include "components/adminForms.html"; ?>
+        </div>
         <div id="adminButtons">
-            <div class="adminButton">Add A Sport</div>
-            <div class="adminButton">Add A Team</div>
-            <div class="adminButton">Add A Game</div>
-            <div class="adminButton">Add Game Results</div>
-            <div class="adminButton">Assign Team Captain</div>
+            <div id="addSport" class="adminButton">Add Sport</div>
+            <div id="deleteSport" class="adminButton">Delete Sport</div>
+            <div id="addTeam" class="adminButton">Add Team</div>
+            <div id="deleteTeam" class="adminButton">Delete Team</div>
+            <div id="addGame" class="adminButton">Add Game</div>
+            <div id="addResults" class="adminButton">Add Game Results</div>
+            <div id="assignCaptain" class="adminButton">Assign Team Captain</div>
         </div>
     </div>
 </body>

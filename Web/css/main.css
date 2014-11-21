@@ -49,7 +49,7 @@ body {
     font-size: 1.5em;
 }
 
-#studentSchedule, #teamSchedule {
+#studentSchedule, #teamSchedule, #formView {
     position: relative;
     float: left;
     display: inline-block;
@@ -62,7 +62,7 @@ body {
     border: 1px solid #000000;
 }
 
-#studentTeamList, #playerList {
+#studentTeamList, #playerList, #adminButtons {
     display: inline-block;
     margin: 1%;
     width: 25%;
@@ -186,14 +186,10 @@ body {
     text-align: center;
 }
 
-#adminButtons {
-    text-align: center;
-}
-
 .adminButton {
-    display: inline-block;
+    display: block;
     margin: 5px;
-    width: 15%;
+    width: 91%;
     text-align: center;
     text-decoration: none;
     font-size: 1.5em;
@@ -211,9 +207,9 @@ body {
 }
 
 .adminButtonSelected {
-    display: inline-block;
+    display: block;
     margin: 5px;
-    width: 15%;
+    width: 91%;
     text-align: center;
     text-decoration: none;
     font-size: 1.5em;

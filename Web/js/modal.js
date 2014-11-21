@@ -92,7 +92,7 @@ function createAccount() {
             error: function() {
                 alert("U DUN GOOFED.");
             }
-        })
+        });
     }
 }
 

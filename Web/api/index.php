@@ -213,16 +213,16 @@ function adminCheck($userID) {
 //============================== ADMIN CREATE ==============================//
 //Should insert sport and ID (if there's a convention besides just incrementing) 
 function insertSport() {
-    $sqlSport = "INSERT INTO SPORT Values (:sportID, :sportName)";
+    $sqlSport = "INSERT INTO SPORT (sportName) Values (:sportName)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $sportInfo = json_decode($request->getBody());
     try {
         $db = getConnection();
         $stmt = $db->prepare($sqlSport);
-        $stmt->bindParam("sportID", $sportInfo->id);
         $stmt->bindParam("sportName", $sportInfo->sportName);
         $stmt->execute();
+        echo '{"success": true}';
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
