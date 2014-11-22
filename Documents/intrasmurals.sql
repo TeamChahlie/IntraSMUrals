@@ -95,9 +95,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `Sport`;
 
 CREATE TABLE `Sport` (
-  `sportID` int(11) NOT NULL DEFAULT '0',
+  `sportID` int(11) NOT NULL AUTO_INCREMENT,
   `sportName` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`sportID`)
+  PRIMARY KEY (`sportID`),
+  UNIQUE KEY `sportName` (`sportName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `Sport` WRITE;
