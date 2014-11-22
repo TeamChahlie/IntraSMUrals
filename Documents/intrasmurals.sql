@@ -164,7 +164,7 @@ CREATE TABLE `Team` (
 LOCK TABLES `Team` WRITE;
 /*!40000 ALTER TABLE `Team` DISABLE KEYS */;
 
-INSERT INTO `Team` (`sportID`, `teamID`, `teamName`, `captainID`)
+INSERT INTO `Team` (`sportID`, `teamID`, `teamName`, `captainID`, `isApproved`)
 VALUES
 	(56789,1,'Alpha',19283910, 1),
 	(56789,2,'Pastafarians',19283910, 1),
