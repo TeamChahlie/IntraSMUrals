@@ -1,5 +1,4 @@
 ﻿html {
-    height: 100%;
     width: 100%;
 }
 
@@ -218,4 +217,63 @@ body {
     cursor: url("../img/PerunaSmall.png"), auto;
     color: #FFFFFF;
     background-color: darkblue;
+}
+
+#sportContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.sportView {
+    display: inline-block;
+    width: 20%;
+    padding: 10px;
+    min-height: 100px;
+    margin: 15px;
+    text-align: center;
+    background-color: #999999;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    cursor: url("../img/PerunaSmall.png"), auto;
+}
+
+.sportView:hover {
+    color: #FFFFFF;
+    background-color: #0000FF;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.sportViewSelected {
+    display: inline-block;
+    width: 20%;
+    padding: 10px;
+    min-height: 100px;
+    margin: 15px;
+    text-align: center;
+    background-color: #999999;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    cursor: url("../img/PerunaSmall.png"), auto;
+}
+
+.sportViewContainer {
+    min-height: 250px;
+}
+
+#addNewSport {
+    border: 2px solid red;
+}
+
+.sportTitle {
+    margin: 10px 0px;
+    font-size: 2em;
+}
+
+.sportInfo {
+    font-size: 1.5em;
+}
+
+.sportOptionMenu {
+    height: 50px;
+    display: none;
 }

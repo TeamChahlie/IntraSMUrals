@@ -18,7 +18,7 @@
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
     <link href="css/modal.css" rel="stylesheet" type="text/css">
-    <link href="css/adminForms.css" rel="stylesheet" type="text/css">
+    <link href="css/adminModals.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 
@@ -27,17 +27,39 @@
 
     <div class="section">
         <h2 class="pageHeader">Admin Portal</h2>
-        <div id="formView">
-            <?php include "components/adminForms.html"; ?>
-        </div>
-        <div id="adminButtons">
-            <div id="addSport" class="adminButton">Add Sport</div>
-            <div id="deleteSport" class="adminButton">Delete Sport</div>
-            <div id="addTeam" class="adminButton">Add Team</div>
-            <div id="deleteTeam" class="adminButton">Delete Team</div>
-            <div id="addGame" class="adminButton">Add Game</div>
-            <div id="addResults" class="adminButton">Add Game Results</div>
-            <div id="assignCaptain" class="adminButton">Assign Team Captain</div>
+        <div id="sportContainer">
+            <div class="sportViewContainer">
+                <div id="addNewSport" class="sportView">
+                    <h2 class="sportTitle">Add New Sport</h2>
+<!--                    <div class="sportInfo">9 Total Sports</div>-->
+                    <div class="sportOptionMenu"></div>
+                </div>
+                <div class="sportView">
+                    <h2 class="sportTitle">Basketball</h2>
+<!--                    <div class="sportInfo">14 Registered Teams</div>-->
+                    <div class="sportOptionMenu">ERMAHGERD</div>
+                </div>
+                <div class="sportView">
+                    <h2 class="sportTitle">Football</h2>
+<!--                    <div class="sportInfo">22 Registered Teams</div>-->
+                    <div class="sportOptionMenu">ERMAHGERD</div>
+                </div>
+                <div class="sportView">
+                    <h2 class="sportTitle">Basketball</h2>
+<!--                    <div class="sportInfo">14 Registered Teams</div>-->
+                    <span class="sportOptionMenu">ERMAHGERD</span>
+                </div>
+            </div>
+            <div class="sportView">
+                <h2 class="sportTitle">Underwater Basket Weaving</h2>
+                <div class="sportInfo">14 Registered Teams</div>
+                <div class="sportOptionMenu">ERMAHGERD</div>
+            </div>
+            <div class="sportView">
+                <h2 class="sportTitle">Basketball</h2>
+                <div class="sportInfo">14 Registered Teams</div>
+                <div class="sportOptionMenu">ERMAHGERD</div>
+            </div>
         </div>
     </div>
 </body>
