@@ -20,8 +20,10 @@ $(document).ready(function() {
 
 function populateSportMenu() {
     var sportDropDown = document.getElementById('sportDropdown');
-
+    console.log("HERE");
     $.getJSON('/api/getAllSports', function(sports) {
+        console.log(sports);
+        sessionStorage.setItem("sports", JSON.stringify(sports));
         for(var i = 0; i < sports.length; i++) {
             var li = document.createElement('li');
             sportDropDown.appendChild(li);

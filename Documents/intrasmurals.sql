@@ -95,9 +95,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `Sport`;
 
 CREATE TABLE `Sport` (
-  `sportID` int(11) NOT NULL DEFAULT '0',
+  `sportID` int(11) NOT NULL AUTO_INCREMENT,
   `sportName` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`sportID`)
+  PRIMARY KEY (`sportID`),
+  UNIQUE KEY `sportName` (`sportName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `Sport` WRITE;
@@ -164,7 +165,7 @@ CREATE TABLE `Team` (
 LOCK TABLES `Team` WRITE;
 /*!40000 ALTER TABLE `Team` DISABLE KEYS */;
 
-INSERT INTO `Team` (`sportID`, `teamID`, `teamName`, `captainID`)
+INSERT INTO `Team` (`sportID`, `teamID`, `teamName`, `captainID`, `isApproved`)
 VALUES
 	(56789,1,'Alpha',19283910, 1),
 	(56789,2,'Pastafarians',19283910, 1),

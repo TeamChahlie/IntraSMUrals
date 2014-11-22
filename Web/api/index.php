@@ -28,6 +28,13 @@ $app->get('/getStudentEmails', 'getStudentEmails');
 $app->get('/getTeamEmails/:teamName', 'getTeamEmails');
 $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
+
+//ADMIN Calls, please don't move anything between here and the next comment
+$app->get('/getSportList', 'getSportList');
+
+//ADMIN Calls, please don't move anything between here and the previous comment
+
+
 $app->run();
 
 //============================== GENERAL FUNCTIONS ==============================//
@@ -208,7 +215,26 @@ function adminCheck($userID) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
-
+//============================== ADMIN VIEWS ==============================//
+// returns a team's scheduled games with scores and opponents
+function getSportList() {
+    $sql = "SELECT sportName, COUNT(teamID) as teamCount FROM Sport NATURAL JOIN Team GROUP BY sportName";
+    try {
+        $db = getConnection();
+        $response = array();
+        //first get home games
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($response,$row);
+        }
+        
+        $db = null;
+        echo json_encode($response);
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
 
 //============================== ADMIN CREATE ==============================//
 //Should insert sport and ID (if there's a convention besides just incrementing) 
@@ -675,8 +701,8 @@ function getUpcomingMatches() {
 function getConnection() {
     $dbhost = "127.0.0.1";
     $dbpass = "";
-//    $dbhost = "localhost";
-//    $dbpass = "root";
+    // $dbhost = "localhost";
+    // $dbpass = "root";
     $dbuser = "root";
     $dbname = "IntraSMUrals";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
