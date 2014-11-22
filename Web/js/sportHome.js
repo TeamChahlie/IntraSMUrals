@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('.pageHeader').text(get('sport'));
+    insertTeamButtons();
 
-    tableCreate();
 });
 
 function get(name){

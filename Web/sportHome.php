@@ -26,10 +26,10 @@
 
 <div class="section">
     
-    <h2 class="pageHeader">My Sports</h2>
+    <h2 class="pageHeader">Available Sports</h2>
         <div id="studentSchedule">
             <h2 class="sectionHeader">Upcoming Games</h2>
-            <p class="noContent">Select a Team on the right to view upcoming games</p>
+            <p class="noContent"></p>
 
 <!--            <div class="scheduleEvent">-->
 <!--                <span class="eventDate">Wednesday, Oct. 24th</span>-->

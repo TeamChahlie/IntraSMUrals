@@ -11,6 +11,7 @@
     <script src="js/modal.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/nav.js"></script>
+    <script src="js/home.js"></script>
 
     <!-- CSS Files -->
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
@@ -34,25 +35,20 @@
  	
  		<div style="background-color:#FFFFFF; border-radius:9px; margin-left:60px; width:89.3%; padding:10px;">
       		<h2 class="pageHeader">IntraSMUrals</h2>
-        	<p>Just because you’re not an athlete doesn’t mean you shouldn’t be able to enjoy sports. Southern Methodist University's slogan was at one point: “Every Mustang Will be Valued”. This slogan applies to both sexual assaults and the athletic arena. As a school renowned for a population of students that are on the right side of the attractiveness bell-curve, getting involved with intramurals at SMU is a great way to stay in shape and be involved with the community at Southern Methodist University. Many greek organizations participate in intramurals but that shouldn't exclude the rest of the student body, all you need is a group of people ranging from 5 to 20 depending on what the sport requires.<p>
-If you find our intramurals lacking: choose a sport you love, show us that the student body is interested, and we'll work to make it happen! <p>
-			</p>
+        	<p> Just because you’re not an athlete doesn’t mean you shouldn’t be able to enjoy sports. Southern Methodist University's slogan was at one point: “Every Mustang Will be Valued”. This slogan applies to both sexual assaults and the athletic arena. As a school renowned for a population of students that are on the right side of the attractiveness bell-curve, getting involved with intramurals at SMU is a great way to stay in shape and be involved with the community at Southern Methodist University. Many greek organizations participate in intramurals but that shouldn't exclude the rest of the student body, all you need is a group of people ranging from 5 to 20 depending on what the sport requires.</p>
+            <p> If you find our intramurals lacking: choose a sport you love, show us that the student body is interested, and we'll work to make it happen! </p>
    		 </div>
     
     <div>
     	<div style="background-color:#FFFFFF; float:left; height:300px; border-radius:9px; margin-top:10px; margin-bottom:10px; margin-left:60px; width:30%; padding:5px;">
     		<h3 class="sectionHeader">Sports</h3><hr>
-    	<script>
-    			sessionStorage.getItem(sports);
-    		</script>
+        <div id="homeSportList">
+        </div>
     	</div>
     
     	<div style="background-color:#FFFFFF; border-radius:9px; height:300px; margin-top:10px; margin-right:50px; width:58%; float:right; padding:5px;">
     		<h3 class="sectionHeader">Upcoming Games</h3>
     		<hr>
-    		<script>
-    			sessionStorage.getItem(sports);
-    		</script>
     	</div>
     	</div>
     	
