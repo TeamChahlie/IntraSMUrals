@@ -39,7 +39,7 @@ function populateAllUpcomingGames() {
    // var matchList = document.getElementById('homeUpcomingGameList');
     
     $.getJSON('api/getUpcomingMatches', function(info) {
-        info = 'This needs to be filled up by the DB. This area will be filled by a JSON created by the getUpcomingMatches call. once this is done, delete this text from the home.js file. ';
+        info = 'This needs to be filled up by the DB. The getUpcomingMatches returns a blank Json. Needs to be fixed. ';
         console.log(info);
         document.getElementById('homeUpcomingGameList').textContent = info;
     });
