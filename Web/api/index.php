@@ -12,8 +12,6 @@ $app->post('/insertCaptain', 'insertCaptain');
 $app->post('/insertMatch', 'insertMatch');
 $app->post('/addScores', 'addScores');
 
-$app->post('/deleteSport', 'deleteSport');
-
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
@@ -33,6 +31,7 @@ $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 //ADMIN Calls, please don't move anything between here and the next comment
 $app->get('/getSportList', 'getSportList');
 $app->post('/insertSport', 'insertSport');
+$app->post('/deleteSport', 'deleteSport');
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
 
 
@@ -42,7 +41,7 @@ $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
 $app->run();
 
 //============================== ADMIN ==============================//
-// returns a team's scheduled games with scores and opponents
+// returns list of sports and number of teams in each
 function getSportList() {
     $sql = "SELECT sportName, COUNT(teamID) as teamCount FROM Sport LEFT JOIN Team
 ON Sport.sportID=Team.sportID GROUP BY sportName";
@@ -63,7 +62,7 @@ ON Sport.sportID=Team.sportID GROUP BY sportName";
     }
 }
 
-//Should insert sport and ID (if there's a convention besides just incrementing) 
+// inserts sport into database
 function insertSport() {
     $sqlSport = "INSERT INTO SPORT (sportName) Values (:sportName)";
     $app = \Slim\Slim::getInstance();
@@ -80,7 +79,24 @@ function insertSport() {
     }
 }
 
-// returns a team's scheduled games with scores and opponents
+// delete sport from database, will cascade to other tables
+function deleteSport() {
+    $sqlSport = "DELETE FROM Sport WHERE sportName = :sportName";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $sportInfo = json_decode($request->getBody());
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sqlSport);
+        $stmt->bindParam("sportName", $sportInfo->sportName);
+        $stmt->execute();
+        echo '{"success": true}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// returns teams in a specific sport
 function getTeamsInSport($sportName) {
     $sql = "SELECT teamName FROM Sport NATURAL JOIN Team WHERE sportName = :sportName";
     try {
@@ -373,12 +389,6 @@ function adminCheck($userID) {
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
-}
-
-
-//============================== ADMIN REMOVAL FUNCTIONS =============================//
-function deleteSport() {
-    $sql = "";
 }
 
 //============================== ADMIN SEARCH FUNCTIONS ==============================//
