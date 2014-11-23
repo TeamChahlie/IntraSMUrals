@@ -60,7 +60,8 @@ function populateSports() {
 function addClickListeners() {
     $('.sportViewContainer').on('click', 'div.editSport', function() {
         var sportName = $(this).parent().prev().children('.sportTitle').text();
-        console.log("EDIT: " + sportName);
+        var url = "editSport.php?sportName=" + sportName;
+        window.location.href = url;
     });
 
     $('.sportViewContainer').on('click', 'div.deleteSport', function() {

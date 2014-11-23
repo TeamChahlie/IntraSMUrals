@@ -90,7 +90,6 @@ function teamButtonListener() {
 
                 var opponentDiv = document.createElement('span');
                 opponentDiv.className = "eventOpponent";
-//                opponentDiv.textContent = games[key].opponent;
                 container.appendChild(opponentDiv);
 
                 var teamLink = document.createElement('a');

@@ -38,7 +38,6 @@ function loadSpecificTeamInfo() {
         
     $.getJSON('api/getTeamRoster/' + get('team') , function(roster) {
 
-        
         console.log(roster);
 
         if (roster.length == 0) {

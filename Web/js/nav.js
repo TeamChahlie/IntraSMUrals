@@ -20,9 +20,7 @@ $(document).ready(function() {
 
 function populateSportMenu() {
     var sportDropDown = document.getElementById('sportDropdown');
-    console.log("HERE");
     $.getJSON('/api/getAllSports', function(sports) {
-        console.log(sports);
         sessionStorage.setItem("sports", JSON.stringify(sports));
         for(var i = 0; i < sports.length; i++) {
             var li = document.createElement('li');
@@ -42,8 +40,6 @@ function addLoginClickListener() {
         user.email = document.getElementById('navEmail').value;
         user.password = document.getElementById('navPassword').value;
 
-        console.log(user.email);
-        console.log(user.password);
 
         $.ajax({
             type: 'POST',
@@ -86,8 +82,6 @@ function addLoginClickListener() {
 
 function checkAdmin() {
     var userID = parseInt(sessionStorage.getItem('userID'));
-    console.log(sessionStorage);
-    console.log(userID);
     if(userID != 1) {
         $.getJSON('api/adminCheck/' + userID, function(result) {
             if(result.isAdmin != null) {
