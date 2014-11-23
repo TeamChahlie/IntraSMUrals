@@ -28,6 +28,7 @@ $app->get('/getCaptainEmail/:teamName', 'getCaptainEmail');
 $app->get('/getStudentEmails', 'getStudentEmails');
 $app->get('/getTeamEmails/:teamName', 'getTeamEmails');
 $app->get('/getAllCaptainEmails', 'getAllCaptainEmails');
+$app->get('/getCaptainEmailsBySport', 'getCaptainEmailsBySport');
 $app->get('/getAdminEmails', 'getAdminEmails');
 $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
@@ -624,7 +625,27 @@ function getTeamEmails($teamName) {
 
 // returns all captain emails
 function getAllCaptainEmails () {
-     $sql = "SELECT s.email FROM Team t INNER JOIN Student s ON t.captainID = s.studentID";
+     $sql = "SELECT s.email FROM Team t JOIN Student s ON t.captainID = s.studentID";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam('teamName', $teamName);
+        $stmt->execute();
+        $Teams = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Emails = array(
+                'emails' => $row['email'],
+            );
+            echo json_encode($Emails);
+        }
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// returns all captain emails
+function getCaptainEmailsBySport ($sportName) {
+     $sql = "SELECT email FROM Team t JOIN Student s ON t.captainID = s.studentID NATURAL JOIN Sport sp WHERE sp.sportName = :sportName";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
@@ -644,7 +665,7 @@ function getAllCaptainEmails () {
 
 // returns all admin emails
 function getAdminEmail () {
-     $sql = "SELECT s.email FROM User u INNER JOIN Student s ON s.studentID=u.studentID WHERE isAdmin=1";
+     $sql = "SELECT s.email FROM User u JOIN Student s ON s.studentID=u.studentID WHERE isAdmin=1";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
