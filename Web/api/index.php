@@ -42,7 +42,8 @@ $app->run();
 //============================== ADMIN ==============================//
 // returns a team's scheduled games with scores and opponents
 function getSportList() {
-    $sql = "SELECT sportName, COUNT(teamID) as teamCount FROM Sport NATURAL JOIN Team GROUP BY sportName";
+    $sql = "SELECT sportName, COUNT(teamID) as teamCount FROM Sport LEFT JOIN Team
+ON Sport.sportID=Team.sportID GROUP BY sportName";
     try {
         $db = getConnection();
         $response = array();
