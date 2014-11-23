@@ -41,7 +41,8 @@
     
     <div>
     	<div style="background-color:#FFFFFF; float:left; height:300px; border-radius:9px; margin-top:10px; margin-bottom:10px; margin-left:60px; width:30%; padding:5px;">
-    		<h3 class="sectionHeader">Sports</h3><hr>
+    		<h3 class="sectionHeader">Sports</h3>
+            <hr>
         <div id="homeSportList">
         </div>
     	</div>
@@ -49,6 +50,7 @@
     	<div style="background-color:#FFFFFF; border-radius:9px; height:300px; margin-top:10px; margin-right:50px; width:58%; float:right; padding:5px;">
     		<h3 class="sectionHeader">Upcoming Games</h3>
     		<hr>
+        <div id="homeUpcomingGameList"> </div>
     	</div>
     	</div>
     	
