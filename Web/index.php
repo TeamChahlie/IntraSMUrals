@@ -49,7 +49,8 @@
             <div style="background-color:#FFFFFF; border-radius:9px; height:300px; margin-top:10px; margin-right:50px; width:58%; float:right; padding:5px;">
                 <h3 class="sectionHeader">Upcoming Games</h3>
                 <hr>
-            <div id="homeUpcomingGameList">
+            <div id="homeUpcomingGameList"> 
+            </div>
             </div>
             </div>
 
