@@ -7,7 +7,6 @@ $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->get('/adminCheck/:userID', 'adminCheck');
 
-$app->post('/insertSport', 'insertSport');
 $app->post('/insertTeam', 'insertTeam');
 $app->post('/insertCaptain', 'insertCaptain');
 $app->post('/insertMatch', 'insertMatch');
@@ -33,6 +32,7 @@ $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 
 //ADMIN Calls, please don't move anything between here and the next comment
 $app->get('/getSportList', 'getSportList');
+$app->post('/insertSport', 'insertSport');
 
 //ADMIN Calls, please don't move anything between here and the previous comment
 
@@ -217,7 +217,7 @@ function adminCheck($userID) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
-//============================== ADMIN VIEWS ==============================//
+//============================== ADMIN ==============================//
 // returns a team's scheduled games with scores and opponents
 function getSportList() {
     $sql = "SELECT sportName, COUNT(teamID) as teamCount FROM Sport NATURAL JOIN Team GROUP BY sportName";
@@ -238,7 +238,6 @@ function getSportList() {
     }
 }
 
-//============================== ADMIN CREATE ==============================//
 //Should insert sport and ID (if there's a convention besides just incrementing) 
 function insertSport() {
     $sqlSport = "INSERT INTO SPORT (sportName) Values (:sportName)";
