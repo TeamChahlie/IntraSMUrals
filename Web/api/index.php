@@ -688,6 +688,7 @@ function getMatches() {
 
 //should return matches for next two weeks grouped by sport
 function getUpcomingMatches() {
+    date_default_timezone_set('America/Chicago');
     $today = date_create();
     $upcoming = date_add($today, new DateInterval('P14D'));
     $today = $today->format('Y-m-d');
