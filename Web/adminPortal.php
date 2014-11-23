@@ -25,41 +25,36 @@
 <body>
 <?php include "components/navbar.html"; include "components/modals.html"?>
 
-    <div class="section">
-        <h2 class="pageHeader">Admin Portal</h2>
-        <div id="sportContainer">
-            <div class="sportViewContainer">
-                <div id="addNewSport" class="sportView">
-                    <h2 class="sportTitle">Add New Sport</h2>
-<!--                    <div class="sportInfo">9 Total Sports</div>-->
-                    <div class="sportOptionMenu"></div>
+    <div class="center">
+        <div class="section">
+            <h2 class="pageHeader">Admin Portal</h2>
+            <div id="sportContainer">
+                <div id="col1" class="sportViewContainer">
+                    <div id="addNewSport">
+                        <div class="sportDefault">
+                            <h2 class="sportTitle">Add New Sport</h2>
+                        </div>
+                    </div>
+<!--                    <div class="sportView">-->
+<!--                        <div class="sportDefault">-->
+<!--                            <h2 class="sportTitle">Basketball</h2>-->
+<!--                        </div>-->
+<!--                        <div class="sportOptionMenu">-->
+<!--                            <div class="sportOptionButton editSport">Edit Sport</div>-->
+<!--                            <div class="sportOptionButton deleteSport">Delete Sport</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                <div id="col2" class="sportViewContainer">
+
                 </div>
-                <div class="sportView">
-                    <h2 class="sportTitle">Basketball</h2>
-<!--                    <div class="sportInfo">14 Registered Teams</div>-->
-                    <div class="sportOptionMenu">ERMAHGERD</div>
+                <div id="col3" class="sportViewContainer">
+
                 </div>
-                <div class="sportView">
-                    <h2 class="sportTitle">Football</h2>
-<!--                    <div class="sportInfo">22 Registered Teams</div>-->
-                    <div class="sportOptionMenu">ERMAHGERD</div>
-                </div>
-                <div class="sportView">
-                    <h2 class="sportTitle">Basketball</h2>
-<!--                    <div class="sportInfo">14 Registered Teams</div>-->
-                    <span class="sportOptionMenu">ERMAHGERD</span>
+                <div id="col4" class="sportViewContainer">
+
                 </div>
             </div>
-            <div class="sportView">
-                <h2 class="sportTitle">Underwater Basket Weaving</h2>
-                <div class="sportInfo">14 Registered Teams</div>
-                <div class="sportOptionMenu">ERMAHGERD</div>
-            </div>
-            <div class="sportView">
-                <h2 class="sportTitle">Basketball</h2>
-                <div class="sportInfo">14 Registered Teams</div>
-                <div class="sportOptionMenu">ERMAHGERD</div>
-            </div>
+            <div style="{clear: both;}"></div>
         </div>
     </div>
 </body>

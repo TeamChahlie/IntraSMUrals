@@ -23,28 +23,29 @@
 <body>
 <?php include "components/navbar.html"; include "components/modals.html"?>
 
+<div class="center">
+    <div class="section">
 
-<div class="section">
-    
-    <h2 class="pageHeader">Available Sports</h2>
-        <div id="studentSchedule">
-            <h2 class="sectionHeader">Upcoming Games</h2>
-            <p class="noContent"></p>
+        <h2 class="pageHeader">Available Sports</h2>
+            <div id="studentSchedule">
+                <h2 class="sectionHeader">Upcoming Games</h2>
+                <p class="noContent"></p>
 
-<!--            <div class="scheduleEvent">-->
-<!--                <span class="eventDate">Wednesday, Oct. 24th</span>-->
-<!--                <span class="eventTime">8:00 pm</span>-->
-<!--                <span class="vs">vs:</span>-->
-<!--                <span class="eventOpponent">Pastafarians</span>-->
-<!--                <span class="eventLocation">Intramural Fields</span>-->
-<!--            </div>-->
+    <!--            <div class="scheduleEvent">-->
+    <!--                <span class="eventDate">Wednesday, Oct. 24th</span>-->
+    <!--                <span class="eventTime">8:00 pm</span>-->
+    <!--                <span class="vs">vs:</span>-->
+    <!--                <span class="eventOpponent">Pastafarians</span>-->
+    <!--                <span class="eventLocation">Intramural Fields</span>-->
+    <!--            </div>-->
 
-        </div>
-        <div id="studentTeamList">
-            <h2 class="sectionHeader">Teams</h2>
-            <p id="noTeams" class="hidden">You are not currently signed up for a team! Go sign up for one now! (COMING SOON)</p>
-        </div>
+            </div>
+            <div id="studentTeamList">
+                <h2 class="sectionHeader">Teams</h2>
+                <p id="noTeams" class="hidden">You are not currently signed up for a team! Go sign up for one now! (COMING SOON)</p>
+            </div>
 
+    </div>
 </div>
 
 

@@ -23,14 +23,16 @@
 <body>
     <?php include "components/navbar.html"; include "components/modals.html"?>
 
-    <div class="section">
-        <h1 id="teamHeader" class="pageHeader"></h1>
-        <h2 id="sportHeader" class="subHeader"></h2>
-        <div id="teamSchedule">
-            <h2 class="sectionHeader">Upcoming Games</h2>
-        </div>
-        <div id="playerList">
-            <h2 class="sectionHeader">Team Roster</h2>
+    <div class="center">
+        <div class="section">
+            <h1 id="teamHeader" class="pageHeader"></h1>
+            <h2 id="sportHeader" class="subHeader"></h2>
+            <div id="teamSchedule">
+                <h2 class="sectionHeader">Upcoming Games</h2>
+            </div>
+            <div id="playerList">
+                <h2 class="sectionHeader">Team Roster</h2>
+            </div>
         </div>
     </div>
 

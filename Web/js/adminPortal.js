@@ -2,6 +2,7 @@
 $(document).ready(function() {
     populateSports();
     addClickListeners();
+    addHoverListeners();
     addChosenJS();
 });
 
@@ -12,22 +13,6 @@ function populateSports() {
 }
 
 function addClickListeners() {
-    $('.sportView').click(function() {
-        $('.sportViewSelected').animate({ height: '-=50px'}, 400);
-        $(this).children('.sportOptionMenu').hide();
-        var buttons = document.getElementsByClassName('sportViewSelected');
-        for(var button in buttons) {
-            buttons[button].className = "sportView";
-        }
-        this.className = "sportViewSelected";
-
-        if($(this).css('display') == 'block') {
-            console.log("TRUE");
-        } else {
-            $(this).animate({ height: '+=50px'}, 400);
-            $(this).children('.sportOptionMenu').show();
-        }
-    });
 
     $('#submitSport').click(function(event) {
         event.preventDefault();
@@ -52,10 +37,24 @@ function addClickListeners() {
         });
     });
 
-    $('.sportView').click(function() {
-
+    $('.editSport').click(function() {
+        console.log("EDIT SPORT");
     });
 
+    $('.deleteSport').click(function() {
+        console.log("DELETE SPORT");
+    });
+
+}
+
+function addHoverListeners() {
+    $('.sportView').hover(function() {
+        $(this).children('.sportDefault').animate({width: 'toggle'}, 200);
+        $(this).children('.sportOptionMenu').animate({width: 'toggle'}, 300);
+    }, function() {
+        $(this).children('.sportOptionMenu').animate({width: 'toggle'}, 200);
+        $(this).children('.sportDefault').animate({width: 'toggle'}, 300);
+    });
 }
 
 function addChosenJS() {
