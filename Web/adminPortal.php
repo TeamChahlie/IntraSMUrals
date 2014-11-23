@@ -13,17 +13,18 @@
     <script src="js/scroll.js"></script>
     <script src="js/nav.js"></script>
     <script src="js/adminPortal.js"></script>
+    <script src="js/adminModal.js"></script>
 
     <!-- CSS Files -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
     <link href="css/modal.css" rel="stylesheet" type="text/css">
     <link href="css/adminModals.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-<?php include "components/navbar.html"; include "components/modals.html"?>
+<?php include "components/navbar.html"; include "components/modals.html"; include "components/adminModals.html"?>
 
     <div class="center">
         <div class="section">
@@ -44,6 +45,7 @@
 <!--                            <div class="sportOptionButton deleteSport">Delete Sport</div>-->
 <!--                        </div>-->
 <!--                    </div>-->
+                </div>
                 <div id="col2" class="sportViewContainer">
 
                 </div>

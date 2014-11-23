@@ -13,6 +13,8 @@ $app->post('/insertCaptain', 'insertCaptain');
 $app->post('/insertMatch', 'insertMatch');
 $app->post('/addScores', 'addScores');
 
+$app->post('/deleteSport', 'deleteSport');
+
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
@@ -348,6 +350,11 @@ function addScores() {
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
+}
+
+//============================== ADMIN REMOVAL FUNCTIONS =============================//
+function deleteSport() {
+    $sql = "";
 }
 
 //============================== ADMIN SEARCH FUNCTIONS ==============================//

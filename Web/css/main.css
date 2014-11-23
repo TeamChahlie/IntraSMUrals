@@ -237,7 +237,7 @@ body {
     display: block;
     width: 240px;
     padding: 10px;
-    height: 100px;
+    height: 105px;
     top: 0;
     white-space: nowrap;
     margin: 15px;
@@ -321,7 +321,7 @@ body {
 }
 
 .sportOptionButton {
-    width: 210px;
+    width: 205px;
     margin: 5px;
     padding: 10px;
     background-color: #555555;
