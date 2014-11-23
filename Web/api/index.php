@@ -33,6 +33,8 @@ $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 //ADMIN Calls, please don't move anything between here and the next comment
 $app->get('/getSportList', 'getSportList');
 $app->post('/insertSport', 'insertSport');
+$app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
+
 
 //ADMIN Calls, please don't move anything between here and the previous comment
 
@@ -73,6 +75,25 @@ function insertSport() {
         $stmt->bindParam("sportName", $sportInfo->sportName);
         $stmt->execute();
         echo '{"success": true}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// returns a team's scheduled games with scores and opponents
+function getTeamsInSport($sportName) {
+    $sql = "SELECT teamName FROM Sport NATURAL JOIN Team WHERE sportName = :sportName";
+    try {
+        $db = getConnection();
+        $response = array();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("sportName", $sportName);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($response,$row);
+        }
+        $db = null;
+        echo json_encode($response);
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
@@ -130,6 +151,7 @@ function insertCaptain() {
     }
 }
 
+//@FIX query without Schedule
 //Should insert team info (both match ids are autoincremented)
 function insertMatch() {
     $sqlMatch = "INSERT INTO TeamMatch VALUES (ATeamID, BTeamID, dateOf, timeOf) (:aTeamID, :bTeamID, :timeof,  :dateof);";
