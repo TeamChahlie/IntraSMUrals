@@ -1,23 +1,18 @@
 
-
 $(document).ready(function() {
-    addClickListeners()
+    populateSports();
+    addClickListeners();
+    addHoverListeners();
+    addChosenJS();
 });
 
+function populateSports() {
+    $.getJSON('api/getSportList', function(sports) {
+
+    });
+}
 
 function addClickListeners() {
-    $('.adminButton').click(function() {
-        var buttons = document.getElementsByClassName('adminButtonSelected');
-        for(var button in buttons) {
-            buttons[button].className = "adminButton";
-        }
-        this.className = "adminButtonSelected";
-
-        var id = $(this)[0].id;
-        id += "Form";
-        hideForms();
-        displayForm(id);
-    });
 
     $('#submitSport').click(function(event) {
         event.preventDefault();
@@ -41,17 +36,40 @@ function addClickListeners() {
             }
         });
     });
+
+    $('.editSport').click(function() {
+        console.log("EDIT SPORT");
+    });
+
+    $('.deleteSport').click(function() {
+        console.log("DELETE SPORT");
+    });
+
+}
+
+function addHoverListeners() {
+    $('.sportView').hover(function() {
+        $(this).children('.sportDefault').animate({width: 'toggle'}, 200);
+        $(this).children('.sportOptionMenu').animate({width: 'toggle'}, 300);
+    }, function() {
+        $(this).children('.sportOptionMenu').animate({width: 'toggle'}, 200);
+        $(this).children('.sportDefault').animate({width: 'toggle'}, 300);
+    });
+}
+
+function addChosenJS() {
+
 }
 
 function displayForm(formID) {
     var form = document.getElementById(formID);
-    form.className = "displayAdminForm";
+    form.className = "displayAdminModal";
 }
 
 function hideForms() {
-    var forms = document.getElementsByClassName('displayAdminForm');
+    var forms = document.getElementsByClassName('displayAdminModal');
     for(var form in forms) {
         console.log(forms[form]);
-        forms[form].className = "adminForm";
+        forms[form].className = "adminModal";
     }
 }

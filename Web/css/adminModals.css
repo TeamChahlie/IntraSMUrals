@@ -1,8 +1,8 @@
-.adminForm {
+.adminModal {
     display:none;
 }
 
-.displayAdminForm {
+.displayAdminModal {
     background-color: #CCCCCC;
     width: 95%;
     margin: 1%;
@@ -23,7 +23,7 @@
     background: 0;
 }
 
-.adminFormTitle {
+.adminModalTitle {
     margin: 0;
     padding: 0.3em;
     font-size: 2em;
@@ -37,6 +37,7 @@
     margin: 0 auto;
     background-color: transparent;
     font-size: 1.5em;
+    font-family: 'Raleway', sans-serif;
     padding: 0.5em;
     border: 0;
     border-radius: 5px;

@@ -18,26 +18,43 @@
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
     <link href="css/modal.css" rel="stylesheet" type="text/css">
-    <link href="css/adminForms.css" rel="stylesheet" type="text/css">
+    <link href="css/adminModals.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 <?php include "components/navbar.html"; include "components/modals.html"?>
 
-    <div class="section">
-        <h2 class="pageHeader">Admin Portal</h2>
-        <div id="formView">
-            <?php include "components/adminForms.html"; ?>
-        </div>
-        <div id="adminButtons">
-            <div id="addSport" class="adminButton">Add Sport</div>
-            <div id="deleteSport" class="adminButton">Delete Sport</div>
-            <div id="addTeam" class="adminButton">Add Team</div>
-            <div id="deleteTeam" class="adminButton">Delete Team</div>
-            <div id="addGame" class="adminButton">Add Game</div>
-            <div id="addResults" class="adminButton">Add Game Results</div>
-            <div id="assignCaptain" class="adminButton">Assign Team Captain</div>
+    <div class="center">
+        <div class="section">
+            <h2 class="pageHeader">Admin Portal</h2>
+            <div id="sportContainer">
+                <div id="col1" class="sportViewContainer">
+                    <div id="addNewSport">
+                        <div class="sportDefault">
+                            <h2 class="sportTitle">Add New Sport</h2>
+                        </div>
+                    </div>
+<!--                    <div class="sportView">-->
+<!--                        <div class="sportDefault">-->
+<!--                            <h2 class="sportTitle">Basketball</h2>-->
+<!--                        </div>-->
+<!--                        <div class="sportOptionMenu">-->
+<!--                            <div class="sportOptionButton editSport">Edit Sport</div>-->
+<!--                            <div class="sportOptionButton deleteSport">Delete Sport</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                <div id="col2" class="sportViewContainer">
+
+                </div>
+                <div id="col3" class="sportViewContainer">
+
+                </div>
+                <div id="col4" class="sportViewContainer">
+
+                </div>
+            </div>
+            <div style="{clear: both;}"></div>
         </div>
     </div>
 </body>

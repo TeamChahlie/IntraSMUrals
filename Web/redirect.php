@@ -19,9 +19,11 @@
 
 <body>
 
-<div class="section">
-    <h2 class="pageHeader">You Sneaky Bastard!</h2>
-    <p class="noContent">You do not have access to this page. Click <a href="index.php">HERE</a> to go to the homepage. </p>
+<div class="center">
+    <div class="section">
+        <h2 class="pageHeader">You Sneaky Bastard!</h2>
+        <p class="noContent">You do not have access to this page. Click <a href="index.php">HERE</a> to go to the homepage. </p>
+    </div>
 </div>
 </body>
 </html>

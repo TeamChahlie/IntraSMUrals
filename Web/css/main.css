@@ -1,5 +1,4 @@
 ﻿html {
-    height: 100%;
     width: 100%;
 }
 
@@ -9,13 +8,20 @@ body {
     background-image: url("../img/tweed.png");
     height: 100%;
     font-family: 'Raleway', sans-serif;
+    text-align: center;
 }
 
-
+.center {
+    width: 1222px;
+    margin: 30px auto;
+}
 .section {
+    position: relative;
+    float: left;
     font-size: 12px;
     background-color: #CCCCCC;
     width: 1200px;
+    height: auto;
     min-height: 500px;
     padding:10px;
     margin-left: auto;
@@ -218,4 +224,116 @@ body {
     cursor: url("../img/PerunaSmall.png"), auto;
     color: #FFFFFF;
     background-color: darkblue;
+}
+
+#sportContainer {
+    position: relative;
+    float: left;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.sportView {
+    display: block;
+    width: 240px;
+    padding: 10px;
+    height: 100px;
+    top: 0;
+    white-space: nowrap;
+    margin: 15px;
+    text-align: center;
+    background-color: #999999;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    cursor: url("../img/PerunaSmall.png"), auto;
+    transition: all 0.4s ease;
+}
+
+.sportView:hover {
+    color: #FFFFFF;
+    box-shadow: inset -300px 0 0 0 #0000FF;
+    transition: all 0.4s ease;
+}
+
+.sportViewSelected {
+    display: inline-block;
+    width: 240px;
+    padding: 10px;
+    height: 100px;
+    margin: 15px;
+    text-align: center;
+    background-color: #999999;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    cursor: url("../img/PerunaSmall.png"), auto;
+}
+
+.sportViewContainer {
+    position: relative;
+    float: left;
+    padding: 5px;
+    top: 0;
+    width: 290px;
+}
+
+#addNewSport {
+    border: 2px solid red;
+    width: 240px;
+    padding: 10px;
+    min-height: 100px;
+    white-space: nowrap;
+    margin: 15px;
+    text-align: center;
+    background-color: #999999;
+    border-radius: 5px;
+    cursor: url("../img/PerunaSmall.png"), auto;
+    transition: all 0.4s ease;
+}
+
+#addNewSport:hover {
+    color: #FFFFFF;
+    box-shadow: inset -300px 0 0 0 #0000FF;
+    transition: all 0.4s ease;
+}
+
+.sportTitle {
+    margin: 10px 0px;
+    font-size: 2em;
+}
+
+.sportInfo {
+    font-size: 1.5em;
+}
+
+.sportDefault {
+    display: block;
+    height: 0px;
+    width: 240px;
+}
+
+.sportOptionMenu {
+    float: right;
+    display: none;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: blue;
+}
+
+.sportOptionButton {
+    width: 210px;
+    margin: 5px;
+    padding: 10px;
+    background-color: #555555;
+    color: white;
+    font-size: 1.5em;
+    font-family: 'Raleway', sans-serif;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: all 0.4s ease;
+}
+
+.sportOptionButton:hover {
+    background-color: #777777;
+    transition: all 0.4s ease
 }
