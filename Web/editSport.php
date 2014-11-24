@@ -34,6 +34,9 @@
 
         <div id="sportSchedule">
             <h2 class="sectionHeader">All Games</h2>
+            <div class="sportScheduleEvent">
+                <div id="addNewMatch">Add New Match</div>
+            </div>
         </div>
 
         <div id="sportTeamList">

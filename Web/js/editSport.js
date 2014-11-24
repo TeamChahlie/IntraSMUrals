@@ -19,6 +19,7 @@ function get(name){
 function getTeams() {
     $.getJSON('api/getTeamsInSport/' + get('sportName'), function(teams) {
 
+        sessionStorage.setItem('teams', JSON.stringify(teams));
         if(teams.length > 0) {
             for(var team in teams) {
                 var teamName = teams[team].teamName;

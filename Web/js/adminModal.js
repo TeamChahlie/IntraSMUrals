@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    prepSelectBoxes();
+
     $('#addNewSport').click(function() {
         displayAdminModal('addSportModal');
     });
@@ -16,6 +18,15 @@ $(document).ready(function() {
     $('#createTeamForm').submit(function(event) {
         event.preventDefault();
         submitTeam();
+    });
+
+    $('#addNewMatch').click(function() {
+        displayAdminModal('addMatchModal');
+    });
+
+    $('#createMatchForm').submit(function(event) {
+        event.preventDefault();
+        submitMatch();
     })
 
     $('#adminOverlay').click(function() {
@@ -26,7 +37,55 @@ $(document).ready(function() {
         hideAdminModals();
     });
 
+    $('#teamSelect1').on('change', function() {
+        var val = $(this).val();
+        var count = 0;
+        $('#teamSelect2').children().each(function() {
+            if(count > 0) {
+                $(this).prop('disabled', false);
+            }
+            if($(this).val() == val) {
+                $(this).prop('disabled', true);
+            }
+            count++;
+        });
+    });
+
+    $('#teamSelect2').on('change', function() {
+        var val = $(this).val();
+        var count = 0;
+        $('#teamSelect1').children().each(function() {
+            if(count > 0) {
+                $(this).prop('disabled', false);
+            }
+            if($(this).val() == val) {
+                $(this).prop('disabled', true);
+            }
+            count++;
+        });
+    });
+
 });
+
+function prepSelectBoxes() {
+    var select1 = document.getElementById('teamSelect1');
+    var select2 = document.getElementById('teamSelect2');
+
+    var teams = JSON.parse(sessionStorage.getItem('teams'));
+    for(var key in teams) {
+        var team = teams[key];
+
+        var option = document.createElement('option');
+        option.value = team.teamName;
+        option.textContent = team.teamName;
+        select1.appendChild(option);
+
+        var option2 = document.createElement('option');
+        option2.value = team.teamName;
+        option2.textContent = team.teamName;
+        select2.appendChild(option2);
+    }
+}
 
 function displayAdminModal(modalID) {
     var modal = document.getElementById(modalID)
@@ -100,4 +159,39 @@ function submitTeam() {
             alert("Error in AJAX request.");
         }
     })
+}
+
+function submitMatch() {
+    var sportName = sessionStorage.getItem('currentSport');
+    var team1 = document.getElementById('teamSelect1').value;
+    var team2 = document.getElementById('teamSelect2').value;
+    var date = document.getElementById('createMatchDate').value;
+    var time = document.getElementById('createMatchTime').value;
+    time += ":00";
+
+    var match = new Object();
+    match.sportName = sportName;
+    match.teamA = team1;
+    match.teamB = team2;
+    match.dateOf = date;
+    match.timeOf = time;
+
+    $.ajax({
+        type: 'POST',
+        url: 'api/insertMatch',
+        content: 'application/json',
+        data: JSON.stringify(match),
+        success: function(data) {
+            var obj = JSON.parse(data);
+            if(obj.success == true) {
+                window.location.href= "editSport.php?sportName=" + sportName;
+            } else {
+                alert("Error inserting match into DB.");
+            }
+        },
+        error: function() {
+            alert("Error in AJAX request.")
+        }
+    })
+
 }

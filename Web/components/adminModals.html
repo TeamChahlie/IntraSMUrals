@@ -21,7 +21,7 @@
 
 <div id="addTeamModal" class="adminModal">
     <div class="adminCloseButton"></div>
-    <h2 class="adminModalTitle">Add Team</h2>
+    <h2 class="adminModalTitle">Add New Team</h2>
     <form id="createTeamForm">
         <input id="createTeamName" class="adminFormElement" type="text" name="teamName" placeholder="Team Name" required>
         <input id="submitTeam" class="formButton" type="submit" value="Create">
@@ -38,8 +38,20 @@
 </div>
 
 
-<div id="addGameModal" class="adminModal">
-    <h2 class="adminFormTitle">Add Game</h2>
+<div id="addMatchModal" class="adminModal">
+    <div class="adminCloseButton"></div>
+    <h2 class="adminFormTitle">Add New Match</h2>
+    <form id="createMatchForm">
+        <select id="teamSelect1" class="adminFormElement" form="createMatchForm" required>
+            <option selected disabled>Team 1</option>
+        </select>
+        <select id="teamSelect2" class="adminFormElement" form="createMatchForm" required>
+            <option selected disabled>Team 2</option>
+        </select>
+        <input id="createMatchDate" class="adminFormElement" type="date" name="date" required>
+        <input id="createMatchTime" class="adminFormElement" type="time" name="time" required>
+        <input id="submitMatch" class="formButton" type="submit" value="Create">
+    </form>
 </div>
 
 <div id="addResultsModal" class="adminModal">

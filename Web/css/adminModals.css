@@ -30,6 +30,7 @@
 .adminFormElement {
     width: 60%;
     margin: 2% auto;
+    font-family: Raleway, sans-serif;
     font-size: 16px;
     padding-left: .5em;
     border: 1px solid red;
