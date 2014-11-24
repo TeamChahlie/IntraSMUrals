@@ -13,9 +13,7 @@ function get(name){
 function getTeams() {
     $.getJSON('api/getTeamsInSport/' + get('sportName'), function(teams) {
 
-        if(teams.length == 0) {
-            document.getElementById('noTeams').className = "visible";
-        } else {
+        if(teams.length > 0) {
             for(var team in teams) {
                 var teamName = teams[team].teamName;
                 var teamList = document.getElementById('sportTeamList');

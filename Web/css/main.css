@@ -399,6 +399,28 @@ body {
     margin-right: 10px;
 }
 
+#addNewTeam {
+    display: block;
+    margin: 5px;
+    width: 270px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5em;
+    background-color: #CCCCCC;
+    padding: .5em;
+    border: 2px solid red;
+    border-radius: 5px;
+    cursor: url("../img/PerunaSmall.png"), auto;
+    transition: all 0.4s ease;
+}
+
+#addNewTeam:hover {
+    color: #FFFFFF;
+    box-shadow: inset -300px 0 0 0 #0000FF;
+    transition: all 0.4s ease;
+}
+
 .truncate {
     width: 250px;
     white-space: nowrap;

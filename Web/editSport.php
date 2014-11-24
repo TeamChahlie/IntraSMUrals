@@ -33,19 +33,13 @@
         <div id="sportSchedule">
             <h2 class="sectionHeader">Upcoming Games</h2>
 
-            <!--            <div class="scheduleEvent">-->
-            <!--                <span class="eventDate">Wednesday, Oct. 24th</span>-->
-            <!--                <span class="eventTime">8:00 pm</span>-->
-            <!--                <span class="vs">vs:</span>-->
-            <!--                <span class="eventOpponent">Pastafarians</span>-->
-            <!--                <span class="eventLocation">Intramural Fields</span>-->
-            <!--            </div>-->
-
         </div>
         <div id="sportTeamList">
             <h2 class="sectionHeader">Teams</h2>
-            <p id="noTeams" class="hidden">There are no teams affiliated with this sport yet</p>
 
+            <div id="addNewTeam">
+                <h2 class="teamTitle">Add New Team</h2>
+            </div>
         </div>
     </div>
 </div>

@@ -9,6 +9,10 @@ $(document).ready(function() {
         submitSport();
     });
 
+    $('#addNewTeam').click(function() {
+        displayAdminModal('addTeamModal');
+    });
+
     $('#adminOverlay').click(function() {
         hideAdminModals();
     });
