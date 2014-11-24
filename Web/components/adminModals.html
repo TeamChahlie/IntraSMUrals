@@ -63,8 +63,16 @@
     </div>
 </div>
 
-<div id="addResultsModal" class="adminModal">
-    <h2 class="adminFormTitle">Add Game Results</h2>
+<div id="updateScoresModal" class="adminModal">
+    <div class="adminCloseButton"></div>
+    <h2 class="adminFormTitle">Update Scores</h2>
+    <form id="updateScoresForm">
+        <label for="updateScore1">Team 1 Score:</label>
+        <input id="updateScore1" class="adminFormElementInlineSmall" type="number" required><br>
+        <label for="updateScore2">Team 2 Score:</label>
+        <input id="updateScore2" class="adminFormElementInlineSmall" type="number" required><br>
+        <input id="submitScores" class="formButton" type="submit" value="Update">
+    </form>
 </div>
 
 <div id="assignCaptainModal" class="adminModal">

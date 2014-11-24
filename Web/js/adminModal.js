@@ -29,6 +29,11 @@ $(document).ready(function() {
         submitMatch();
     });
 
+    $('#updateScoresForm').submit(function(event) {
+        event.preventDefault();
+        updateScores();
+    });
+
     $('#adminOverlay').click(function() {
         hideAdminModals();
     });
@@ -192,6 +197,30 @@ function submitMatch() {
         error: function() {
             alert("Error in AJAX request.")
         }
-    })
+    });
 
+}
+
+function updateScores() {
+    var match = JSON.parse(sessionStorage.getItem('currentMatch'));
+    match.teamAScore = parseInt(document.getElementById('updateScore1').value);
+    match.teamBScore = parseInt(document.getElementById('updateScore2').value);
+
+    $.ajax({
+        type: 'POST',
+        url: 'api/updateMatchScore',
+        content: 'application/json',
+        data: JSON.stringify(match),
+        success: function(data) {
+            var obj = JSON.parse(data);
+            if(obj.success == true) {
+                window.location.href = "editSport.php?sportName=" + get('sportName');
+            } else {
+                alert("Error updating match scores in DB.");
+            }
+        },
+        error: function() {
+            alert("Error in AJAX request.");
+        }
+    })
 }

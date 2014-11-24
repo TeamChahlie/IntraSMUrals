@@ -124,7 +124,7 @@ function getMatches() {
 
                 var editButton = document.createElement('div');
                 editButton.className = "sportEventButton editMatch";
-                editButton.textContent = "Edit";
+                editButton.textContent = "Scores";
                 editButton.dataset.id = match.matchID;
                 outerDiv.appendChild(editButton);
 
@@ -164,7 +164,7 @@ function addTeamClickListeners() {
         team.sportName = get('sportName');
         team.teamName = teamName;
         currentTeam = team;
-        displayDeleteConfirmationModal('deleteTeamModal');
+        displaySportConfirmationModal('deleteTeamModal');
 
     });
 
@@ -190,14 +190,18 @@ function addTeamClickListeners() {
     });
 
     $('#noDeleteTeam').click(function() {
-        console.log("HERE2");
-        hideDeleteConfirmationModal();
+        hideSportConfirmationModal();
     });
 }
 
 function addMatchClickListeners() {
     $('#sportSchedule').on('click', 'div.editMatch', function() {
         var matchID = $(this).data('id');
+        var match = new Object();
+        match.matchID = matchID;
+        currentMatch = match;
+        sessionStorage.setItem('currentMatch', JSON.stringify(currentMatch));
+        displaySportConfirmationModal('updateScoresModal');
     });
 
     $('#sportSchedule').on('click', 'div.deleteMatch', function() {
@@ -205,7 +209,7 @@ function addMatchClickListeners() {
         var match = new Object();
         match.matchID = matchID;
         currentMatch = match;
-        displayDeleteConfirmationModal('deleteMatchModal');
+        displaySportConfirmationModal('deleteMatchModal');
     });
 
 
@@ -228,9 +232,13 @@ function addMatchClickListeners() {
             }
         })
     });
+
+    $('#noDeleteMatch').click(function() {
+        hideSportConfirmationModal();
+    });
 }
 
-function displayDeleteConfirmationModal(modalID) {
+function displaySportConfirmationModal(modalID) {
     var modal = document.getElementById(modalID)
     var background = document.getElementById('adminOverlay');
     background.className = 'adminOverlay';
@@ -243,7 +251,7 @@ function displayDeleteConfirmationModal(modalID) {
     modal.style.marginTop = displacementY;
 }
 
-function hideDeleteConfirmationModal() {
+function hideSportConfirmationModal() {
     var forms = document.getElementsByClassName('displayAdminModal');
     for(var form in forms) {
         forms[form].className = "adminModal";
