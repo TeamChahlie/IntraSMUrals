@@ -130,7 +130,7 @@ function getMatches() {
                 outerDiv.appendChild(deleteButton);
             }
         }
-    })
+    });
 }
 
 function addTeamHoverListeners() {

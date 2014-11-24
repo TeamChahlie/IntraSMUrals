@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $('.pageHeader').text(get('sport'));
-    insertTeamButtons();
+    populateSchedule();
+    populateTeams();
 
 });
 
@@ -10,34 +11,111 @@ function get(name){
 }
 
 
-function insertTeamButtons() {
+function populateSchedule() {
 
     var userID = sessionStorage.getItem('userID');
-    $.getJSON('api/getStudentTeams/' + userID, function(teams) {
-        console.log(teams.length);
-        if (teams.length == 0) {
-            document.getElementById('noTeams').className = "visible";
+    $.getJSON('api/getMatchesInSport/' + get('sport'), function(matches) {
+        var scheduleDiv = document.getElementById('sportSchedule');
+
+        if(matches.length == 0) {
+
         } else {
-            for(var key in teams) {
-                var teamName = teams[key].teamName;
+            for(var key in matches) {
+                var match = matches[key];
 
-                var teamList = document.getElementById('studentTeamList');
+                var outerDiv = document.createElement('div');
+                outerDiv.className = "sportScheduleEvent";
+                scheduleDiv.appendChild(outerDiv);
 
-                var div = document.createElement('div');
-                div.className = "teamButton";
-                div.textContent = teamName;
-                div.addEventListener('click', teamButtonListener, false);
-                teamList.appendChild(div);
+                var team1Div = document.createElement('div');
+                team1Div.className = "sportEventTeam truncate";
+                team1Div.textContent = match.teamA;
+                outerDiv.appendChild(team1Div);
 
-                //var div2 = document.createElement('div');
-                //div2.className = "teamButtonDropdown";
-                //teamList.appendChild(div2);
-                //
-                //var teamLink = document.createElement('a');
-                //teamLink.className = "teamLink";
-                //teamLink.href = "/teams.php?team=" + teamName;
-                //teamLink.textContent = "Visit Homepage";
-                //div2.appendChild(teamLink);
+                var team1Score = document.createElement('div');
+                team1Score.className = "sportEventScore";
+                if(match.teamAScore == null) {
+                    team1Score.textContent = "--";
+                } else {
+                    team1Score.textContent = match.teamAScore;
+                }
+                outerDiv.appendChild(team1Score);
+
+                var vs = document.createElement('div');
+                vs.className = "sportVS";
+                vs.textContent = "vs.";
+                outerDiv.appendChild(vs);
+
+                var team2Div = document.createElement('div');
+                team2Div.className = "sportEventTeam truncate";
+                team2Div.textContent = match.teamB;
+                outerDiv.appendChild(team2Div);
+
+                var team2Score = document.createElement('div');
+                team2Score.className = "sportEventScore";
+                if(match.teamBScore == null) {
+                    team2Score.textContent = "--";
+                } else {
+                    team2Score.textContent = match.teamBScore;
+                }
+                outerDiv.appendChild(team2Score);
+
+                var date = document.createElement('div');
+                date.className = "sportEventDate";
+                date.textContent = parseDate(match.dateOf);
+                outerDiv.appendChild(date);
+
+                var time = document.createElement('div');
+                time.className = "sportEventTime";
+                time.textContent = parseTime(match.timeOf);
+                outerDiv.appendChild(time);
+
+                var location = document.createElement('div');
+                location.className = "sportEventLocation truncate";
+                location.textContent = "Intramural Fields";
+                outerDiv.appendChild(location);
+            }
+        }
+    });
+}
+
+function populateTeams() {
+    $.getJSON('api/getTeamsInSport/' + get('sport'), function(teams) {
+
+        if(teams.length > 0) {
+            for(var team in teams) {
+                var teamName = teams[team].teamName;
+                var teamList = document.getElementById('sportTeamList');
+
+                var a = document.createElement('a')
+                a.href = "teams.php?team=" + teamName;
+                a.className = "teamButton plainLink";
+                a.textContent = teamName;
+                teamList.appendChild(a);
+
+//                var subDiv1 = document.createElement('div');
+//                subDiv1.className = "teamDefault";
+//                div.appendChild(subDiv1);
+//
+//                var h2 = document.createElement('h2');
+//                h2.className = "teamTitle";
+//                h2.textContent = teamName;
+//                subDiv1.appendChild(h2);
+//
+//                var subDiv2 = document.createElement('div');
+//                subDiv2.className = "teamOptionMenu";
+//                div.appendChild(subDiv2);
+//
+//                var editDiv = document.createElement('div');
+//                editDiv.className = "teamOptionButton editTeam";
+//                editDiv.textContent = "Edit";
+//                subDiv2.appendChild(editDiv);
+//
+//                var deleteDiv = document.createElement('div');
+//                deleteDiv.className = "teamOptionButton deleteTeam";
+//                deleteDiv.textContent = "Delete";
+//                subDiv2.appendChild(deleteDiv);
+
             }
         }
     });

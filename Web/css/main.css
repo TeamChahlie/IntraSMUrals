@@ -11,6 +11,17 @@ body {
     text-align: center;
 }
 
+ul.playerList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+ul.playerList > li {
+    margin: 10px 0;
+}
+
 .center {
     width: 1222px;
     margin: 30px auto;
@@ -31,6 +42,35 @@ body {
     border-radius: 5px;
     margin-top: 5%;
     margin-bottom: 4%;
+}
+
+.plainLink {
+    text-decoration: none;
+    color: #000000;
+    font-family: Raleway, sans-serif;
+    font-size: 14px;
+    width: 100%;
+}
+
+.frontPageButton {
+    display: block;
+    position: relative;
+    float: left;
+    text-decoration: none;
+    color: #000000;
+    font-family: Raleway, sans-serif;
+    font-size: 14px;
+    width: 85%;
+    margin: 5px;
+    padding: 10px;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+}
+
+.frontPageButton:hover {
+    color: white;
+    background-color: blue;
+    transition: all 0.4s ease;
 }
 
 .pageHeader {
@@ -98,6 +138,7 @@ body {
 .teamButton {
     display: block;
     margin: 5px;
+    width: auto;
     text-align: center;
     text-decoration: none;
     font-size: 1.5em;
@@ -161,6 +202,7 @@ body {
 .eventOpponent > a {
     text-decoration: none;
     color: #000000;
+    background-color: #CCCCCC;
     border: 1px solid red;
     border-radius: 5px;
     padding: .3em;
@@ -504,7 +546,7 @@ body {
 .sportEventLocation {
     display: inline-block;
     margin: 0px;
-    width: 100px;
+    width: 150px;
     padding: 5px;
     text-align: left;
 }

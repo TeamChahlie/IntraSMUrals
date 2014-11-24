@@ -49,7 +49,7 @@ function loadSpecificTeamInfo() {
             var listContainer = document.getElementById('playerList');
 
             var playerList = document.createElement('ul');
-            // playerList.className = "noFanciness";
+            playerList.className = "playerList";
 
             listContainer.appendChild(playerList);
 

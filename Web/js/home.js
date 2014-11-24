@@ -21,11 +21,15 @@ $(document).ready(function() {
 function populateSports() {
     var sportList = document.getElementById('homeSportList');
     var sports = JSON.parse(sessionStorage.getItem('sports'));
+    var ul = document.createElement('ul');
+    ul.className = "playerList";
+    sportList.appendChild(ul)
     for(var i = 0; i < sports.length; i++) {
         var li = document.createElement('li');
-        sportList.appendChild(li);
+        ul.appendChild(li);
 
         var a = document.createElement('a');
+        a.className = "plainLink";
         a.textContent = sports[i];
         a.href = "/sportHome.php?sport=" + sports[i];
         li.appendChild(a);

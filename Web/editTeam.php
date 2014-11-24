@@ -10,10 +10,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/userCheck.js"></script>
     <script src="js/adminCheck.js"></script>
-    <script src="js/editSport.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/modal.js"></script>
-    <script src="js/adminModal.js"></script>
     <script src="js/nav.js"></script>
 
 
@@ -37,10 +35,10 @@
 
         </div>
         <div id="sportTeamList">
-            <h2 class="sectionHeader">Teams</h2>
+            <h2 class="sectionHeader">Players</h2>
 
             <div id="addNewTeam">
-                <h2 class="teamTitle">Add New Team</h2>
+                <h2 class="teamTitle">Add New Player</h2>
             </div>
         </div>
     </div>

@@ -8,6 +8,7 @@
 
     <!-- JavaScript Files -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/parser.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/sportHome.js"></script>
     <script src="js/nav.js"></script>
@@ -26,9 +27,9 @@
 <div class="center">
     <div class="section">
 
-        <h2 class="pageHeader">Available Sports</h2>
-            <div id="studentSchedule">
-                <h2 class="sectionHeader">Upcoming Games</h2>
+        <h2 class="pageHeader"></h2>
+            <div id="sportSchedule">
+                <h2 class="sectionHeader">Upcoming and Recent Games</h2>
                 <p class="noContent"></p>
 
     <!--            <div class="scheduleEvent">-->
@@ -40,9 +41,9 @@
     <!--            </div>-->
 
             </div>
-            <div id="studentTeamList">
+            <div id="sportTeamList">
                 <h2 class="sectionHeader">Teams</h2>
-                <p id="noTeams" class="hidden">You are not currently signed up for a team! Go sign up for one now! (COMING SOON)</p>
+                <p id="noTeams" class="hidden">There are no teams in this sport yet. Check back later!</p>
             </div>
 
     </div>

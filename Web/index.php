@@ -40,13 +40,13 @@
              </div>
 
         <div>
-            <div style="background-color:#FFFFFF; float:left; height:300px; border-radius:9px; margin-top:10px; margin-bottom:10px; margin-left:60px; width:30%; padding:5px;">
+            <div style="background-color:#FFFFFF; float:left; height:300px; border-radius:9px; margin-top:10px; margin-bottom:10px; margin-left:60px; width:15%; padding:5px;">
                 <h3 class="sectionHeader">Sports</h3><hr>
             <div id="homeSportList">
             </div>
             </div>
 
-            <div style="background-color:#FFFFFF; border-radius:9px; height:300px; margin-top:10px; margin-right:50px; width:58%; float:right; padding:5px;">
+            <div style="background-color:#FFFFFF; border-radius:9px; height:300px; margin-top:10px; margin-right:50px; width:73%; float:right; padding:5px;">
                 <h3 class="sectionHeader">Upcoming Games</h3>
                 <hr>
             <div id="homeUpcomingGameList">
@@ -54,7 +54,7 @@
             </div>
 
             <div>
-            <div style="background-color:#FFFFFF; border-radius:9px; margin-left:60px;  margin-top:330px;width:89.3%; padding:10px;">
+            <div style="background-color:#FFFFFF; border-radius:9px; margin-left:60px;  margin-top:10px;width:89.3%; padding:10px;">
                 <h2 class="sectionHeader" style="text-align:left;">Latest News</h2><hr>
                 <a link href="http://www.smudailycampus.com/news/quidditch-not-just-for-hogwarts-anymore"  style="text-decoration:none; color:#000000" target="_blank"><p class="subHeader" style="text-align:left"><b>Fall 2014</b>, intraSMUrals is doing trial runs with Quidditch teams</a></p>
              </div></div>
