@@ -239,7 +239,6 @@ body {
     padding: 10px;
     height: 105px;
     top: 0;
-    white-space: nowrap;
     margin: 15px;
     text-align: center;
     background-color: #999999;
@@ -398,4 +397,11 @@ body {
 
 .editTeam {
     margin-right: 10px;
+}
+
+.truncate {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

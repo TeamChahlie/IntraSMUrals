@@ -24,7 +24,7 @@ function populateSports() {
             newDiv.appendChild(div1);
 
             var sportTitle = document.createElement('h2');
-            sportTitle.className = "sportTitle";
+            sportTitle.className = "sportTitle truncate";
             sportTitle.textContent = sportInfo.sportName;
             div1.appendChild(sportTitle);
 
@@ -66,7 +66,20 @@ function addClickListeners() {
 
     $('.sportViewContainer').on('click', 'div.deleteSport', function() {
         var sportName = $(this).parent().prev().children('.sportTitle').text();
-        console.log("DELETE: " + sportName);
+        var sport = new Object();
+        sport.sportName = sportName;
+        $.ajax({
+            type: 'POST',
+            url: 'api/deleteSport',
+            content: 'application/json',
+            data: JSON.stringify(sport),
+            success: function(data) {
+                console.log(JSON.parse(data));
+            },
+            error: function() {
+                alert("Error in AJAX request.")
+            }
+        })
 
     });
 }
