@@ -37,6 +37,7 @@ $app->post('/deleteSport', 'deleteSport');
 
 //Sport level
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
+$app->get('/getMatchesInSport/:sportName', 'getMatchesInSport');
 $app->post('/insertTeam', 'insertTeam');
 $app->post('/deleteTeam', 'deleteTeam');
 $app->post('/insertMatch', 'insertMatch');
@@ -108,6 +109,41 @@ function deleteSport() {
 // returns teams in a specific sport
 function getTeamsInSport($sportName) {
     $sql = "SELECT teamName FROM Sport NATURAL JOIN Team WHERE sportName = :sportName";
+    try {
+        $db = getConnection();
+        $response = array();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("sportName", $sportName);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($response,$row);
+        }
+        $db = null;
+        echo json_encode($response);
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// returns matches in a specific sport
+function getMatchesInSport($sportName) {
+    $sql = "SELECT matchID, teamA, teamName AS teamB, ATeamScore AS teamAScore, BTeamScore AS teamBScore, dateOf, timeOf
+            FROM (
+                SELECT matchID, sportID, BteamID, ATeamScore, BTeamScore, dateOf, timeOf, teamName as teamA 
+                FROM TeamMatch 
+                INNER JOIN (
+                        SELECT teamID, teamName 
+                        FROM Team) AS table1 
+                ON TeamMatch.AteamID = table1.teamID) AS table2 
+            INNER JOIN (
+                SELECT teamID, teamName
+                FROM Team) AS table3 
+            ON table2.BteamID = table3.teamID
+            WHERE sportID = (
+                SELECT sportID
+                FROM Sport 
+                WHERE sportName= :sportName)
+            ORDER BY dateOf ASC";
     try {
         $db = getConnection();
         $response = array();
