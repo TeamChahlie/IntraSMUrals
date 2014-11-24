@@ -7,6 +7,7 @@ $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->get('/adminCheck/:userID', 'adminCheck');
 
+$app->post('/insertTeam', 'insertTeam');
 $app->post('/insertCaptain', 'insertCaptain');
 $app->post('/insertMatch', 'insertMatch');
 $app->post('/addScores', 'addScores');
@@ -24,17 +25,16 @@ $app->get('/getTeamRoster/:teamName', 'getTeamRoster');
 $app->get('/getCaptainEmail/:teamName', 'getCaptainEmail');
 $app->get('/getStudentEmails', 'getStudentEmails');
 $app->get('/getTeamEmails/:teamName', 'getTeamEmails');
+//$app->get('/getAdminEmails', 'getAdminEmails');
+//$app->get('/getCaptainEmailsBySport/:sportName', 'getCaptainEmailsBySport');
 $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 
 //ADMIN Calls, please don't move anything between here and the next comment
-//intrasmurals level
 $app->get('/getSportList', 'getSportList');
 $app->post('/insertSport', 'insertSport');
 $app->post('/deleteSport', 'deleteSport');
-//sport level
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
-$app->post('/insertTeam', 'insertTeam');
 
 
 //ADMIN Calls, please don't move anything between here and the previous comment
@@ -139,7 +139,7 @@ function insertTeam() {
 function insertCaptain() {
     $sqlStudent = "INSERT INTO Student VALUES (StudentID) (:studentID)";
     $sqlUser = "INSERT INTO User VALUES (StudentID) (:studentID)";
-    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID) (:captainID)";
+    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID, IsApproved) (:captainID, 1)";
 
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
@@ -632,7 +632,46 @@ function getTeamEmails($teamName) {
     }
 }
 
+/*
+function getAdminEmails() {
+//all admin emails
+     $sql = "SELECT email FROM student NATURAL JOIN user WHERE isAdmin != 0";
+    try {
+        $db = getConnection();
+        $stmt = $db->query($sql);
+        $Emails = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Emails[] = $row['email'];
+        }
+        echo json_encode($Emails);
 
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+function getCaptainEmailsBySport ($sportName) {
+     $sql = "SELECT t.teamName, s.email FROM Team t INNER JOIN Student s ON t.captainID = s.studentID JOIN Sport ON t.sportID = Sport.sportID WHERE Sport.sportName = :sportName";
+//If you want it by sport ID
+     //$sql = "SELECT t.teamName, s.email FROM Team t INNER JOIN Student s ON t.captainID = s.studentID JOIN Sport ON t.sportID = Sport.sportID WHERE Sport.sportID = :sportID";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam('sportName',$sportName);
+        $stmt->execute();
+        $Teams = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Emails = array(
+                'TeamName' => $row['teamName'],
+                'emails' => $row['email'],
+            );
+            echo json_encode($Emails);
+        }
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+*/
 
 //returns the match information based on the SportName should be checked
 //function getUniversalSportSchedule() {
