@@ -1,4 +1,6 @@
 
+var currentSport = "";
+
 $(document).ready(function() {
     populateSports();
     addClickListeners();
@@ -68,19 +70,28 @@ function addClickListeners() {
         var sportName = $(this).parent().prev().children('.sportTitle').text();
         var sport = new Object();
         sport.sportName = sportName;
+        currentSport = sport;
+        displayConfirmationModal();
+
+    });
+
+    $('#yesDelete').click(function() {
         $.ajax({
             type: 'POST',
             url: 'api/deleteSport',
             content: 'application/json',
-            data: JSON.stringify(sport),
+            data: JSON.stringify(currentSport),
             success: function(data) {
                 window.location.href = "adminPortal.php";
             },
             error: function() {
                 alert("Error in AJAX request.")
             }
-        })
+        });
+    });
 
+    $('#noDelete').click(function() {
+        hideConfirmationModal();
     });
 }
 
@@ -95,5 +106,26 @@ function addHoverListeners() {
         $(this).children('.sportOptionMenu').animate({width: 'toggle'}, 200);
         $(this).children('.sportDefault').animate({width: 'toggle'}, 300);
     });
+}
+
+function displayConfirmationModal() {
+    var modal = document.getElementById('deleteSportModal')
+    var background = document.getElementById('adminOverlay');
+    background.className = 'adminOverlay';
+    modal.className = 'displayAdminModal';
+    var width = modal.clientWidth;
+    var height = modal.clientHeight;
+    var displacementX = '-'+ (width/2) + 'px';
+    var displacementY = '-' + (height/2) + 'px';
+    modal.style.marginLeft = displacementX;
+    modal.style.marginTop = displacementY;
+}
+
+function hideConfirmationModal() {
+    var forms = document.getElementsByClassName('displayAdminModal');
+    for(var form in forms) {
+        forms[form].className = "adminModal";
+    }
+    document.getElementById('adminOverlay').className = "";
 }
 
