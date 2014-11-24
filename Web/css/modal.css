@@ -93,7 +93,7 @@
     padding: 2% 25%;
 }
 
-#yesLogout, #noLogout, #yesDelete, #noDelete {
+#yesLogout, #noLogout, #yesDeleteSport, #noDeleteSport {
     display: inline-block;
     text-align: center;
     width: 40%;
@@ -103,7 +103,7 @@
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-#yesLogout:hover, #noLogout:hover, #yesDelete:hover, #noDelete:hover {
+#yesLogout:hover, #noLogout:hover, #yesDeleteSport:hover, #noDeleteSport:hover {
     color: #FFFFFF;
     background-color: #0000FF;
     cursor: url("../img/PerunaSmall.png"), auto;

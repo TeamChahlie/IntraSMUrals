@@ -75,7 +75,7 @@ function addClickListeners() {
 
     });
 
-    $('#yesDelete').click(function() {
+    $('#yesDeleteSport').click(function() {
         $.ajax({
             type: 'POST',
             url: 'api/deleteSport',
@@ -90,7 +90,7 @@ function addClickListeners() {
         });
     });
 
-    $('#noDelete').click(function() {
+    $('#noDeleteSport').click(function() {
         hideConfirmationModal();
     });
 }
