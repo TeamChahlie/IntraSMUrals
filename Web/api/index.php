@@ -39,6 +39,7 @@ $app->post('/deleteSport', 'deleteSport');
 //Sport level
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
 $app->post('/insertTeam', 'insertTeam');
+$app->post('/deleteTeam', 'deleteTeam');
 
 //Team level
 
@@ -134,6 +135,24 @@ function insertTeam() {
         $stmt = $db->prepare($sqlTeam);
         $stmt->bindParam("sportName", $teamInfo->sportName);
         $stmt->bindParam("teamName", $teamInfo->teamName);
+        $stmt->execute();
+        echo '{"success": true}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// delete sport from database, will cascade to other tables
+function deleteTeam() {
+    $sql = "DELETE FROM Team WHERE teamName = :teamName AND sportID = (SELECT sportID FROM Sport WHERE sportName= :sportName)";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $info = json_decode($request->getBody());
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("sportName", $info->sportName);
+        $stmt->bindParam("teamName", $info->teamName);
         $stmt->execute();
         echo '{"success": true}';
     } catch (PDOException $e) {
