@@ -8,6 +8,7 @@
 
     <!-- JavaScript Files -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/parser.js"></script>
     <script src="js/userCheck.js"></script>
     <script src="js/adminCheck.js"></script>
     <script src="js/editSport.js"></script>

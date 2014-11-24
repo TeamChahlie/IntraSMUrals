@@ -441,9 +441,9 @@ body {
 .sportEventDate {
     display: inline-block;
     margin: 0px;
-    width: 90px;
+    width: 100px;
     padding: 5px;
-    text-align: center;
+    text-align: left;
     overflow: hidden;
 }
 
@@ -452,23 +452,23 @@ body {
     margin: 0;
     width: 20px;
     padding: 5px;
-    text-align: center;
+    text-align: left;
     overflow: hidden;
 }
 
 .sportEventTime {
     display: inline-block;
     margin: 0px;
-    width: 70px;
+    width: 80px;
     padding: 5px;
-    text-align: center;
+    text-align: left;
     overflow: hidden;
 }
 
 .sportEventTeam {
     display: inline-block;
     margin: 0px;
-    width: 100px;
+    width: 130px;
     padding: 5px;
     text-align: left;
 }
@@ -506,13 +506,13 @@ body {
     margin: 0px;
     width: 100px;
     padding: 5px;
-    text-align: center;
+    text-align: left;
 }
 
 .sportEventButton {
     display: inline-block;
     margin: 5px;
-    width: 60px;
+    width: 70px;
     text-align: center;
     border: 1px solid red;
     border-radius: 5px;

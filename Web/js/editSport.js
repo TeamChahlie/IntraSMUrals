@@ -109,18 +109,13 @@ function getMatches() {
 
                 var date = document.createElement('div');
                 date.className = "sportEventDate";
-                date.textContent = match.dateOf;
+                date.textContent = parseDate(match.dateOf);
                 outerDiv.appendChild(date);
 
                 var time = document.createElement('div');
                 time.className = "sportEventTime";
-                time.textContent = match.timeOf;
+                time.textContent = parseTime(match.timeOf);
                 outerDiv.appendChild(time);
-
-                var location = document.createElement('div');
-                location.className = "sportEventLocation truncate";
-                location.textContent = "Intramural Fields";
-                outerDiv.appendChild(location);
 
                 var editButton = document.createElement('div');
                 editButton.className = "sportEventButton editMatch";
