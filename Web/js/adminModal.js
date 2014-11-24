@@ -13,6 +13,11 @@ $(document).ready(function() {
         displayAdminModal('addTeamModal');
     });
 
+    $('#createTeamForm').submit(function(event) {
+        event.preventDefault();
+        submitTeam();
+    })
+
     $('#adminOverlay').click(function() {
         hideAdminModals();
     });
@@ -64,6 +69,28 @@ function submitSport() {
         },
         error: function() {
             alert("Error during AJAX request.");
+        }
+    })
+}
+
+function submitTeam() {
+    var teamName = $('#createTeamName').val();
+    var sportName = sessionStorage.getItem('currentSport');
+
+    var team = new Object();
+    team.teamName = teamName;
+    team.sportName = sportName;
+
+    $.ajax({
+        type: 'POST',
+        url: 'api/insertTeam',
+        content: 'application/json',
+        data: JSON.stringify(team),
+        success: function(data) {
+            console.log(JSON.parse(data));
+        },
+        error: function() {
+            alert("Error in AJAX request.");
         }
     })
 }

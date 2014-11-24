@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.subHeader').text(get('sportName'));
-
+    sessionStorage.setItem('currentSport', get('sportName'));
     getTeams();
     addTeamHoverListeners();
 });
