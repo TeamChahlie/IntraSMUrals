@@ -7,7 +7,6 @@ $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->get('/adminCheck/:userID', 'adminCheck');
 
-$app->post('/insertTeam', 'insertTeam');
 $app->post('/insertCaptain', 'insertCaptain');
 $app->post('/insertMatch', 'insertMatch');
 $app->post('/addScores', 'addScores');
@@ -31,10 +30,13 @@ $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 
 //ADMIN Calls, please don't move anything between here and the next comment
+//intrasmurals level
 $app->get('/getSportList', 'getSportList');
 $app->post('/insertSport', 'insertSport');
 $app->post('/deleteSport', 'deleteSport');
+//sport level
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
+$app->post('/insertTeam', 'insertTeam');
 
 
 //ADMIN Calls, please don't move anything between here and the previous comment
@@ -139,7 +141,7 @@ function insertTeam() {
 function insertCaptain() {
     $sqlStudent = "INSERT INTO Student VALUES (StudentID) (:studentID)";
     $sqlUser = "INSERT INTO User VALUES (StudentID) (:studentID)";
-    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID, IsApproved) (:captainID, 1)";
+    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID) (:captainID)";
 
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
