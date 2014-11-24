@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 4135
+# Version 4096
 #
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: localhost (MySQL 5.5.38)
+# Host: 127.0.0.1 (MySQL 5.6.16)
 # Database: IntraSMUrals
-# Generation Time: 2014-11-24 01:11:04 +0000
+# Generation Time: 2014-11-24 09:37:06 +0000
 # ************************************************************
 
 
@@ -19,9 +19,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP DATABASE IF EXISTS IntraSMUrals;
-CREATE DATABASE IntraSMUrals;
-USE IntraSMUrals;
 
 # Dump of table Involvement
 # ------------------------------------------------------------
@@ -249,6 +246,7 @@ LOCK TABLES `Student` WRITE;
 INSERT INTO `Student` (`studentID`, `fname`, `lname`, `email`)
 VALUES
 	(0,'','',''),
+	(10101010,'Admin','Istrator','admin@smu.edu'),
 	(11111111,'Admin','Jones','admin@admin.com'),
 	(11345678,'Kurt','Browning','kBrowning@canada.edu'),
 	(12345678,'Wayne','Gretzky','wGretzky@canada.edu'),
@@ -273,6 +271,7 @@ VALUES
 	(38294053,'Larry','Walker','lWalker@hotmail.com'),
 	(38294059,'Jeff','Zimmerman','jZimmerman@alberta.ca'),
 	(38294079,'Bruno','Caboclo','bCaboclo@toronto.ca'),
+	(39593623,'Charlie','Albright','calbright@smu.edu'),
 	(41345678,'Toller','Cranston','tCranston@yukon.ca'),
 	(51345678,'Ken','Dryden','kDryden@quebec.ca'),
 	(61345678,'Terry','Fox','tFox@foxy.ca'),
@@ -352,8 +351,7 @@ VALUES
 	(104,4,'Alanis Morissette',24555678),
 	(105,4,'Joni Mitchell',24555676),
 	(106,4,'Neil Young',19345678),
-	(107,4,'Justin Beiber',24555675),
-	(108,1,'test',NULL);
+	(107,4,'Justin Beiber',24555675);
 
 /*!40000 ALTER TABLE `Team` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -425,7 +423,7 @@ VALUES
 	(36,1,55,50,82,69,'2014-11-12','16:30:00'),
 	(37,1,55,54,83,32,'2014-11-13','16:30:00'),
 	(38,1,50,53,4,5,'2014-11-14','16:30:00'),
-	(39,1,56,51,NULL,NULL,'2014-11-29','16:30:00'),
+	(39,1,56,51,43,45,'2014-11-29','16:30:00'),
 	(40,1,56,53,NULL,NULL,'2014-12-04','16:30:00');
 
 /*!40000 ALTER TABLE `TeamMatch` ENABLE KEYS */;
@@ -449,6 +447,7 @@ LOCK TABLES `User` WRITE;
 
 INSERT INTO `User` (`studentID`, `Password`, `isAdmin`)
 VALUES
+	(10101010,'password',1),
 	(11111111,'pwning',1),
 	(11345678,'password',0),
 	(12345678,'password',0),
@@ -473,6 +472,7 @@ VALUES
 	(38294053,'password',0),
 	(38294059,'password',0),
 	(38294079,'password',0),
+	(39593623,'password',1),
 	(41345678,'password',0),
 	(51345678,'password',0),
 	(61345678,'password',0),
