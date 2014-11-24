@@ -87,7 +87,9 @@ function submitTeam() {
         content: 'application/json',
         data: JSON.stringify(team),
         success: function(data) {
-            if(data.success == true) {
+            console.log(data);
+            var obj = JSON.parse(data);
+            if(obj.success == true) {
                 hideAdminModals();
                 window.location.href = "editSport.php?sportName=" + sportName;
             } else {

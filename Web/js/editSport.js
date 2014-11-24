@@ -5,6 +5,7 @@ $(document).ready(function() {
     $('.subHeader').text(get('sportName'));
     sessionStorage.setItem('currentSport', get('sportName'));
     getTeams();
+    getMatches();
     addTeamHoverListeners();
     addTeamClickListeners();
 
@@ -53,6 +54,10 @@ function getTeams() {
             }
         }
     });
+}
+
+function getMatches() {
+    var sportName = get('sportName');
 }
 
 function addTeamHoverListeners() {
