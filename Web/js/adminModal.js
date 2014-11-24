@@ -4,7 +4,7 @@ $(document).ready(function() {
         displayAdminModal('addSportModal');
     });
 
-    $(document).on('submit', 'form.createSportForm', function(event) {
+    $('#createSportForm').submit(function(event) {
         event.preventDefault();
         submitSport();
     });
@@ -42,5 +42,24 @@ function hideAdminModals() {
 
 function submitSport() {
     var sportName = $('#createSportName').val();
-    alert(sportName);
+    var sport = new Object();
+    sport.sportName = sportName;
+    $.ajax({
+        type: 'POST',
+        url: 'api/insertSport',
+        content: 'application/json',
+        data: JSON.stringify(sport),
+        success: function(data) {
+            var obj = JSON.parse(data);
+            if(obj.success == true) {
+                hideAdminModals();
+                window.location.href = "editSport.php?sportName=" + sportName;
+            } else {
+                alert("Error inserting new sport into database.")
+            }
+        },
+        error: function() {
+            alert("Error during AJAX request.");
+        }
+    })
 }
