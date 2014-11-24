@@ -43,8 +43,6 @@ $app->post('/insertMatch', 'insertMatch');
 $app->post('/deleteMatch', 'deleteMatch');
 $app->post('/updateMatchScore', 'updateMatchScore');
 
-
-
 //Team level
 
 
@@ -110,7 +108,7 @@ function deleteSport() {
 
 // returns teams in a specific sport
 function getTeamsInSport($sportName) {
-    $sql = "SELECT teamName FROM Sport NATURAL JOIN Team WHERE sportName = :sportName";
+    $sql = "SELECT teamName, teamID FROM Sport NATURAL JOIN Team WHERE sportName = :sportName";
     try {
         $db = getConnection();
         $response = array();
