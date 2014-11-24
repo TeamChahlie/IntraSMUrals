@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.38)
 # Database: IntraSMUrals
-# Generation Time: 2014-11-24 00:01:23 +0000
+# Generation Time: 2014-11-24 01:11:04 +0000
 # ************************************************************
 
 
@@ -224,7 +224,7 @@ VALUES
 	(4,'Judo'),
 	(5,'Quidditch'),
 	(6,'Rugby'),
-	(7,'Underwater Basket Weaving');
+	(7,'Water Polo');
 
 /*!40000 ALTER TABLE `Sport` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -292,11 +292,12 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `Team`;
 
 CREATE TABLE `Team` (
-  `teamID` int(11) NOT NULL DEFAULT '0',
+  `teamID` int(11) NOT NULL AUTO_INCREMENT,
   `sportID` int(11) NOT NULL,
   `teamName` varchar(30) NOT NULL DEFAULT '',
   `captainID` int(11) DEFAULT NULL,
   PRIMARY KEY (`teamID`),
+  UNIQUE KEY `SportTeamNameUniqueness` (`sportID`,`teamName`),
   KEY `Team.SportID.FK` (`sportID`),
   KEY `Team.CaptainID.FK` (`captainID`),
   CONSTRAINT `Team.CaptainID.FK` FOREIGN KEY (`captainID`) REFERENCES `Student` (`studentID`) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -351,7 +352,8 @@ VALUES
 	(104,4,'Alanis Morissette',24555678),
 	(105,4,'Joni Mitchell',24555676),
 	(106,4,'Neil Young',19345678),
-	(107,4,'Justin Beiber',24555675);
+	(107,4,'Justin Beiber',24555675),
+	(108,1,'test',NULL);
 
 /*!40000 ALTER TABLE `Team` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -363,7 +365,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `TeamMatch`;
 
 CREATE TABLE `TeamMatch` (
-  `matchID` int(11) NOT NULL DEFAULT '0',
+  `matchID` int(11) NOT NULL AUTO_INCREMENT,
   `sportID` int(11) NOT NULL,
   `AteamID` int(11) DEFAULT NULL,
   `BteamID` int(11) DEFAULT NULL,
@@ -375,8 +377,8 @@ CREATE TABLE `TeamMatch` (
   KEY `TeamMatch.SportID.FK` (`sportID`),
   KEY `TeamMatch.AteamID.FK` (`AteamID`),
   KEY `TeamMatch.BteamID.FK` (`BteamID`),
-  CONSTRAINT `TeamMatch.BteamID.FK` FOREIGN KEY (`BteamID`) REFERENCES `Team` (`teamID`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `TeamMatch.AteamID.FK` FOREIGN KEY (`AteamID`) REFERENCES `Team` (`teamID`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `TeamMatch.BteamID.FK` FOREIGN KEY (`BteamID`) REFERENCES `Team` (`teamID`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `TeamMatch.SportID.FK` FOREIGN KEY (`sportID`) REFERENCES `Sport` (`sportID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -385,7 +387,6 @@ LOCK TABLES `TeamMatch` WRITE;
 
 INSERT INTO `TeamMatch` (`matchID`, `sportID`, `AteamID`, `BteamID`, `ATeamScore`, `BTeamScore`, `dateOf`, `timeOf`)
 VALUES
-	(0,2,1,2,23,9,'2014-11-02','18:00:00'),
 	(1,2,1,3,32,18,'2014-11-14','18:00:00'),
 	(2,2,1,4,8,1,'2014-11-22','18:00:00'),
 	(3,2,2,4,2,97,'2014-11-14','18:30:00'),
@@ -437,9 +438,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `User`;
 
 CREATE TABLE `User` (
-  `studentID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `Password` varchar(12) DEFAULT NULL,
-  `isAdmin` tinyint(1) NOT NULL,
+  `studentID` int(11) unsigned NOT NULL,
+  `Password` varchar(12) NOT NULL DEFAULT '',
+  `isAdmin` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`studentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
