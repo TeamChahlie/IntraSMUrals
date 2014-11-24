@@ -29,17 +29,21 @@ $app->get('/getTeamEmails/:teamName', 'getTeamEmails');
 $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 
-//ADMIN Calls, please don't move anything between here and the next comment
-//intrasmurals level
+//-----ADMIN Calls, please don't move anything between here and the next comment
+
+//IntraSMUrals level
 $app->get('/getSportList', 'getSportList');
 $app->post('/insertSport', 'insertSport');
 $app->post('/deleteSport', 'deleteSport');
-//sport level
+
+//Sport level
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
 $app->post('/insertTeam', 'insertTeam');
 
+//Team level
 
-//ADMIN Calls, please don't move anything between here and the previous comment
+
+//-----ADMIN Calls, please don't move anything between here and the previous comment
 
 
 $app->run();
