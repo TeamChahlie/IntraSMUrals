@@ -44,6 +44,8 @@ $app->post('/deleteMatch', 'deleteMatch');
 $app->post('/updateMatchScore', 'updateMatchScore');
 
 //Team level
+$app->get('/getStudentsInTeam/:teamID', 'getStudentsInTeam');
+
 
 
 //-----ADMIN Calls, please don't move anything between here and the previous comment
@@ -253,6 +255,25 @@ function updateMatchScore() {
         $stmt->bindParam("teamBScore", $info->teamBScore);
         $stmt->execute();
         echo '{"success": true}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// returns students in a specific team
+function getStudentsInTeam($teamID) {
+    $sql = "SELECT fname, lname FROM Involvement NATURAL JOIN Student WHERE teamID = :teamID ORDER BY lname;";
+    try {
+        $db = getConnection();
+        $response = array();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("teamID", $teamID);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($response,$row);
+        }
+        $db = null;
+        echo json_encode($response);
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
