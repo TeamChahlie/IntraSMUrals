@@ -61,7 +61,7 @@ body {
     display: inline-block;
     margin: 1%;
     width: 65%;
-    height: 500px;
+    min-height: 500px;
     border-radius: 10px;
     padding: 1em;
     background-color: #999999;
@@ -69,10 +69,11 @@ body {
 }
 
 #studentTeamList, #playerList, #adminButtons, #sportTeamList {
+
     display: inline-block;
     margin: 1%;
     width: 25%;
-    height: 500px;
+    min-height: 500px;
     border-radius: 10px;
     padding: 1em;
     background-color: #999999;
