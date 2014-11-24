@@ -27,7 +27,7 @@ $(document).ready(function() {
     $('#createMatchForm').submit(function(event) {
         event.preventDefault();
         submitMatch();
-    })
+    });
 
     $('#adminOverlay').click(function() {
         hideAdminModals();

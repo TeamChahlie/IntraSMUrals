@@ -1,5 +1,6 @@
 
 var currentTeam = "";
+var currentMatch = "";
 
 $(document).ready(function() {
     $('.subHeader').text(get('sportName'));
@@ -8,6 +9,7 @@ $(document).ready(function() {
     getMatches();
     addTeamHoverListeners();
     addTeamClickListeners();
+    addMatchClickListeners();
 
 });
 
@@ -121,15 +123,15 @@ function getMatches() {
                 outerDiv.appendChild(location);
 
                 var editButton = document.createElement('div');
-                editButton.className = "sportEventButton";
+                editButton.className = "sportEventButton editMatch";
                 editButton.textContent = "Edit";
-                editButton.dataset.ID = match.matchID;
+                editButton.dataset.id = match.matchID;
                 outerDiv.appendChild(editButton);
 
                 var deleteButton = document.createElement('div');
-                deleteButton.className = "sportEventButton";
+                deleteButton.className = "sportEventButton deleteMatch";
                 deleteButton.textContent = "Delete";
-                deleteButton.dataset.ID = match.matchID;
+                deleteButton.dataset.id = match.matchID;
                 outerDiv.appendChild(deleteButton);
             }
         }
@@ -162,7 +164,7 @@ function addTeamClickListeners() {
         team.sportName = get('sportName');
         team.teamName = teamName;
         currentTeam = team;
-        displayDeleteTeamConfirmationModal();
+        displayDeleteConfirmationModal('deleteTeamModal');
 
     });
 
@@ -189,12 +191,47 @@ function addTeamClickListeners() {
 
     $('#noDeleteTeam').click(function() {
         console.log("HERE2");
-        hideDeleteTeamConfirmationModal();
+        hideDeleteConfirmationModal();
     });
 }
 
-function displayDeleteTeamConfirmationModal() {
-    var modal = document.getElementById('deleteTeamModal')
+function addMatchClickListeners() {
+    $('#sportSchedule').on('click', 'div.editMatch', function() {
+        var matchID = $(this).data('id');
+    });
+
+    $('#sportSchedule').on('click', 'div.deleteMatch', function() {
+        var matchID = $(this).data('id');
+        var match = new Object();
+        match.matchID = matchID;
+        currentMatch = match;
+        displayDeleteConfirmationModal('deleteMatchModal');
+    });
+
+
+    $('#yesDeleteMatch').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: 'api/deleteMatch',
+            content: 'application/json',
+            data: JSON.stringify(currentMatch),
+            success: function(data) {
+                var obj = JSON.parse(data);
+                if(obj.success == true) {
+                    window.location.href = "editSport.php?sportName=" + get('sportName');
+                } else {
+                    alert("Error deleting match from DB.");
+                }
+            },
+            error: function() {
+                alert("Error in AJAX request.");
+            }
+        })
+    });
+}
+
+function displayDeleteConfirmationModal(modalID) {
+    var modal = document.getElementById(modalID)
     var background = document.getElementById('adminOverlay');
     background.className = 'adminOverlay';
     modal.className = 'displayAdminModal';
@@ -206,7 +243,7 @@ function displayDeleteTeamConfirmationModal() {
     modal.style.marginTop = displacementY;
 }
 
-function hideDeleteTeamConfirmationModal() {
+function hideDeleteConfirmationModal() {
     var forms = document.getElementsByClassName('displayAdminModal');
     for(var form in forms) {
         forms[form].className = "adminModal";
