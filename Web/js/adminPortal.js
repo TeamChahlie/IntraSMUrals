@@ -74,7 +74,7 @@ function addClickListeners() {
             content: 'application/json',
             data: JSON.stringify(sport),
             success: function(data) {
-                console.log(JSON.parse(data));
+                window.location.href = "adminPortal.php";
             },
             error: function() {
                 alert("Error in AJAX request.")
