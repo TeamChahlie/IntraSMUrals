@@ -8,7 +8,6 @@ $app->post('/register', 'register');
 $app->get('/adminCheck/:userID', 'adminCheck');
 
 $app->post('/insertCaptain', 'insertCaptain');
-$app->post('/addScores', 'addScores');
 
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
@@ -42,6 +41,7 @@ $app->post('/insertTeam', 'insertTeam');
 $app->post('/deleteTeam', 'deleteTeam');
 $app->post('/insertMatch', 'insertMatch');
 $app->post('/deleteMatch', 'deleteMatch');
+$app->post('/updateMatchScore', 'updateMatchScore');
 
 
 
@@ -198,7 +198,7 @@ function deleteTeam() {
     }
 }
 
-//Should insert team info (both match ids are autoincremented)
+// insert Match to database
 function insertMatch() {
     $sql = "INSERT INTO TeamMatch (sportID, AteamID, BteamID, dateOf, timeOf) 
             VALUES( (SELECT sportID FROM Sport WHERE sportName=:sportName), 
@@ -224,7 +224,7 @@ function insertMatch() {
     }
 }
 
-// delete sport from database, will cascade to other tables
+// delete match from database, will cascade to other tables
 function deleteMatch() {
     $sql = "DELETE FROM TeamMatch WHERE matchID = :matchID";
     $app = \Slim\Slim::getInstance();
@@ -234,6 +234,25 @@ function deleteMatch() {
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("matchID", $info->matchID);
+        $stmt->execute();
+        echo '{"success": true}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// update score on a match
+function updateMatchScore() {
+    $sql = "UPDATE TeamMatch SET ATeamScore = :teamAScore, BTeamScore = :teamBScore WHERE matchID = :matchID";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $info = json_decode($request->getBody());
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("matchID", $info->matchID);
+        $stmt->bindParam("teamAScore", $info->teamAScore);
+        $stmt->bindParam("teamBScore", $info->teamBScore);
         $stmt->execute();
         echo '{"success": true}';
     } catch (PDOException $e) {
@@ -270,24 +289,6 @@ function insertCaptain() {
             $stmt->bindParam("CaptainID", $studentInfo->captainId);
             $stmt->execute();
         }
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}}';
-    }
-}
-
-//Should update database with admin-inserted scores
-function addScores() {
-    $sqlScores = "UPDATE TeamMatch SET ATeamScore = :AScore, BTeamScore = :BScore WHERE matchID = :matchNumber";
-    $app = \Slim\Slim::getInstance();
-    $request = $app->request();
-    $scoreInfo = json_decode($request->getBody());
-    try {
-        $db = getConnection();
-        $stmt = $db->prepare($sqlScores);
-        $stmt->bindParam("AScore", $scoreInfo->aScore);
-        $stmt->bindParam("BScore", $scoreInfo->bScore);
-        $stmt->bindParam("matchNumber", $scoreInfo->matchID);
-        $stmt->execute();
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
