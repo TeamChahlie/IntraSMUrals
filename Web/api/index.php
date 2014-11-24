@@ -76,7 +76,7 @@ ON Sport.sportID=Team.sportID GROUP BY sportName";
 
 // inserts sport into database
 function insertSport() {
-    $sqlSport = "INSERT INTO SPORT (sportName) Values (:sportName)";
+    $sqlSport = "INSERT INTO Sport (sportName) Values (:sportName)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $sportInfo = json_decode($request->getBody());
