@@ -119,17 +119,17 @@ function getTeamsInSport($sportName) {
 
 //Should insert team info
 function insertTeam() {
-    $sqlTeam = "INSERT INTO Team Values (:sportID, :teamID, :teamName, :captainID);";
+    $sqlTeam = "INSERT INTO Team (sportID, teamName) VALUES ((SELECT sportID FROM Sport WHERE sportName=:sportName), :teamName)";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $teamInfo = json_decode($request->getBody());
     try {
         $db = getConnection();
         $stmt = $db->prepare($sqlTeam);
-        $stmt->bindParam("sportID", $teamInfo->sportId);
-        $stmt->bindParam("teamID", $teamInfo->teamID);
+        $stmt->bindParam("sportName", $teamInfo->sportName);
         $stmt->bindParam("teamName", $teamInfo->teamName);
-        $stmt->bindParam("captainName", $teamInfo->captainID);
+        $stmt->execute();
+        echo '{"success": true}';
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
