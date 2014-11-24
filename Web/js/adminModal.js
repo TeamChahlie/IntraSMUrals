@@ -87,7 +87,8 @@ function submitTeam() {
         content: 'application/json',
         data: JSON.stringify(team),
         success: function(data) {
-            console.log(JSON.parse(data));
+            hideAdminModals();
+            window.location.href = "editSport.php?sportName=" + sportName;
         },
         error: function() {
             alert("Error in AJAX request.");
