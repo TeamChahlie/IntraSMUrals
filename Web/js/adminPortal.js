@@ -99,12 +99,12 @@ function addClickListeners() {
 
 function addHoverListeners() {
     $('.sportViewContainer').on('mouseenter', 'div.sportView', function() {
-        $(this).children('.sportDefault').animate({width: 'toggle'}, 200);
-        $(this).children('.sportOptionMenu').animate({width: 'toggle'}, 300);
+        $(this).children('.sportDefault').stop().animate({width: 'toggle'}, 200);
+        $(this).children('.sportOptionMenu').stop().animate({width: 'toggle'}, 300);
     });
     $('.sportViewContainer').on('mouseleave', 'div.sportView',function() {
-        $(this).children('.sportOptionMenu').animate({width: 'toggle'}, 200);
-        $(this).children('.sportDefault').animate({width: 'toggle'}, 300);
+        $(this).children('.sportOptionMenu').stop().animate({width: 'toggle'}, 200);
+        $(this).children('.sportDefault').stop().animate({width: 'toggle'}, 300);
     });
 }
 

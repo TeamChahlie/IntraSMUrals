@@ -52,11 +52,11 @@ function getTeams() {
 
 function addTeamHoverListeners() {
     $('#sportTeamList').on('mouseenter', '.teamEditorButton', function() {
-        $(this).children('.teamDefault').animate({width: 'toggle'}, 200);
-        $(this).children('.teamOptionMenu').animate({width: 'toggle'}, 300);
+        $(this).children('.teamDefault').stop().animate({width: 'toggle'}, 200);
+        $(this).children('.teamOptionMenu').stop().animate({width: 'toggle'}, 300);
     });
     $('#sportTeamList').on('mouseleave', '.teamEditorButton', function() {
-        $(this).children('.teamOptionMenu').animate({width: 'toggle'}, 200);
-        $(this).children('.teamDefault').animate({width: 'toggle'}, 300);
+        $(this).children('.teamOptionMenu').stop().animate({width: 'toggle'}, 200);
+        $(this).children('.teamDefault').stop().animate({width: 'toggle'}, 300);
     });
 }

@@ -7,6 +7,7 @@ $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->get('/adminCheck/:userID', 'adminCheck');
 
+$app->post('/insertTeam', 'insertTeam');
 $app->post('/insertCaptain', 'insertCaptain');
 $app->post('/insertMatch', 'insertMatch');
 $app->post('/addScores', 'addScores');
@@ -29,22 +30,14 @@ $app->get('/getTeamEmails/:teamName', 'getTeamEmails');
 $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 
-//-----ADMIN Calls, please don't move anything between here and the next comment
-
-//IntraSMUrals level
+//ADMIN Calls, please don't move anything between here and the next comment
 $app->get('/getSportList', 'getSportList');
 $app->post('/insertSport', 'insertSport');
 $app->post('/deleteSport', 'deleteSport');
-
-//Sport level
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
-$app->post('/insertTeam', 'insertTeam');
-$app->post('/deleteTeam', 'deleteTeam');
-
-//Team level
 
 
-//-----ADMIN Calls, please don't move anything between here and the previous comment
+//ADMIN Calls, please don't move anything between here and the previous comment
 
 
 $app->run();
@@ -126,35 +119,17 @@ function getTeamsInSport($sportName) {
 
 //Should insert team info
 function insertTeam() {
-    $sqlTeam = "INSERT INTO Team (sportID, teamName) VALUES ((SELECT sportID FROM Sport WHERE sportName=:sportName), :teamName)";
+    $sqlTeam = "INSERT INTO Team Values (:sportID, :teamID, :teamName, :captainID);";
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
     $teamInfo = json_decode($request->getBody());
     try {
         $db = getConnection();
         $stmt = $db->prepare($sqlTeam);
-        $stmt->bindParam("sportName", $teamInfo->sportName);
+        $stmt->bindParam("sportID", $teamInfo->sportId);
+        $stmt->bindParam("teamID", $teamInfo->teamID);
         $stmt->bindParam("teamName", $teamInfo->teamName);
-        $stmt->execute();
-        echo '{"success": true}';
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}}';
-    }
-}
-
-// delete sport from database, will cascade to other tables
-function deleteTeam() {
-    $sql = "DELETE FROM Team WHERE teamName = :teamName AND sportID = (SELECT sportID FROM Sport WHERE sportName= :sportName)";
-    $app = \Slim\Slim::getInstance();
-    $request = $app->request();
-    $info = json_decode($request->getBody());
-    try {
-        $db = getConnection();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam("sportName", $info->sportName);
-        $stmt->bindParam("teamName", $info->teamName);
-        $stmt->execute();
-        echo '{"success": true}';
+        $stmt->bindParam("captainName", $teamInfo->captainID);
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
@@ -164,7 +139,7 @@ function deleteTeam() {
 function insertCaptain() {
     $sqlStudent = "INSERT INTO Student VALUES (StudentID) (:studentID)";
     $sqlUser = "INSERT INTO User VALUES (StudentID) (:studentID)";
-    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID) (:captainID)";
+    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID, IsApproved) (:captainID, 1)";
 
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
