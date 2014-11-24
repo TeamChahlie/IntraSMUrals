@@ -7,12 +7,9 @@ $app->post('/login', 'login');
 $app->post('/register', 'register');
 $app->get('/adminCheck/:userID', 'adminCheck');
 
-$app->post('/insertTeam', 'insertTeam');
 $app->post('/insertCaptain', 'insertCaptain');
 $app->post('/insertMatch', 'insertMatch');
 $app->post('/addScores', 'addScores');
-
-$app->post('/deleteSport', 'deleteSport');
 
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
@@ -31,9 +28,13 @@ $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
 
 //ADMIN Calls, please don't move anything between here and the next comment
+//intrasmurals level
 $app->get('/getSportList', 'getSportList');
 $app->post('/insertSport', 'insertSport');
+$app->post('/deleteSport', 'deleteSport');
+//sport level
 $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
+$app->post('/insertTeam', 'insertTeam');
 
 
 //ADMIN Calls, please don't move anything between here and the previous comment
@@ -42,7 +43,7 @@ $app->get('/getTeamsInSport/:sportName', 'getTeamsInSport');
 $app->run();
 
 //============================== ADMIN ==============================//
-// returns a team's scheduled games with scores and opponents
+// returns list of sports and number of teams in each
 function getSportList() {
     $sql = "SELECT sportName, COUNT(teamID) as teamCount FROM Sport LEFT JOIN Team
 ON Sport.sportID=Team.sportID GROUP BY sportName";
@@ -63,7 +64,7 @@ ON Sport.sportID=Team.sportID GROUP BY sportName";
     }
 }
 
-//Should insert sport and ID (if there's a convention besides just incrementing) 
+// inserts sport into database
 function insertSport() {
     $sqlSport = "INSERT INTO SPORT (sportName) Values (:sportName)";
     $app = \Slim\Slim::getInstance();
@@ -80,7 +81,24 @@ function insertSport() {
     }
 }
 
-// returns a team's scheduled games with scores and opponents
+// delete sport from database, will cascade to other tables
+function deleteSport() {
+    $sqlSport = "DELETE FROM Sport WHERE sportName = :sportName";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $sportInfo = json_decode($request->getBody());
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sqlSport);
+        $stmt->bindParam("sportName", $sportInfo->sportName);
+        $stmt->execute();
+        echo '{"success": true}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// returns teams in a specific sport
 function getTeamsInSport($sportName) {
     $sql = "SELECT teamName FROM Sport NATURAL JOIN Team WHERE sportName = :sportName";
     try {
@@ -121,7 +139,7 @@ function insertTeam() {
 function insertCaptain() {
     $sqlStudent = "INSERT INTO Student VALUES (StudentID) (:studentID)";
     $sqlUser = "INSERT INTO User VALUES (StudentID) (:studentID)";
-    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID, IsApproved) (:captainID, 1)";
+    $sqlCaptain = "INSERT INTO Team VALUES (CaptainID) (:captainID)";
 
     $app = \Slim\Slim::getInstance();
     $request = $app->request();
@@ -375,12 +393,6 @@ function adminCheck($userID) {
     }
 }
 
-
-//============================== ADMIN REMOVAL FUNCTIONS =============================//
-function deleteSport() {
-    $sql = "";
-}
-
 //============================== ADMIN SEARCH FUNCTIONS ==============================//
 //This returns ONLY THE NAME based on ID
 function adminStudentSearch() {
@@ -563,7 +575,7 @@ function getCaptainEmail ($teamName) {
 //if you're getting it by team
      $sql = "SELECT t.teamName, s.email FROM Team t INNER JOIN Student s ON t.captainID = s.studentID WHERE t.teamName = :teamName";
 //If you want it by team ID
-	 //$sql = "SELECT teamName, email FROM Team NATURAL JOIN student WHERE studentID = captainID AND teamID = :teamID";
+     //$sql = "SELECT teamName, email FROM Team NATURAL JOIN student WHERE studentID = captainID AND teamID = :teamID";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
@@ -585,7 +597,7 @@ function getCaptainEmail ($teamName) {
 //returns ONLY student emails
 function getStudentEmails() {
 //if you're getting all of them
-	 $sql = "SELECT email FROM student";
+     $sql = "SELECT email FROM student";
     try {
         $db = getConnection();
         $stmt = $db->query($sql);
@@ -603,7 +615,7 @@ function getStudentEmails() {
 
 function getTeamEmails($teamName) {
 //if you're getting it by team
-	 $sql = "SELECT email FROM student NATURAL JOIN Involvement NATURAL JOIN Team WHERE teamName = :teamName";
+     $sql = "SELECT email FROM student NATURAL JOIN Involvement NATURAL JOIN Team WHERE teamName = :teamName";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
@@ -731,10 +743,10 @@ function getUpcomingMatches() {
 }
 
 function getConnection() {
-    $dbhost = "127.0.0.1";
-    $dbpass = "";
-    // $dbhost = "localhost";
-    // $dbpass = "root";
+    // $dbhost = "127.0.0.1";
+    // $dbpass = "";
+    $dbhost = "localhost";
+    $dbpass = "root";
     $dbuser = "root";
     $dbname = "IntraSMUrals";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);

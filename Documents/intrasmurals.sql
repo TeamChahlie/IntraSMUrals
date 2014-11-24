@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.38)
 # Database: IntraSMUrals
-# Generation Time: 2014-11-23 22:28:30 +0000
+# Generation Time: 2014-11-24 00:01:23 +0000
 # ************************************************************
 
 
@@ -249,6 +249,7 @@ LOCK TABLES `Student` WRITE;
 INSERT INTO `Student` (`studentID`, `fname`, `lname`, `email`)
 VALUES
 	(0,'','',''),
+	(11111111,'Admin','Jones','admin@admin.com'),
 	(11345678,'Kurt','Browning','kBrowning@canada.edu'),
 	(12345678,'Wayne','Gretzky','wGretzky@canada.edu'),
 	(12345679,'Scott','Goodyear','sGoodyear@bc.edu'),
@@ -295,7 +296,6 @@ CREATE TABLE `Team` (
   `sportID` int(11) NOT NULL,
   `teamName` varchar(30) NOT NULL DEFAULT '',
   `captainID` int(11) DEFAULT NULL,
-  `isApproved` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`teamID`),
   KEY `Team.SportID.FK` (`sportID`),
   KEY `Team.CaptainID.FK` (`captainID`),
@@ -306,52 +306,52 @@ CREATE TABLE `Team` (
 LOCK TABLES `Team` WRITE;
 /*!40000 ALTER TABLE `Team` DISABLE KEYS */;
 
-INSERT INTO `Team` (`teamID`, `sportID`, `teamName`, `captainID`, `isApproved`)
+INSERT INTO `Team` (`teamID`, `sportID`, `teamName`, `captainID`)
 VALUES
-	(1,2,'Alpha',13345678,1),
-	(2,2,'Edmonton Eagles',16345678,1),
-	(3,2,'Victoria Vixen',19345678,1),
-	(4,2,'Winnipeg Wisecrackers',33294059,1),
-	(5,2,'Fredericton',91345678,1),
-	(6,2,'Halifax Hunters',24555674,1),
-	(10,7,'Toronto Terrors',14345678,1),
-	(11,7,'Charlottetown Charlatans',12345679,1),
-	(12,7,'Regina Rulers',11345678,1),
-	(13,7,'Yelloknife Inmates',24555679,1),
-	(20,3,'Team Canada',41345678,1),
-	(21,3,'Quebec Killers',12345678,1),
-	(22,3,'Nunavut Numbskulls',38224059,1),
-	(23,3,'Winnipeg Wisecrackers',33294059,1),
-	(24,3,'Newfoundland',24555675,1),
-	(25,3,'Whitehorse Wilduns',38294079,1),
-	(26,3,'Victoria Vixen',19345678,1),
-	(30,5,'Nunavat Numbskulls',38224059,1),
-	(31,5,'Edmonton Eagles',16345678,1),
-	(32,5,'Ottawa Ogres',13345678,1),
-	(33,5,'Halifax Haunters',24555674,1),
-	(34,5,'Newfoundland',24555675,1),
-	(35,5,'Fredericton',91345678,1),
-	(36,5,'Quebec Killers',12345678,1),
-	(37,5,'Toronto Terrors',14345678,1),
-	(40,6,'Charlottetown Charlatans',12345679,1),
-	(41,6,'Regina Rulers',11345678,1),
-	(42,6,'Yellowknife Inmates',24555679,1),
-	(43,6,'Whitehorse Wilduns',38294079,1),
-	(44,6,'Edmonton Eagles',16345678,1),
-	(50,1,'Newfoundland',24555675,1),
-	(51,1,'Acadia',24555674,1),
-	(52,1,'Nova Scotia Scoundrels',24555678,1),
-	(53,1,'Toronto Terrors',14345678,1),
-	(54,1,'Edmonton Owls',16345678,1),
-	(55,1,'Serial Killers',71345678,1),
-	(56,1,'Ebola Eradicators',61345678,1),
-	(101,4,'Avril Lavigne',24555673,1),
-	(102,4,'Shania Twain',21345678,1),
-	(103,4,'Celine Dion',24555679,1),
-	(104,4,'Alanis Morissette',24555678,1),
-	(105,4,'Joni Mitchell',24555676,1),
-	(106,4,'Neil Young',19345678,1),
-	(107,4,'Justin Beiber',24555675,1);
+	(1,2,'Alpha',13345678),
+	(2,2,'Edmonton Eagles',16345678),
+	(3,2,'Victoria Vixen',19345678),
+	(4,2,'Winnipeg Wisecrackers',33294059),
+	(5,2,'Fredericton',91345678),
+	(6,2,'Halifax Hunters',24555674),
+	(10,7,'Toronto Terrors',14345678),
+	(11,7,'Charlottetown Charlatans',12345679),
+	(12,7,'Regina Rulers',11345678),
+	(13,7,'Yelloknife Inmates',24555679),
+	(20,3,'Team Canada',41345678),
+	(21,3,'Quebec Killers',12345678),
+	(22,3,'Nunavut Numbskulls',38224059),
+	(23,3,'Winnipeg Wisecrackers',33294059),
+	(24,3,'Newfoundland',24555675),
+	(25,3,'Whitehorse Wilduns',38294079),
+	(26,3,'Victoria Vixen',19345678),
+	(30,5,'Nunavat Numbskulls',38224059),
+	(31,5,'Edmonton Eagles',16345678),
+	(32,5,'Ottawa Ogres',13345678),
+	(33,5,'Halifax Haunters',24555674),
+	(34,5,'Newfoundland',24555675),
+	(35,5,'Fredericton',91345678),
+	(36,5,'Quebec Killers',12345678),
+	(37,5,'Toronto Terrors',14345678),
+	(40,6,'Charlottetown Charlatans',12345679),
+	(41,6,'Regina Rulers',11345678),
+	(42,6,'Yellowknife Inmates',24555679),
+	(43,6,'Whitehorse Wilduns',38294079),
+	(44,6,'Edmonton Eagles',16345678),
+	(50,1,'Newfoundland',24555675),
+	(51,1,'Acadia',24555674),
+	(52,1,'Nova Scotia Scoundrels',24555678),
+	(53,1,'Toronto Terrors',14345678),
+	(54,1,'Edmonton Owls',16345678),
+	(55,1,'Serial Killers',71345678),
+	(56,1,'Ebola Eradicators',61345678),
+	(101,4,'Avril Lavigne',24555673),
+	(102,4,'Shania Twain',21345678),
+	(103,4,'Celine Dion',24555679),
+	(104,4,'Alanis Morissette',24555678),
+	(105,4,'Joni Mitchell',24555676),
+	(106,4,'Neil Young',19345678),
+	(107,4,'Justin Beiber',24555675);
 
 /*!40000 ALTER TABLE `Team` ENABLE KEYS */;
 UNLOCK TABLES;
