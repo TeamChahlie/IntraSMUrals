@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 4096
+# Version 4135
 #
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 127.0.0.1 (MySQL 5.6.16)
+# Host: localhost (MySQL 5.5.38)
 # Database: IntraSMUrals
-# Generation Time: 2014-11-24 09:37:06 +0000
+# Generation Time: 2014-11-24 17:41:53 +0000
 # ************************************************************
 
 
@@ -19,6 +19,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+DROP DATABASE IF EXISTS IntraSMUrals;
+CREATE DATABASE IntraSMUrals;
+USE IntraSMUrals;
 
 # Dump of table Involvement
 # ------------------------------------------------------------
