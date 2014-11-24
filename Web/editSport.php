@@ -33,9 +33,9 @@
         <h2 class="subHeader"></h2>
 
         <div id="sportSchedule">
-            <h2 class="sectionHeader">Upcoming Games</h2>
-
+            <h2 class="sectionHeader">All Games</h2>
         </div>
+
         <div id="sportTeamList">
             <h2 class="sectionHeader">Teams</h2>
 

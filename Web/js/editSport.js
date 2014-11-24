@@ -58,6 +58,81 @@ function getTeams() {
 
 function getMatches() {
     var sportName = get('sportName');
+    var scheduleDiv = document.getElementById('sportSchedule');
+
+    $.getJSON('api/getMatchesInSport/' + sportName, function(matches) {
+        if(matches.length == 0) {
+
+        } else {
+            for(var key in matches) {
+                var match = matches[key];
+
+                var outerDiv = document.createElement('div');
+                outerDiv.className = "sportScheduleEvent";
+                scheduleDiv.appendChild(outerDiv);
+
+                var team1Div = document.createElement('div');
+                team1Div.className = "sportEventTeam truncate";
+                team1Div.textContent = match.teamA;
+                outerDiv.appendChild(team1Div);
+
+                var team1Score = document.createElement('div');
+                team1Score.className = "sportEventScore";
+                if(match.teamAScore == null) {
+                    team1Score.textContent = "--";
+                } else {
+                    team1Score.textContent = match.teamAScore;
+                }
+                outerDiv.appendChild(team1Score);
+
+                var vs = document.createElement('div');
+                vs.className = "sportVS";
+                vs.textContent = "vs.";
+                outerDiv.appendChild(vs);
+
+                var team2Div = document.createElement('div');
+                team2Div.className = "sportEventTeam truncate";
+                team2Div.textContent = match.teamB;
+                outerDiv.appendChild(team2Div);
+
+                var team2Score = document.createElement('div');
+                team2Score.className = "sportEventScore";
+                if(match.teamBScore == null) {
+                    team2Score.textContent = "--";
+                } else {
+                    team2Score.textContent = match.teamBScore;
+                }
+                outerDiv.appendChild(team2Score);
+
+                var date = document.createElement('div');
+                date.className = "sportEventDate";
+                date.textContent = match.dateOf;
+                outerDiv.appendChild(date);
+
+                var time = document.createElement('div');
+                time.className = "sportEventTime";
+                time.textContent = match.timeOf;
+                outerDiv.appendChild(time);
+
+                var location = document.createElement('div');
+                location.className = "sportEventLocation truncate";
+                location.textContent = "Intramural Fields";
+                outerDiv.appendChild(location);
+
+                var editButton = document.createElement('div');
+                editButton.className = "sportEventButton";
+                editButton.textContent = "Edit";
+                editButton.dataset.ID = match.matchID;
+                outerDiv.appendChild(editButton);
+
+                var deleteButton = document.createElement('div');
+                deleteButton.className = "sportEventButton";
+                deleteButton.textContent = "Delete";
+                deleteButton.dataset.ID = match.matchID;
+                outerDiv.appendChild(deleteButton);
+            }
+        }
+    })
 }
 
 function addTeamHoverListeners() {

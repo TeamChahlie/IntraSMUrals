@@ -53,8 +53,8 @@ function teamButtonListener() {
 
         var scheduleDiv = document.getElementById('studentSchedule');
         scheduleDiv.innerHTML = "<h2 class='sectionHeader'>Upcoming Games</h2>";
-
-        if(games.length == 0) {
+        if( !$.isArray(games) ||  !games.length ) {
+            console.log("HERE");
             var html = document.createElement('p');
             html.className = "noContent";
             html.textContent = "No future games scheduled.";
@@ -90,6 +90,7 @@ function teamButtonListener() {
                 var teamLink = document.createElement('a');
                 teamLink.href = "/teams.php?team=" + games[key].opponent;
                 teamLink.textContent = games[key].opponent;
+                teamLink.className = "truncate";
                 opponentDiv.appendChild(teamLink);
 
 
