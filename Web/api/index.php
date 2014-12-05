@@ -331,10 +331,12 @@ function login() {
             $db = null;
             if ($userInfo == false) {
                 echo '{"isUser": false}';
+            } else {
+                $response['info'] = $userInfo;
+                $response['isUser'] = true;
+                echo json_encode($response);
             }
-            $response['info'] = $userInfo;
-            $response['isUser'] = true;
-            echo json_encode($response);
+
         }
         else {
             echo '{"error":{"text": "Bad things happened! JSON was not valid" }}';
