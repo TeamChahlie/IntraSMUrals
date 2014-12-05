@@ -329,7 +329,11 @@ function login() {
             $stmt->execute();
             $userInfo = $stmt->fetch(PDO::FETCH_OBJ);
             $db = null;
+            if ($userInfo == false) {
+                echo '{"isUser": false}';
+            }
             $response['info'] = $userInfo;
+            $response['isUser'] = true;
             echo json_encode($response);
         }
         else {
