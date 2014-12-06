@@ -24,6 +24,10 @@ $(document).ready(function() {
         displayAdminModal('addMatchModal');
     });
 
+    $('#addNewGame').click(function() {
+        displayAdminModal('addGameModal');
+    });
+
     $('#createMatchForm').submit(function(event) {
         event.preventDefault();
         submitMatch();
@@ -214,7 +218,11 @@ function updateScores() {
         success: function(data) {
             var obj = JSON.parse(data);
             if(obj.success == true) {
-                window.location.href = "editSport.php?sportName=" + get('sportName');
+                if(get("sportName")) {
+                    window.location.href = "editSport.php?sportName=" + get('sportName');
+                } else {
+                    window.location.href = "editTeam.php?teamName=" + get('teamName');
+                }
             } else {
                 alert("Error updating match scores in DB.");
             }
@@ -222,5 +230,5 @@ function updateScores() {
         error: function() {
             alert("Error in AJAX request.");
         }
-    })
+    });
 }

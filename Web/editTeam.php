@@ -8,10 +8,13 @@
 
     <!-- JavaScript Files -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/editTeam.js"></script>
+    <script src="js/parser.js"></script>
     <script src="js/userCheck.js"></script>
     <script src="js/adminCheck.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/modal.js"></script>
+    <script src="js/adminModal.js"></script>
     <script src="js/nav.js"></script>
 
 
@@ -30,9 +33,11 @@
         <h2 class="pageHeader">Team Editor</h2>
         <h2 class="subHeader"></h2>
 
-        <div id="sportSchedule">
+        <div id="teamSchedule">
             <h2 class="sectionHeader">Upcoming Games</h2>
-
+            <div class="sportScheduleEvent">
+                <div id="addNewGame">Add New Game</div>
+            </div>
         </div>
         <div id="sportTeamList">
             <h2 class="sectionHeader">Players</h2>
