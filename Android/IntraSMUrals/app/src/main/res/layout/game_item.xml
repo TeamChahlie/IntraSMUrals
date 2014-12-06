@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:alpha="0.5"/>
+
+    <TextView
+        android:id="@+id/sportLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_marginTop="5dp"
+        android:text="Volleyball"
+        android:textSize="10pt"
+        android:textColor="#CC0000"/>
+    <TextView
+        android:id="@+id/matchup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_below="@id/sportLabel"
+        android:text="Pastafarians vs. Dream Team"
+        android:textSize="8pt"/>
+
+    <TextView
+        android:id="@+id/dateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/matchup"
+        android:layout_alignLeft="@+id/matchup"
+        android:text="Monday, Dec. 25th" />
+
+    <TextView
+        android:id="@+id/timeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateLabel"
+        android:layout_alignLeft="@id/dateLabel"
+        android:text="8:00 pm"/>
+
+</RelativeLayout>

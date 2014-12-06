@@ -46,11 +46,88 @@ $app->post('/updateMatchScore', 'updateMatchScore');
 //Team level
 $app->get('/getStudentsInTeam/:teamID', 'getStudentsInTeam');
 
-
-
 //-----ADMIN Calls, please don't move anything between here and the previous comment
 
+
+//-----ANDROID Calls, please don't move anything between here and the next comment
+$app->post('/getStudentMatches', 'getStudentMatches');
+
+//-----ANDROID Calls, please don't move anything between here and the previous comment
+
+
 $app->run();
+
+//============================== ANDROID ==============================//
+function getStudentMatches() {
+    $sqlHomeGames = "SELECT sportName, teamName, opponentName, dateOF AS 'date', 
+                            timeOF AS 'time', ATeamScore AS teamScore, 
+                            BTeamScore AS opponentScore 
+                        FROM TeamMatch 
+                        NATURAL JOIN Sport 
+                        INNER JOIN Team 
+                        ON TeamMatch.AteamID = Team.teamID 
+                        INNER JOIN (
+                            SELECT teamID AS opponentID, teamName AS opponentName 
+                            FROM Team) AS table1 
+                        ON TeamMatch.BteamID = table1.opponentID 
+                        WHERE AteamID IN (
+                            SELECT teamID 
+                            FROM Involvement 
+                            WHERE studentID = :studentID)";
+    $sqlAwayGames = "SELECT sportName, teamName, opponentName, dateOF AS 'date', 
+                            timeOF AS 'time', BTeamScore AS teamScore, 
+                            ATeamScore AS opponentScore 
+                        FROM TeamMatch 
+                        NATURAL JOIN Sport 
+                        INNER JOIN Team 
+                        ON TeamMatch.BteamID = Team.teamID 
+                        INNER JOIN (
+                            SELECT teamID AS opponentID, teamName AS opponentName 
+                            FROM Team) AS table1 
+                        ON TeamMatch.AteamID = table1.opponentID 
+                        WHERE BteamID IN (
+                            SELECT teamID 
+                            FROM Involvement 
+                            WHERE studentID = :studentID)";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $info = json_decode($request->getBody());
+
+    try {
+        $db = getConnection();
+        $response = array();
+        $games = array();
+
+        //first get home games
+        $stmt = $db->prepare($sqlHomeGames);
+        $stmt->bindParam("studentID", $info->studentID);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($games,$row);
+        }
+
+        //then get away games
+        $stmt = $db->prepare($sqlAwayGames);
+        $stmt->bindParam("studentID", $info->studentID);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($games,$row);
+        }
+
+        if(empty($games)) {
+            $response['hasGames'] = false;
+        } else {
+            $response['hasGames'] = true;
+            $response['games'] = $games;
+        }
+        
+        $db = null;
+        echo json_encode($response);
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
 
 //============================== ADMIN ==============================//
 // returns list of sports and number of teams in each
