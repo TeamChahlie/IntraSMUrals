@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="charlie.intrasmurals.LoginActivity"
+    android:background="#CCCCCC">
+
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"/>
+
+    <TextView
+        android:id="@+id/intrasmuralsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="IntraSMUrals"
+        android:textColor="#CC0000"
+        android:textSize="20pt"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:layout_below="@id/logoView"/>
+
+    <RelativeLayout
+        android:id="@+id/loginFormLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/emailField"
+            android:inputType="textEmailAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="EMAIL"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:background="@drawable/form_field"/>
+
+
+        <EditText
+            android:id="@+id/passwordField"
+            android:inputType="textPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailField"
+            android:layout_marginTop="10dp"
+            android:hint="PASSWORD"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:background="@drawable/form_field"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordField"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:text="LOGIN"
+            android:textColor="@android:color/white"
+            android:onClick="onLoginClicked"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="#66000000">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+</RelativeLayout>
