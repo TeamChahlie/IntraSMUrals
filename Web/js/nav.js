@@ -49,7 +49,7 @@ function addLoginClickListener() {
             success: function(data) {
                 console.log(data);
                 var obj = JSON.parse(data);
-                if(obj.info === false) {
+                if(obj.isUser === false) {
                     $('#navEmail').val('');
                     $('#navPassword').val('');
                     alert("Username/Password are incorrect!");
