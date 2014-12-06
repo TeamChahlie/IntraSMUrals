@@ -160,6 +160,7 @@ public class LoginActivity extends Activity {
     private void loginComplete() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("user", user);
+        Log.d("USER", user.toString());
         startActivity(intent);
     }
 

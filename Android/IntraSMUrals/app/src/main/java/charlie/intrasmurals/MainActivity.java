@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,18 +31,25 @@ import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 
 public class MainActivity extends Activity {
 
     private ListView gameList;
     private GameListAdapter gameListAdapter;
-    private MainActivity mainActivity = null;
+    private MainActivity mainActivity;
     public ArrayList<Game> gameData = new ArrayList<Game>();
 
-    private RelativeLayout loadingLayout;
+    private RelativeLayout loadingScreen;
+
+    private TextView noGamesLabel;
     private TextView userLabel;
     private User user;
     private String[] sports = new String[] {
@@ -55,10 +63,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loadingScreen = (RelativeLayout)findViewById(R.id.loadingScreen);
+        noGamesLabel = (TextView)findViewById(R.id.noGamesLabel);
         mainActivity = this;
-        setFakeListData();
 
-        Resources resources = getResources();
+
+        final Resources resources = getResources();
         gameList = (ListView)findViewById(R.id.gamesListView);
 
         gameListAdapter = new GameListAdapter(this, gameData, resources);
@@ -68,28 +78,18 @@ public class MainActivity extends Activity {
         user = data.getParcelable("user");
         userLabel = (TextView) findViewById(R.id.userLabel);
         userLabel.setText(user.getFirstName() + " " + user.getLastName());
-
-        loadingLayout = (RelativeLayout)findViewById(R.id.loadingPanel2);
+        getGameData();
     }
 
-    private void setFakeListData() {
-        for (int i = 0; i < 11; i++) {
-
-            final Game game = new Game(
-                    "Cricket",
-                    "Team" + i,
-                    "Team" + (i+1),
-                    "Date of game",
-                    "Time of game"
-            );
-            gameData.add(game);
-        }
+    private void getGameData() {
+        loadingScreen.setVisibility(View.VISIBLE);
+        new gamesRequest().execute(user.getUserID());
     }
 
     public void onItemClick(int mPosition)
     {
-        Game temp = (Game) gameData.get(mPosition);
-        Toast.makeText(this, temp.getTeamName() + " vs. " + temp.getOpponentName(), Toast.LENGTH_SHORT).show();
+//        Game temp = (Game) gameData.get(mPosition);
+//        Toast.makeText(this, temp.getTeamName() + " vs. " + temp.getOpponentName(), Toast.LENGTH_SHORT).show();
     }
 
     public void onLogoutClicked(View view) {
@@ -102,10 +102,10 @@ public class MainActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String userID = user.getUserID();
+            String userID = params[0];
             String result = "";
             try {
-                URL url = new URL("http://54.69.253.21/api/login");
+                URL url = new URL("http://54.69.253.21/api/getStudentMatches");
                 HttpURLConnection connection;
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setReadTimeout(10000);
@@ -146,14 +146,51 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-            loadingLayout.setVisibility(View.GONE);
+            loadingScreen.setVisibility(View.GONE);
             try {
                 JSONObject object = new JSONObject(result);
-                boolean isUser = object.getBoolean("isUser");
-                if(isUser) {
-                    JSONObject info = object.getJSONObject("info");
-                    user = new User(info.getString("fname"), info.getString("lname"), info.getString("studentID"), info.getString("email"));
+                boolean hasGames = object.getBoolean("hasGames");
+                if(hasGames) {
+                    JSONArray games = object.getJSONArray("games");
+                    for (int i = 0; i < games.length(); i++) {
+                        JSONObject game = games.getJSONObject(i);
+                        String teamScore = game.getString("teamScore");
+                        String opponentScore = game.getString("opponentScore");
+                        if (teamScore.equals("null") || opponentScore.equals("null")) {
+                            teamScore = "99999";
+                            opponentScore = "99999";
+                        }
+
+                        Game newGame = new Game(
+                                game.getString("sportName"),
+                                game.getString("teamName"),
+                                game.getString("opponentName"),
+                                game.getString("date"),
+                                game.getString("time"),
+                                teamScore,
+                                opponentScore
+                        );
+                        gameData.add(newGame);
+                    }
+                    Collections.sort(gameData, new Comparator<Game>() {
+                        @Override
+                        public int compare(Game lhs, Game rhs) {
+                            Log.d("DATE", "SORTING");
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                            try {
+                                Date lhsDate = format.parse(lhs.getDate());
+                                Date rhsDate = format.parse(rhs.getDate());
+                                Log.d("DATE", String.valueOf(lhsDate));
+                                Log.d("DATE", String.valueOf(rhsDate));
+                                return rhsDate.compareTo(lhsDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                return 0;
+                            }
+                        }
+                    });
                 } else {
+                    noGamesLabel.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -187,6 +224,10 @@ public class MainActivity extends Activity {
             }
         }
     };
+
+    private void makeToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

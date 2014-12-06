@@ -45,8 +45,18 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/navbar"/>
 
+    <TextView
+        android:id="@+id/noGamesLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/navbar"
+        android:text="No games were found for this user!"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:visibility="gone"/>
+
     <RelativeLayout
-        android:id="@+id/loadingPanel2"
+        android:id="@+id/loadingScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/navbar"

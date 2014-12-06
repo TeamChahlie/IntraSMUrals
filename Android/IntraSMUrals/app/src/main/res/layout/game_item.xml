@@ -13,6 +13,18 @@
         android:alpha="0.5"/>
 
     <TextView
+        android:id="@+id/scoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:textSize="10pt"
+        android:textColor="#CC0000"
+        android:gravity="center"/>
+
+    <TextView
         android:id="@+id/sportLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +32,7 @@
         android:layout_marginTop="5dp"
         android:text="Volleyball"
         android:textSize="10pt"
-        android:textColor="#CC0000"/>
+        android:textColor="#0000FF"/>
     <TextView
         android:id="@+id/matchup"
         android:layout_width="wrap_content"
