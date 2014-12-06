@@ -96,13 +96,14 @@ function getStudentMatches() {
     try {
         $db = getConnection();
         $response = array();
+        $games = array();
 
         //first get home games
         $stmt = $db->prepare($sqlHomeGames);
         $stmt->bindParam("studentID", $info->studentID);
         $stmt->execute();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            array_push($response,$row);
+            array_push($games,$row);
         }
 
         //then get away games
@@ -110,9 +111,16 @@ function getStudentMatches() {
         $stmt->bindParam("studentID", $info->studentID);
         $stmt->execute();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            array_push($response,$row);
+            array_push($games,$row);
         }
 
+        if(empty($games)) {
+            $response['hasGames'] = false;
+        } else {
+            $response['hasGames'] = true;
+            $response['games'] = $games;
+        }
+        
         $db = null;
         echo json_encode($response);
     } catch (PDOException $e) {
