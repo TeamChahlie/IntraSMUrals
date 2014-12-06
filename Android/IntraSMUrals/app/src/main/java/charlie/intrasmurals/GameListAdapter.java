@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by charlie on 12/5/14.
@@ -93,8 +98,18 @@ public class GameListAdapter extends BaseAdapter implements View.OnClickListener
             }
             holder.sportName.setText(temp.getSportName());
             holder.matchup.setText(temp.getTeamName() + " vs. " + temp.getOpponentName());
-            holder.date.setText(temp.getDate());
-            holder.time.setText(temp.getTime());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat pretty = new SimpleDateFormat("EEE, d MMM");
+            SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat prettyTime = new SimpleDateFormat("hh:mm aaa");
+            try {
+                Date date = format.parse(temp.getDate());
+                holder.date.setText(pretty.format(date));
+                Date time = formatTime.parse(temp.getTime());
+                holder.time.setText(prettyTime.format(time));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             int teamScore = Integer.valueOf(temp.getTeamScore());
             int opponentScore = Integer.valueOf(temp.getOpponentScore());
