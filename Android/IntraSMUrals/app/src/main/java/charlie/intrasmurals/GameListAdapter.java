@@ -3,6 +3,8 @@ package charlie.intrasmurals;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by charlie on 12/5/14.
@@ -53,6 +59,7 @@ public class GameListAdapter extends BaseAdapter implements View.OnClickListener
         public TextView matchup;
         public TextView date;
         public TextView time;
+        public TextView score;
     }
 
     @Override
@@ -69,6 +76,7 @@ public class GameListAdapter extends BaseAdapter implements View.OnClickListener
             holder.matchup = (TextView)view.findViewById(R.id.matchup);
             holder.date = (TextView)view.findViewById(R.id.dateLabel);
             holder.time = (TextView)view.findViewById(R.id.timeLabel);
+            holder.score = (TextView)view.findViewById(R.id.scoreLabel);
 
             view.setTag(holder);
         } else
@@ -81,11 +89,8 @@ public class GameListAdapter extends BaseAdapter implements View.OnClickListener
             temp = (Game) data.get(position);
 
             /************  Set Model values in Holder elements ***********/
-            Log.d("FUCK", temp.getSportName().toLowerCase().replace(" ", "_"));
             int imageID = resources.getIdentifier(temp.getSportName().toLowerCase().replace(" ", "_"), "drawable", "charlie.intrasmurals");
             int defaultID = resources.getIdentifier("unknown", "drawable", "charlie.intrasmurals");
-            Log.d("FUCK", String.valueOf(imageID));
-            Log.d("FUCK", String.valueOf(defaultID));
             if (imageID != 0) {
                 holder.image.setImageResource(imageID);
             } else {
@@ -93,8 +98,32 @@ public class GameListAdapter extends BaseAdapter implements View.OnClickListener
             }
             holder.sportName.setText(temp.getSportName());
             holder.matchup.setText(temp.getTeamName() + " vs. " + temp.getOpponentName());
-            holder.date.setText(temp.getDate());
-            holder.time.setText(temp.getTime());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat pretty = new SimpleDateFormat("EEE, d MMM");
+            SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat prettyTime = new SimpleDateFormat("hh:mm aaa");
+            try {
+                Date date = format.parse(temp.getDate());
+                holder.date.setText(pretty.format(date));
+                Date time = formatTime.parse(temp.getTime());
+                holder.time.setText(prettyTime.format(time));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            int teamScore = Integer.valueOf(temp.getTeamScore());
+            int opponentScore = Integer.valueOf(temp.getOpponentScore());
+            if(teamScore == 99999 || opponentScore == 99999) {
+                holder.score.setText("");
+            } else if(teamScore > opponentScore) {
+                holder.score.setText("WIN: " + teamScore + " - " + opponentScore);
+                holder.score.setTextColor(Color.parseColor("#00CC00"));
+            } else if (opponentScore > teamScore) {
+                holder.score.setText("LOSS: " + opponentScore + " - " + teamScore);
+            } else {
+                holder.score.setText("TIE: " + teamScore + " - " + opponentScore);
+                holder.score.setTextColor(Color.DKGRAY);
+            }
 
             /******** Set Item Click Listner for LayoutInflater for each row *******/
 

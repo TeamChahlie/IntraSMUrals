@@ -37,7 +37,7 @@ public class User implements Parcelable {
     }
 
     public String getUserID() {
-        return userID;
+        return this.userID;
     }
 
     public void setUserID(String userID) {

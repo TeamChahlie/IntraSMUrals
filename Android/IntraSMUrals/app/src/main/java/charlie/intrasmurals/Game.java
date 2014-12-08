@@ -12,13 +12,17 @@ public class Game {
     private String opponentName;
     private String date;
     private String time;
+    private String teamScore;
+    private String opponentScore;
 
-    public Game(String sportName, String teamName, String opponentName, String date, String time) {
+    public Game(String sportName, String teamName, String opponentName, String date, String time, String teamScore, String opponentScore) {
         this.sportName = sportName;
         this.teamName = teamName;
         this.opponentName = opponentName;
         this.date = date;
         this.time = time;
+        this.teamScore = teamScore;
+        this.opponentScore = opponentScore;
     }
 
     public String getTime() {
@@ -59,5 +63,22 @@ public class Game {
 
     public void setSportName(String sportName) {
         this.sportName = sportName;
+    }
+
+
+    public String getOpponentScore() {
+        return opponentScore;
+    }
+
+    public void setOpponentScore(String opponentScore) {
+        this.opponentScore = opponentScore;
+    }
+
+    public String getTeamScore() {
+        return teamScore;
+    }
+
+    public void setTeamScore(String teamScore) {
+        this.teamScore = teamScore;
     }
 }

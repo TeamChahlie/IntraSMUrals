@@ -13,6 +13,18 @@
         android:alpha="0.5"/>
 
     <TextView
+        android:id="@+id/scoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:textSize="10pt"
+        android:textColor="#CC0000"
+        android:gravity="center"/>
+
+    <TextView
         android:id="@+id/sportLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +32,7 @@
         android:layout_marginTop="5dp"
         android:text="Volleyball"
         android:textSize="10pt"
-        android:textColor="#CC0000"/>
+        android:textColor="#0000FF"/>
     <TextView
         android:id="@+id/matchup"
         android:layout_width="wrap_content"
@@ -30,20 +42,42 @@
         android:text="Pastafarians vs. Dream Team"
         android:textSize="8pt"/>
 
+    <ImageView
+        android:id="@+id/calendarImage"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:layout_alignLeft="@+id/matchup"
+        android:layout_below="@id/matchup"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/calendar" />
+
     <TextView
         android:id="@+id/dateLabel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_below="@id/matchup"
-        android:layout_alignLeft="@+id/matchup"
+        android:layout_toRightOf="@+id/calendarImage"
+        android:layout_toEndOf="@+id/calendarImage"
+        android:layout_marginLeft="3dp"
         android:text="Monday, Dec. 25th" />
+
+    <ImageView
+        android:id="@+id/clockImage"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:layout_toRightOf="@id/dateLabel"
+        android:layout_below="@id/matchup"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/clock"/>
 
     <TextView
         android:id="@+id/timeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dateLabel"
-        android:layout_alignLeft="@id/dateLabel"
-        android:text="8:00 pm"/>
-
+        android:layout_below="@id/matchup"
+        android:layout_toRightOf="@id/clockImage"
+        android:layout_toEndOf="@id/clockImage"
+        android:layout_marginLeft="3dp"
+        android:text="8:00 pm" />
 </RelativeLayout>
