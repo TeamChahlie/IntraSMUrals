@@ -25,8 +25,20 @@ $(document).ready(function() {
     });
 
     $('#addNewGame').click(function() {
+        var currentTeam = sessionStorage.getItem('currentTeam');
+        console.log(currentTeam);
+        $("option[value='" + currentTeam + "']")
+            .attr("disabled", "disabled")
+            .siblings().removeAttr("disabled");
+        $("option[value='Opponent']")
+            .attr("disabled", "disabled")
         displayAdminModal('addGameModal');
     });
+
+    $('#createGameForm').submit(function(event) {
+        event.preventDefault();
+        submitGame();
+    })
 
     $('#createMatchForm').submit(function(event) {
         event.preventDefault();
@@ -79,7 +91,7 @@ $(document).ready(function() {
 function prepSelectBoxes() {
     var select1 = document.getElementById('teamSelect1');
     var select2 = document.getElementById('teamSelect2');
-
+    var select3 = document.getElementById('teamSelect');
     var teams = JSON.parse(sessionStorage.getItem('teams'));
     for(var key in teams) {
         var team = teams[key];
@@ -88,11 +100,8 @@ function prepSelectBoxes() {
         option.value = team.teamName;
         option.textContent = team.teamName;
         select1.appendChild(option);
-
-        var option2 = document.createElement('option');
-        option2.value = team.teamName;
-        option2.textContent = team.teamName;
-        select2.appendChild(option2);
+        select2.appendChild(option);
+        select3.appendChild(option);
     }
 }
 
@@ -203,6 +212,39 @@ function submitMatch() {
         }
     });
 
+}
+
+function submitGame() {
+    var sportName = sessionStorage.getItem('currentSport');
+    var team1 = sessionStorage.getItem('currentTeam');
+    var team2 = document.getElementById('teamSelect').value;
+    var date = document.getElementById('createGameDate').value;
+    var time = document.getElementById('createGameTime').value;
+
+    var match = new Object();
+    match.sportName = sportName;
+    match.teamA = team1;
+    match.teamB = team2;
+    match.dateOf = date;
+    match.timeOf = time;
+
+    $.ajax({
+        type: 'POST',
+        url: 'api/insertMatch',
+        content: 'application/json',
+        data: JSON.stringify(match),
+        success: function(data) {
+            var obj = JSON.parse(data);
+            if(obj.success == true) {
+                window.location.href= "editTeam.php?teamName=" + team1;
+            } else {
+                alert("Error inserting match into DB.");
+            }
+        },
+        error: function() {
+            alert("Error in AJAX request.")
+        }
+    });
 }
 
 function updateScores() {

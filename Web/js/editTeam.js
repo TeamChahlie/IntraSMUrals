@@ -5,6 +5,7 @@ $(document).ready(function() {
     currentTeam = get("teamName");
     console.log(currentTeam);
     $('.subHeader').text(currentTeam);
+    sessionStorage.setItem('currentTeam', currentTeam);
 
     getSchedule();
     addMatchClickListeners();
