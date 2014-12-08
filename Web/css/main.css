@@ -108,7 +108,7 @@ ul.playerList > li {
     border: 1px solid #000000;
 }
 
-#studentTeamList, #playerList, #adminButtons, #sportTeamList {
+#studentTeamList, #playerList, #adminButtons, #sportTeamList, #teamPlayerList {
 
     display: inline-block;
     margin: 1%;
@@ -379,7 +379,7 @@ ul.playerList > li {
     transition: all 0.4s ease
 }
 
-.teamEditorButton {
+.teamEditorButton, .playerButton {
     display: block;
     margin: 5px;
     width: 270px;
@@ -395,18 +395,18 @@ ul.playerList > li {
     transition: all 0.4s ease;
 }
 
-.teamEditorButton:hover {
+.teamEditorButton:hover, .playerButton:hover {
     color: #FFFFFF;
     box-shadow: inset -300px 0 0 0 #0000FF;
     transition: all 0.4s ease;
 }
 
-.teamTitle {
+.teamTitle, .playerTitle {
     margin: 5px;
     font-size: 1em;
 }
 
-.teamOptionMenu {
+.teamOptionMenu, .playerOptionMenu {
     float: right;
     display: none;
     width: 100%;
@@ -414,7 +414,7 @@ ul.playerList > li {
     color: white;
 }
 
-.teamOptionButton {
+.teamOptionButton, .playerOptionButton {
     display: inline-block;
     background-color: #555555;
     width: 75px;
@@ -427,12 +427,12 @@ ul.playerList > li {
     transition: all 0.4s ease;
 }
 
-.teamOptionButton:hover {
+.teamOptionButton:hover, .playerOptionButton:hover {
     background-color: #777777;
     transition: all 0.4s ease
 }
 
-.teamDefault {
+.teamDefault, .playerDefault {
     display: block;
     height: 0px;
     width: 270px;
@@ -442,7 +442,7 @@ ul.playerList > li {
     margin-right: 10px;
 }
 
-#addNewTeam {
+#addNewTeam, #addNewPlayers {
     display: block;
     margin: 5px;
     width: 270px;
@@ -458,7 +458,7 @@ ul.playerList > li {
     transition: all 0.4s ease;
 }
 
-#addNewTeam:hover {
+#addNewTeam:hover, #addNewPlayers:hover {
     color: #FFFFFF;
     box-shadow: inset -300px 0 0 0 #0000FF;
     transition: all 0.4s ease;
@@ -579,4 +579,9 @@ ul.playerList > li {
     background-color: #BBBBBB;
     overflow: hidden;
     cursor: url("../img/PerunaSmall.png"), auto;
+}
+
+#playerIDs {
+    display: block;
+    margin: 10px auto;
 }

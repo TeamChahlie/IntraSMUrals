@@ -39,12 +39,14 @@
                 <div id="addNewGame">Add New Game</div>
             </div>
         </div>
-        <div id="sportTeamList">
+        <div id="teamPlayerList">
             <h2 class="sectionHeader">Players</h2>
 
-            <div id="addNewTeam">
-                <h2 class="teamTitle">Add New Player</h2>
+            <div id="addNewPlayers">
+                <h2 class="teamTitle">Add New Players</h2>
             </div>
+
+
         </div>
     </div>
 </div>

@@ -1,6 +1,11 @@
+
+var teams = new Object();
+
 $(document).ready(function() {
 
     prepSelectBoxes();
+    teams = JSON.parse(sessionStorage.getItem("teams"));
+    console.log(teams);
 
     $('#addNewSport').click(function() {
         displayAdminModal('addSportModal');
@@ -38,7 +43,16 @@ $(document).ready(function() {
     $('#createGameForm').submit(function(event) {
         event.preventDefault();
         submitGame();
-    })
+    });
+
+    $('#addNewPlayers').click(function() {
+        displayAdminModal('addPlayersModal');
+    });
+
+    $('#addPlayersForm').submit(function(event) {
+        event.preventDefault();
+        addPlayers();
+    });
 
     $('#createMatchForm').submit(function(event) {
         event.preventDefault();
@@ -273,4 +287,53 @@ function updateScores() {
             alert("Error in AJAX request.");
         }
     });
+}
+
+function addPlayers() {
+    var teamName = sessionStorage.getItem('currentTeam');
+    var teamID = "";
+    for (var key in teams) {
+        var team = teams[key];
+        if (team.teamName == teamName) {
+            teamID = team.teamID;
+        }
+    }
+
+    var text = document.getElementById('playerIDs').value;
+    var studentIDs = text.split('\n');
+    var badResults = [];
+    for (var key in studentIDs) {
+        var id = studentIDs[key];
+        id = $.trim(id);
+        console.log(id);
+        if(id.length != 8) {
+            badResults.push(id);
+        } else {
+            var student = new Object();
+            student.teamID = teamID;
+            student.studentID = id;
+            $.ajax({
+                type: 'POST',
+                url: 'api/insertStudent',
+                content: 'application/json',
+                data: JSON.stringify(student),
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    if(obj.success == false) {
+                        badResults.push(id);
+                    }
+                },
+                error: function() {
+                    badResults.push(id);
+                    console.log("ERROR");
+                }
+            });
+        }
+    }
+
+    if(badResults.length > 0) {
+        alert("One or more IDs were not added to the team. They either had an incorrect length or do not have an account in the database.\n" + badResults);
+    } else {
+        window.location.href = "editTeam.php?teamName=" + get('teamName');
+    }
 }

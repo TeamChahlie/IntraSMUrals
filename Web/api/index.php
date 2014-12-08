@@ -341,7 +341,7 @@ function updateMatchScore() {
 
 // returns students in a specific team
 function getStudentsInTeam($teamID) {
-    $sql = "SELECT fname, lname FROM Involvement NATURAL JOIN Student WHERE teamID = :teamID ORDER BY lname;";
+    $sql = "SELECT fname, lname, studentID FROM Involvement NATURAL JOIN Student WHERE teamID = :teamID ORDER BY lname;";
     try {
         $db = getConnection();
         $response = array();
@@ -369,8 +369,12 @@ function insertStudent() {
         $stmt = $db->prepare($sql);
         $stmt->bindParam("teamID", $info->teamID);
         $stmt->bindParam("studentID", $info->studentID);
-        $stmt->execute();
-        echo '{"success": true}';
+        $success = $stmt->execute();
+        if($success) {
+            echo '{"success": true}';
+        } else {
+            echo '{"success": false}';
+        }
     } catch (PDOException $e) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
