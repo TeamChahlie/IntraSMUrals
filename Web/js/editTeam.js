@@ -4,12 +4,12 @@ var currentStudent = "";
 var teams = new Object();
 
 $(document).ready(function() {
+    getSchedule();
     currentTeam = get("teamName");
     console.log(currentTeam);
     $('.subHeader').text(currentTeam);
     sessionStorage.setItem('currentTeam', currentTeam);
     teams = JSON.parse(sessionStorage.getItem("teams"));
-    getSchedule();
     getPlayers();
     addMatchClickListeners();
     addPlayerHoverListeners();
