@@ -14,8 +14,8 @@
     <script src="js/editSport.js"></script>
     <script src="js/scroll.js"></script>
     <script src="js/modal.js"></script>
-    <script src="js/adminModal.js"></script>
     <script src="js/nav.js"></script>
+    <script src="js/adminModal.js"></script>
 
 
     <!-- CSS Files -->

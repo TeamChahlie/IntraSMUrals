@@ -897,10 +897,10 @@ function getUpcomingMatches() {
 }
 
 function getConnection() {
-    //$dbhost = "127.0.0.1";
-    //$dbpass = "";
-    $dbhost = "localhost";
-    $dbpass = "root";
+    $dbhost = "127.0.0.1";
+    $dbpass = "";
+//    $dbhost = "localhost";
+//    $dbpass = "root";
     $dbuser = "root";
     $dbname = "IntraSMUrals";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);

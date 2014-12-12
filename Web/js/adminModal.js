@@ -110,12 +110,20 @@ function prepSelectBoxes() {
     for(var key in teams) {
         var team = teams[key];
 
-        var option = document.createElement('option');
-        option.value = team.teamName;
-        option.textContent = team.teamName;
-        select1.appendChild(option);
-        select2.appendChild(option);
-        select3.appendChild(option);
+        var option1 = document.createElement('option');
+        option1.value = team.teamName;
+        option1.textContent = team.teamName;
+        select1.appendChild(option1);
+
+        var option2 = document.createElement('option');
+        option2.value = team.teamName;
+        option2.textContent = team.teamName;
+        select2.appendChild(option2);
+
+        var option3 = document.createElement('option');
+        option3.value = team.teamName;
+        option3.textContent = team.teamName;
+        select3.appendChild(option3);
     }
 }
 
