@@ -54,6 +54,28 @@
     </form>
 </div>
 
+<div id="addGameModal" class="adminModal">
+    <div class="adminCloseButton"></div>
+    <h2 class="adminFormTitle">Add New Game</h2>
+    <form id="createGameForm">
+        <select id="teamSelect" class="adminFormElement" form="createGameForm" required>
+            <option value="Opponent" selected disabled>Opponent</option>
+        </select>
+        <input id="createGameDate" class="adminFormElement" type="date" name="date" required>
+        <input id="createGameTime" class="adminFormElement" type="time" name="time" required><br>
+        <input id="submitGame" class="formButton" type="submit" value="Create">
+    </form>
+</div>
+
+<div id="addPlayersModal" class="adminModal">
+    <div class="adminCloseButton"></div>
+    <h2 class="adminFormTitle">Add New Players</h2>
+    <form id="addPlayersForm">
+        <textarea id="playerIDs" class="adminFormElement" form="addPlayersForm" placeholder="Enter 1 student ID on each line..." required></textarea>
+        <input id="submitPlayers" class="formButton" type="submit" value="Submit">
+    </form>
+</div>
+
 <div id="deleteMatchModal" class="adminModal">
     <div class="adminCloseButton"></div>
     <h2 class="adminModalTitle">Are You Sure?</h2>
@@ -63,13 +85,22 @@
     </div>
 </div>
 
+<div id="removePlayerModal" class="adminModal">
+    <div class="adminCloseButton"></div>
+    <h2 class="adminModalTitle">Are You Sure?</h2>
+    <div class="buttonContainer">
+        <div id="yesRemovePlayer"class="formButton">Yes</div>
+        <div id="noRemovePlayer" class="formButton">No</div>
+    </div>
+</div>
+
 <div id="updateScoresModal" class="adminModal">
     <div class="adminCloseButton"></div>
     <h2 class="adminFormTitle">Update Scores</h2>
     <form id="updateScoresForm">
-        <label for="updateScore1">Team 1 Score:</label>
+        <label id="team1score" for="updateScore1"></label>
         <input id="updateScore1" class="adminFormElementInlineSmall" type="number" required><br>
-        <label for="updateScore2">Team 2 Score:</label>
+        <label id="team2score" for="updateScore2"></label>
         <input id="updateScore2" class="adminFormElementInlineSmall" type="number" required><br>
         <input id="submitScores" class="formButton" type="submit" value="Update">
     </form>

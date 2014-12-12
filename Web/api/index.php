@@ -43,6 +43,8 @@ $app->post('/updateMatchScore', 'updateMatchScore');
 
 //Team level
 $app->get('/getStudentsInTeam/:teamID', 'getStudentsInTeam');
+$app->post('/insertStudent', 'insertStudent');
+$app->post('/deleteStudent', 'deleteStudent');
 
 //-----ADMIN Calls, please don't move anything between here and the previous comment
 
@@ -337,7 +339,7 @@ function updateMatchScore() {
 
 // returns students in a specific team
 function getStudentsInTeam($teamID) {
-    $sql = "SELECT fname, lname FROM Involvement NATURAL JOIN Student WHERE teamID = :teamID ORDER BY lname;";
+    $sql = "SELECT fname, lname, studentID FROM Involvement NATURAL JOIN Student WHERE teamID = :teamID ORDER BY lname;";
     try {
         $db = getConnection();
         $response = array();
@@ -353,6 +355,48 @@ function getStudentsInTeam($teamID) {
         echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
 }
+
+// inserts student into a team using the teamID and studentID
+function insertStudent() {
+    $sql = "INSERT INTO Involvement (teamID, studentID) VALUES (:teamID, :studentID)";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $info = json_decode($request->getBody());
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("teamID", $info->teamID);
+        $stmt->bindParam("studentID", $info->studentID);
+        $success = $stmt->execute();
+        if($success) {
+            echo '{"success": true}';
+        } else {
+            echo '{"success": false}';
+        }
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+// removes student from a team using teamID and studentID
+function deleteStudent() {
+    $sql = "DELETE FROM Involvement WHERE teamID = :teamID AND studentID = :studentID";
+    $app = \Slim\Slim::getInstance();
+    $request = $app->request();
+    $info = json_decode($request->getBody());
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("teamID", $info->teamID);
+        $stmt->bindParam("studentID", $info->studentID);
+        $stmt->execute();
+        echo '{"success": true}';
+    } catch (PDOException $e) {
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+}
+
+//============================== END OF ADMIN ==============================//
 
 //Inserting a student into the database (no involvement added at this time)
 function insertCaptain() {
@@ -853,10 +897,10 @@ function getUpcomingMatches() {
 }
 
 function getConnection() {
-    $dbhost = "127.0.0.1";
-    $dbpass = "";
-    // $dbhost = "localhost";
-    // $dbpass = "root";
+    //$dbhost = "127.0.0.1";
+    //$dbpass = "";
+    $dbhost = "localhost";
+    $dbpass = "root";
     $dbuser = "root";
     $dbname = "IntraSMUrals";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
