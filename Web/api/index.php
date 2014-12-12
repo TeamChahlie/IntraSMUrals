@@ -12,7 +12,6 @@ $app->post('/insertCaptain', 'insertCaptain');
 $app->get('/adminStudentSearch', 'adminStudentSearch');
 $app->get('/adminStudentEmailList', 'adminStudentEmailList');
 $app->get('/adminSportSearch', 'adminSportSearch');
-//$app->get('/getStudentInfo', 'getStudentInformation');
 $app->get('/getAllSports', 'getAllSports');
 $app->get('/getStudentTeams/:studentName', 'getStudentTeams');
 $app->get('/getTeamInfo/:teamName', 'getTeamInfo');
@@ -22,7 +21,6 @@ $app->get('/getTeamRoster/:teamName', 'getTeamRoster');
 $app->get('/getCaptainEmail/:teamName', 'getCaptainEmail');
 $app->get('/getStudentEmails', 'getStudentEmails');
 $app->get('/getTeamEmails/:teamName', 'getTeamEmails');
-//$app->get('/getAdminEmails', 'getAdminEmails');
 //$app->get('/getCaptainEmailsBySport/:sportName', 'getCaptainEmailsBySport');
 $app->get('/getMatches', 'getMatches');
 $app->get('/getUpcomingMatches', 'getUpcomingMatches');
@@ -522,7 +520,7 @@ function register() {
                 echo '{"error":{"text":' . $e->getMessage() . '}}';
             }
         } else if ($isStudentID == TRUE && $isEmail == FALSE) {
-            $studentSQL = "UPDATE Student SET  email =:Email, firstName = :firstName, lastNmae = :lastName WHERE studentID =" . $userInfo->StudentID;
+            $studentSQL = "UPDATE Student SET  email =:Email, firstName = :firstName, lastName = :lastName WHERE studentID =" . $userInfo->StudentID;
             $userSQL = "UPDATE User SET password=:password, isAdmin= 0 WHERE studentID=" . $userInfo->StudentID;
             try {
                 if (isset($userInfo)) {
@@ -814,115 +812,6 @@ function getTeamEmails($teamName) {
     }
 }
 
-/*
-function getAdminEmails() {
-//all admin emails
-     $sql = "SELECT email FROM student NATURAL JOIN user WHERE isAdmin != 0";
-    try {
-        $db = getConnection();
-        $stmt = $db->query($sql);
-        $Emails = array();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Emails[] = $row['email'];
-        }
-        echo json_encode($Emails);
-
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}}';
-    }
-}
-
-function getCaptainEmailsBySport ($sportName) {
-     $sql = "SELECT t.teamName, s.email FROM Team t INNER JOIN Student s ON t.captainID = s.studentID JOIN Sport ON t.sportID = Sport.sportID WHERE Sport.sportName = :sportName";
-//If you want it by sport ID
-     //$sql = "SELECT t.teamName, s.email FROM Team t INNER JOIN Student s ON t.captainID = s.studentID JOIN Sport ON t.sportID = Sport.sportID WHERE Sport.sportID = :sportID";
-    try {
-        $db = getConnection();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam('sportName',$sportName);
-        $stmt->execute();
-        $Teams = array();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Emails = array(
-                'TeamName' => $row['teamName'],
-                'emails' => $row['email'],
-            );
-            echo json_encode($Emails);
-        }
-    } catch (PDOException $e) {
-        echo '{"error":{"text":' . $e->getMessage() . '}}';
-    }
-}
-*/
-
-//returns the match information based on the SportName should be checked
-//function getUniversalSportSchedule() {
-//    $sqlSportProfile = "SELECT firstTeam.teamName, secondTeam.teamName, dateOf, timeOf FROM sport NATURAL JOIN Schedule NATURAL JOIN TeamMatch NATURAL JOIN Team INNER JOIN Team WHERE sportName = :sportName AND ATeamID = firstTeam.teamID AND BTeamID = secondTeam.teamID";
-//    try {
-//        $db = getConnection();
-//        $stmt = $db->prepare($sqlSportProfile);
-//        $stmt->bindParam('sportName', $sportInfo->sportName);
-//        $stmt->execute();
-//        $Sports = array();
-//        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//            $Sports = array(
-//                'MatchID' => $row['matchID'],
-//                'ATeamID' => $row['AteamID'],
-//                'BTeamID' => $row['BteamID'],
-//                'MatchDate' => $row['dateOf'],
-//                'MatchTime' => $row['timeOf'],
-//            );
-//            echo json_encode($Sports);
-//        }
-//    }
-//    catch (PDOException $e) {
-//        echo '{"error":{"text":' . $e->getMessage() . '}}';
-//    }
-//}
-
-//Returns all information about a particular student
-//function getStudentInformation() {
-//    $sqlStudentProfile = "SELECT studentName, email, teamName FROM Student natural join involvement natural join team WHERE fname = $fname AND lname = $lname";
-//    try {
-//        $db = getConnection();
-//        $stmt = $db->query($sqlStudentProfile);
-//        $Student = array();
-//        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//            $Student = array(
-//                'FirstName' => $row['fname'],
-//                'LastName' => $row['lname'],
-//                'Email' => $row['email'],
-//                'TeamName' => $row['teamName']
-//                //If one student is on multiple teams there will be multiple rows
-//            );
-//            echo json_encode($Student);
-//        }
-//    } catch (PDOException $e) {
-//        echo '{"error":{"text":' . $e->getMessage() . '}}';
-//    }
-//}
-
-
-//Returns teamNames from a specific sport based on ID (can make based on name if preferable)
-//function viewTeams() {
-//    $sql = "SELECT teamName from Sport WHERE sportID = :sportID";
-//    try {
-//        $db = getConnection();
-//        $stmt = $db->prepare($sql);
-//        $sportInfo = json_decode($request->getBody());
-//        $stmt->bindParam('sportID', $sportInfo->sportID);
-//        $stmt->execute();
-//        $Teams = array();
-//        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//            $Teams = array(
-//                'TeamName' => $row['teamName'],
-//            );
-//            echo json_encode($Teams);
-//        }
-//    } catch (PDOException $e) {
-//        echo '{"error":{"text":' . $e->getMessage() . '}}';
-//    }
-//}
 
 //should return matches grouped by sport
 function getMatches() {

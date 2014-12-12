@@ -62,7 +62,7 @@
              <hr><br>
              <b><a href="mailto:jrutz@smu.edu,calbright@smu.edu" style="text-decoration:none; color:#000000">Support</a>/
              <a link href="http://www.smu.edu" style="text-decoration:none; color:#000000" target="_blank">Southern Methodist University</a>/
-             <a link href="http://www.smu.edu/~/media/Site/StudentAffairs/RecSports/Intramurals/IM%20General%20Rules-Regs_Revised21Aug14.ashx"target="_blank" style="text-decoration:none; color:#000000"> Rules & Sportsmanship</a>/</b>
+             <a link href="http://www.smu.edu/~/media/Site/StudentAffairs/RecSports/Intramurals/IM%20General%20Rules-Regs_Revised21Aug14.ashx"target="_blank" style="text-decoration:none; color:#000000"> Rules & Sportsmanship</a>/ <a link href="apiGuide.php"target="_blank" style="text-decoration:none; color:#000000">Web API</a>/</b>
              Chahlie & Co. 2014
         </div> <!--END OF SECTION-->
     </div>
